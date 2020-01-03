@@ -96,8 +96,10 @@
 			</div>
 
 			
-			<div class="jumbotron">
-				<a class="display-4 text-decoration-none text-reset" href="/welcome">CENTER 88 留言板</a>
+			<div class="card text-white bg-secondary mb-3">
+				<div class="card-body">
+					<a class="display-4 text-decoration-none text-reset" href="/welcome">CENTER 88 留言板</a>
+				</div>
 			</div>
 
 
