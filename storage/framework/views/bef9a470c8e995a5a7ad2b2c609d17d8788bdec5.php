@@ -11,48 +11,57 @@
         <table class="table table-striped table-bordered table-rwd">
         	
         	<tr class="tr-only-hide">
-        		<th>#</th>
-        		<th>Msg id</th>
-        		<th>Title</th>
-        		<th>Msg</th>
+        		<th scope="col" class="text-nowrap">#</th>
+        		<th scope="col" class="text-nowrap">Msg id</th>
+        		<th scope="col" class="text-nowrap">Title</th>
+        		<th scope="col" class="text-nowrap">Msg</th>
         		
-        		<th>最後修改時間▽</th>
-        		<th>作者</th>
-        		<th>修改</th>
-        		<th>刪除</th>
+        		<th scope="col" class="text-nowrap">最後修改時間▽</th>
+        		<th scope="col" class="text-nowrap">作者</th>
+                <?php if(session("login_id")): ?>
+            		<th scope="col" class="text-nowrap">修改</th>
+            		<th scope="col" class="text-nowrap">刪除</th>
+                <?php endif; ?>
         	</tr>
         	<?php $__currentLoopData = $msgList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         		<tr>
                     <?php ($msg_number = ($msgList->currentPage()-1)*$msgList->perPage()+$key+1); ?> 
                     
-        			<td data-th="#"><?php echo e($msg_number); ?></td>
-        			<td data-th="Msg id"><?php echo e($row->msg_id); ?></td>
-        			<td data-th="Title"><?php echo e($row->title); ?></td>
+        			<td data-th="#" scope="col" class="text-nowrap"><?php echo e($msg_number); ?></td>
+        			<td data-th="Msg id" scope="col" class="text-nowrap"><?php echo e($row->msg_id); ?></td>
+        			<td data-th="Title" scope="col" class="text-nowrap"><?php echo e($row->title); ?></td>
         			<td data-th="Msg" class="text-break"><?php echo nl2br($row->msg); ?></td>
         			
         			<td data-th="最後修改時間"><?php echo e($row->updated_at); ?></td>
-        			<td data-th="作者"><?php echo e($row->UserName."(".$row->user_id.")"); ?></td>
-        			<td data-th="修改">
-        				<button class="btn btn-secondary" onclick="location.href='<?php echo e(action('WelcomeController@edit', ['id'=>$row->msg_id])); ?>'">
-        	 				Edit
-         				</button>
-         			</td>
-         			<!-- 
-         			<td>
-         				<form class="form_del0" method="post" action="<?php echo e(action('WelcomeController@delete')); ?>" >
-         					<input name="msg_id" type="hidden" value="<?php echo e($row->msg_id); ?>" />
-							<input name="_token" type="hidden" value="<?php echo e(csrf_token()); ?>" /> 
-							<button type="submit">Delete</button>
-						</form>
-         			</td>
-         			 -->
-					<form class="form_del" method="post" action="<?php echo e(action('WelcomeController@destroy', ['id'=>$row->msg_id])); ?>" >
-						<td data-th="刪除">
-         					<input name="_method" type="hidden" value="delete">
-							<input name="_token" type="hidden" value="<?php echo e(csrf_token()); ?>" /> 
-							<button class="btn btn-secondary" type="submit">Delete</button>
+        			<td data-th="作者" scope="col" class="text-nowrap"><?php echo e($row->UserName."(".$row->user_id.")"); ?></td>
+                    <?php if(session("login_id")): ?>
+            			<td data-th="修改">
+                            <?php if(session("login_id") == $row->user_id): ?>
+                				<button class="btn btn-secondary" onclick="location.href='<?php echo e(action('WelcomeController@edit', ['id'=>$row->msg_id])); ?>'">
+                	 				Edit
+                 				</button>
+                            <?php endif; ?>
              			</td>
-         			</form>
+             			<!-- 
+             			<td>
+             				<form class="form_del0" method="post" action="<?php echo e(action('WelcomeController@delete')); ?>" >
+             					<input name="msg_id" type="hidden" value="<?php echo e($row->msg_id); ?>" />
+    							<input name="_token" type="hidden" value="<?php echo e(csrf_token()); ?>" /> 
+    							<button type="submit">Delete</button>
+    						</form>
+             			</td>
+             			 -->
+
+    					<form class="form_del" method="post" action="<?php echo e(action('WelcomeController@destroy', ['id'=>$row->msg_id])); ?>" >
+    						<td data-th="刪除">
+                                <?php if(session("login_id") == $row->user_id): ?>
+                 					<input name="_method" type="hidden" value="delete">
+        							<input name="_token" type="hidden" value="<?php echo e(csrf_token()); ?>" /> 
+        							<button class="btn btn-secondary" type="submit">Delete</button>
+                                <?php endif; ?>
+                 			</td>
+             			</form>
+                    <?php endif; ?>
         		</tr>
         	<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </table>

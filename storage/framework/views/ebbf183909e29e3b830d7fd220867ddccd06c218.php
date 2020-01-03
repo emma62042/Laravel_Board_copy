@@ -1,21 +1,18 @@
-{{-- 註冊畫面 --}}
-@extends("welcome_layout")
-
-@section("title")
+<?php $__env->startSection("title"); ?>
     <title>TestSignup</title>
-@endsection
-@section("content")
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection("content"); ?>
   	<h2 style="text-align:center;">Signup註冊</h2>
 
-  	{{-- 註冊表單 --}}
-  	<form id="signupForm" method="post" action="{{ action('WelcomeController@signup') }}">
-      	<input name="_token" id="token" type="hidden" value="{{ csrf_token() }}">
+  	
+  	<form id="signupForm" method="post" action="<?php echo e(action('WelcomeController@signup')); ?>">
+      	<input name="_token" id="token" type="hidden" value="<?php echo e(csrf_token()); ?>">
       	<div class="row justify-content-md-center">
 	        <table class="table table-striped table-bordered col col-md-6">
 		      	<tr>
 		        	<th><span style="color:red;">*</span>帳號</th>
 		        	<td>
-		        		<input class="form-control" type="text" id="id" name="id" value="{{ isset($fail) ?  $id : old('id') }}" required>
+		        		<input class="form-control" type="text" id="id" name="id" value="<?php echo e(isset($fail) ?  $id : old('id')); ?>" required>
 		        	</td>
 		        </tr>
 		        <tr>
@@ -33,13 +30,13 @@
 		        <tr>
 		        	<th>暱稱</th>
 		        	<td>
-		        		<input class="form-control" type="text" name="UserName" placeholder="未輸入將以id為暱稱" value="{{ isset($fail) ? $id : old('UserName') }}">
+		        		<input class="form-control" type="text" name="UserName" placeholder="未輸入將以id為暱稱" value="<?php echo e(isset($fail) ? $id : old('UserName')); ?>">
 		        	</td>
 		        </tr>
 		        <tr>
 		        	<th><span style="color:red;">*</span>E-mail</th>
 		        	<td>
-		        		<input class="form-control" type="text" name="UserEmail" value="{{ old('UserEmail') }}" required>
+		        		<input class="form-control" type="text" name="UserEmail" value="<?php echo e(old('UserEmail')); ?>" required>
 		        	</td>
 		        </tr>
 		        <tr>
@@ -50,4 +47,5 @@
 	      	</table>
 	    </div>
 	</form>     
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("welcome_layout", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

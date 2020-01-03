@@ -4,7 +4,7 @@
 	<head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <!-- 掛載CSS樣式 -->
-        <link rel="stylesheet" href="/css/rwd_table.css"/>
+        <link rel="stylesheet" href="/css/rwd_table.css"/><!-- table rwd -->
 	    <link rel="stylesheet" href="/bootstrap-4.4.1-dist/css/bootstrap.min.css"/>
 
 	    <!-- 掛載JS樣式 -->
@@ -19,6 +19,11 @@
 	    <!-- 前端驗證 jquery validated -->
 	    <script>
 	    	$(document).ready(function(){
+	    		var msg = "<?php echo e(Session::get('alert')); ?>";
+			    var exist = "<?php echo e(Session::has('alert')); ?>";
+			    if(exist){
+			    	alert(msg);
+			    };
 	    		$(".form1").validate();
             	$("#signupForm").validate({
 	            	//debug:true,
@@ -107,12 +112,6 @@
 		    		<div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
 		            	<ul class="navbar-nav text-right">
 		        			<li class="nav-item"><a class="nav-link" href="/welcome/create">新增留言</a></li>
-		                </ul>
-		            </div>
-		        <?php else: ?>
-		        	<div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
-		            	<ul class="navbar-nav text-right">
-		        			<li class="nav-item"><a class="nav-link" href="/welcome/create">未登入留言</a></li>
 		                </ul>
 		            </div>
 				<?php endif; ?>

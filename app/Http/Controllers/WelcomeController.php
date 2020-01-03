@@ -63,6 +63,8 @@ class WelcomeController extends Controller
     
     /**
      * [edit]--resource自帶的呼叫function
+     * 要進入須先登入
+     * 未登入顯示alert並保持原頁面不跳頁
      * 判斷是新增或修改留言，並傳送要顯示的標題、留言，導向至create view
      * @param  Request $request [nothing]
      * @param  [type]  $key     [新增:null/修改:msg_id]
@@ -72,16 +74,20 @@ class WelcomeController extends Controller
      *          3.msg:修改留言模式顯示原本的msg
      */
     public function edit(Request $request, $key) {
-        #param
-        $view = "welcome_create";
-        #傳遞到顯示的blade
-        $model["msg_id"] = $key;
-        if ($key != NULL) {
-            $data = Boards::find($key);
-            $model["title"] = $data->title;
-            $model["msg"] = $data->msg;
+        if(session()->has("login_id")){
+            #param
+            $view = "welcome_create";
+            #傳遞到顯示的blade
+            $model["msg_id"] = $key;
+            if ($key != NULL) {
+                $data = Boards::find($key);
+                $model["title"] = $data->title;
+                $model["msg"] = $data->msg;
+            }
+            return view($view, $model);
+        }else{
+            return redirect()->back()->with("alert", "請先登入!"); //保持原頁面，傳送alert msg
         }
-        return view($view, $model);
     }
     
     /**
@@ -131,13 +137,6 @@ class WelcomeController extends Controller
         }
         return Redirect::to("welcome")->with($model); //放$model到session裡
     }
-    
-//     public function delete(Request $request) { //要收到他傳過來的東西
-//         $data = Boards::find($request->input("msg_id"));
-//         $data->delete();
-//         //DB::delete("delete from todos where id= ?", [$request->id]);
-//         return Redirect::to("welcome"); //回到首頁的網址
-//     }
 
     /**
      * [destroy]--resource自帶的呼叫function
@@ -288,8 +287,8 @@ class WelcomeController extends Controller
             $data->UserName = ($request->input("UserName") != "") ? $request->input("UserName") : $request->input("id");
             $data->UserEmail = $request->input("UserEmail");
             $data->save();
-            $model["success"] = "signup success!<br/>請登入↗";
-            return Redirect::to("welcome")->with($model);
+            $model["success"] = "signup success!<br/>請登入";
+            return view("welcome_login", $model);
         }else{
             $model["fail"] = "signup fail!";
             $model["id"] = $request->input("id");

@@ -1,4 +1,4 @@
-{{--新增/修改留言畫面--}}
+{{-- 新增/修改留言畫面 --}}
 @extends("welcome_layout")
 
 @section("title")
@@ -8,7 +8,7 @@
 @section("content")
     <h2 class="display-4" style="text-align:center; margin-bottom:30px;">{{ ($msg_id != "") ? "Update" : "Create" }} Msg</h2>
 
-    {{--留言輸入框，修改留言時會秀出之前的留言--}}
+    {{-- 留言輸入框，修改留言時會秀出之前的留言 --}}
     <form class="form1" name="form1" method="post" action="{{ ($msg_id != '') ? action('WelcomeController@update', ['msg_id'=>$msg_id]) : 'new_a_msg' }}">
         <input name="_token" type="hidden" value="{{ csrf_token() }}">
         <input name="_method" type="hidden" value="put">

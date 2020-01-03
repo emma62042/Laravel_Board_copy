@@ -64,6 +64,8 @@ center88留言板 with Laravel+Bootstrap
 ## 2020/1/3
 *  看laravel教學
 1. 解決jQuery validated不能用post, error419的問題:要加{{ csrf_token() }}。
+2. 加上create/edit頁面會員已登入驗證
+3. 首頁表格非會員不得修改刪除
 
 ##
 未做工作:  
@@ -72,7 +74,7 @@ center88留言板 with Laravel+Bootstrap
 * 使用者輸入值驗證前後端都要做-完成√
 * 密碼加密√
 * Laravel本身的登入
-* 非會員不能改留言
+* 非會員不能改留言 √
 * 會員資料修改
 * 會員密碼修改
 * 我的留言
