@@ -42,16 +42,6 @@
                  				</button>
                             <?php endif; ?>
              			</td>
-             			<!-- 
-             			<td>
-             				<form class="form_del0" method="post" action="<?php echo e(action('WelcomeController@delete')); ?>" >
-             					<input name="msg_id" type="hidden" value="<?php echo e($row->msg_id); ?>" />
-    							<input name="_token" type="hidden" value="<?php echo e(csrf_token()); ?>" /> 
-    							<button type="submit">Delete</button>
-    						</form>
-             			</td>
-             			 -->
-
     					<form class="form_del" method="post" action="<?php echo e(action('WelcomeController@destroy', ['id'=>$row->msg_id])); ?>" >
     						<td data-th="刪除">
                                 <?php if(session("login_id") == $row->user_id): ?>

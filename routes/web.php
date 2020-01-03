@@ -26,7 +26,6 @@ Route::get("/welcome/logout", 'WelcomeController@logout');
 // });
 Route::get("/welcome/signup", "WelcomeController@signupView");
 Route::post("/welcome/signup", "WelcomeController@signup");
-Route::get("/welcome/idcheck", "WelcomeController@idcheck");
 
 Route::get("/welcome/searchMsg", "WelcomeController@searchMsg");
 //------------------------------------------------------------------------------------------------------------

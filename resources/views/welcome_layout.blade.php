@@ -6,6 +6,7 @@
         <!-- 掛載CSS樣式 -->
         <link rel="stylesheet" href="/css/rwd_table.css"/><!-- table rwd -->
 	    <link rel="stylesheet" href="/bootstrap-4.4.1-dist/css/bootstrap.min.css"/>
+	    <link rel="stylesheet" href="/css/background.css"/><!-- background css -->
 
 	    <!-- 掛載JS樣式 -->
 	    <script src="/js/jquery-3.4.1.min.js"></script>
@@ -20,8 +21,8 @@
 	    <script>
 	    	$(document).ready(function(){
 	    		//由controller發送alert
-	    		var msg = "{{Session::get('alert')}}";
-			    var exist = "{{Session::has('alert')}}";
+	    		var msg = "{{ session('alert') }}";
+			    var exist = "{{ session('alert') != null }}";
 			    if(exist){
 			    	alert(msg);
 			    };
@@ -70,7 +71,6 @@
 	        	color:red;
 	        }
         </style>
-	    
         @yield("title")
     </head>
 	<body>
@@ -81,13 +81,13 @@
 					@if(session("login_id"))
 						<li class="list-inline-item">welcome {{ session("login_name") }} (id = {{ session("login_id") }})</li>
 						<li class="list-inline-item">
-							<button class="btn btn-dark"  onclick="location.href='{{ action('WelcomeController@logout') }}'">
+							<button class="btn btn-dark" onclick="location.href='{{ action('WelcomeController@logout') }}'">
 								Logout
 							</button>
 						</li>
 					@else
 						<li class="list-inline-item">
-							<button class="btn btn-primary"  onclick="location.href='{{ action('WelcomeController@loginView') }}'">
+							<button class="btn btn-primary" onclick="location.href='{{ action('WelcomeController@loginView') }}'">
 								Login
 							</button>
 						</li>
@@ -99,6 +99,7 @@
 			<div class="jumbotron">
 				<a class="display-4 text-decoration-none text-reset" href="/welcome">CENTER 88 留言板</a>
 			</div>
+
 
 			{{-- 導覽列 --}}
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -123,14 +124,14 @@
 			</nav>
 
 			{{-- 一些alert，顯示在content上面 --}}
-			@if(isset($success) && $success != '')
+			@if(isset($success) && $success != "")
 		      	<div class="alert alert-success" role="alert" style="text-align:center; margin:5px;">
 		          	<span>
-		          		{!! (isset($success) && $success != '') ?$success :'' !!}
+		          		{!! (isset($success) && $success != "") ?$success :"" !!}
 		          	</span>
 		        </div>	
 		    @endif
-		    @if((isset($fail) && $fail != '') || $errors->any()) {{-- 輸出ERROR ALERT --}}
+		    @if((isset($fail) && $fail != "") || $errors->any()) {{-- 輸出ERROR ALERT --}}
 		        <div class="alert alert-danger" role="alert" style="text-align:center; margin:5px;">
 		        	<ul class="list-unstyled">
 		        		@if($errors->any())
@@ -140,7 +141,7 @@
 						@endif
 						<li>
 							<span>
-				          		{!! (isset($fail) && $fail != '') ?$fail :'' !!}
+				          		{!! (isset($fail) && $fail != "") ?$fail :"" !!}
 				          	</span>
 				        </li>
 					</ul>

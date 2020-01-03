@@ -6,6 +6,7 @@
         <!-- 掛載CSS樣式 -->
         <link rel="stylesheet" href="/css/rwd_table.css"/><!-- table rwd -->
 	    <link rel="stylesheet" href="/bootstrap-4.4.1-dist/css/bootstrap.min.css"/>
+	    <link rel="stylesheet" href="/css/background.css"/><!-- background css -->
 
 	    <!-- 掛載JS樣式 -->
 	    <script src="/js/jquery-3.4.1.min.js"></script>
@@ -19,12 +20,17 @@
 	    <!-- 前端驗證 jquery validated -->
 	    <script>
 	    	$(document).ready(function(){
-	    		var msg = "<?php echo e(Session::get('alert')); ?>";
-			    var exist = "<?php echo e(Session::has('alert')); ?>";
+	    		//由controller發送alert
+	    		var msg = "<?php echo e(session('alert')); ?>";
+			    var exist = "<?php echo e(session('alert') != null); ?>";
 			    if(exist){
 			    	alert(msg);
 			    };
+
+			    //所有表單的前端required驗證
 	    		$(".form1").validate();
+
+	    		//註冊頁面驗證:帳號重複、密碼重複驗證
             	$("#signupForm").validate({
 	            	//debug:true,
 	            	rules:{
@@ -65,7 +71,6 @@
 	        	color:red;
 	        }
         </style>
-	    
         <?php echo $__env->yieldContent("title"); ?>
     </head>
 	<body>
@@ -76,13 +81,13 @@
 					<?php if(session("login_id")): ?>
 						<li class="list-inline-item">welcome <?php echo e(session("login_name")); ?> (id = <?php echo e(session("login_id")); ?>)</li>
 						<li class="list-inline-item">
-							<button class="btn btn-dark"  onclick="location.href='<?php echo e(action('WelcomeController@logout')); ?>'">
+							<button class="btn btn-dark" onclick="location.href='<?php echo e(action('WelcomeController@logout')); ?>'">
 								Logout
 							</button>
 						</li>
 					<?php else: ?>
 						<li class="list-inline-item">
-							<button class="btn btn-primary"  onclick="location.href='<?php echo e(action('WelcomeController@loginView')); ?>'">
+							<button class="btn btn-primary" onclick="location.href='<?php echo e(action('WelcomeController@loginView')); ?>'">
 								Login
 							</button>
 						</li>
@@ -94,6 +99,7 @@
 			<div class="jumbotron">
 				<a class="display-4 text-decoration-none text-reset" href="/welcome">CENTER 88 留言板</a>
 			</div>
+
 
 			
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -118,15 +124,15 @@
 			</nav>
 
 			
-			<?php if(isset($success) && $success != ''): ?>
+			<?php if(isset($success) && $success != ""): ?>
 		      	<div class="alert alert-success" role="alert" style="text-align:center; margin:5px;">
 		          	<span>
-		          		<?php echo (isset($success) && $success != '') ?$success :''; ?>
+		          		<?php echo (isset($success) && $success != "") ?$success :""; ?>
 
 		          	</span>
 		        </div>	
 		    <?php endif; ?>
-		    <?php if((isset($fail) && $fail != '') || $errors->any()): ?> 
+		    <?php if((isset($fail) && $fail != "") || $errors->any()): ?> 
 		        <div class="alert alert-danger" role="alert" style="text-align:center; margin:5px;">
 		        	<ul class="list-unstyled">
 		        		<?php if($errors->any()): ?>
@@ -136,7 +142,7 @@
 						<?php endif; ?>
 						<li>
 							<span>
-				          		<?php echo (isset($fail) && $fail != '') ?$fail :''; ?>
+				          		<?php echo (isset($fail) && $fail != "") ?$fail :""; ?>
 
 				          	</span>
 				        </li>

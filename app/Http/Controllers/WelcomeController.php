@@ -223,16 +223,6 @@ class WelcomeController extends Controller
      * @return view:welcome_signup.blade.php
      */
     public function signupView(Request $request) {
-        #前端帳號驗證jQuery validate remote url
-        if($request->input("checkid")=="1"){
-            $check = Users::idCheck($request->input("id"));
-            if($check){
-                return "false";
-            }else{
-                return "true";
-            }
-        }
-
         return view("welcome_signup");
     }
 
@@ -262,6 +252,7 @@ class WelcomeController extends Controller
      *             4.UserEmail:上次輸入的UserEmail
      */
     public function signup(Request $request) { //要收到他傳過來的東西
+        #前端帳號驗證jQuery validate remote url
         if($request->input("checkid")=="1"){
             $check = Users::idCheck($request->input("id"));
             if($check){
@@ -270,6 +261,7 @@ class WelcomeController extends Controller
                 return "true";
             }
         }
+
         #後端驗證
         request()->validate([
             "id"=>["required"],

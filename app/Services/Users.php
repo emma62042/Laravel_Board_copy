@@ -66,6 +66,5 @@ class Users extends BaseModel {
                 ->where("id", "=", $id);
         return $data->first();
     }
-    
 }
 ?>
