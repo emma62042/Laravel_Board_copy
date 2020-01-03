@@ -39,12 +39,12 @@ class Users extends BaseModel {
      * @param  Request $request ["id", "password"]
      * @return $data
      */
-    public static function login(Request $request){
+    public static function login($id, $password){
         $data = DB::table("Users")
-                ->where("id", "=", $request->id)
+                ->where("id", "=", $id)
                 ->first();
         //解密
-        if(password_verify($request->input("password"), $data->password)){
+        if(password_verify($password, $data->password)){
             return $data;
         }else{
             return NULL;

@@ -186,7 +186,7 @@ class WelcomeController extends Controller
         ]);
 
         $view = "welcome_login";
-        $data = Users::login($request); //id+驗證
+        $data = Users::login($request->input("id"), $request->input("password")); //id+驗證
         //$data = Users::idCheck($request->input("id")); //id驗證
         //password解密驗證
         //if($data && password_verify($request->input("password"), $data->password)){
@@ -222,7 +222,7 @@ class WelcomeController extends Controller
      * >>無重複帳號回傳ture
      * @return view:welcome_signup.blade.php
      */
-    public function signupView(Request $request) {
+    public function signupView() {
         return view("welcome_signup");
     }
 
@@ -317,4 +317,40 @@ class WelcomeController extends Controller
         return view($view, $model);
     }
 
+    public function modifyPwdView() {
+        if(session()->has("login_id")){
+            return view("welcome_modifypwd");
+        }else{
+            redirect()->back()->with("alert", "請先登入!"); //保持原頁面，傳送alert msg
+        }
+    }
+
+
+    public function modifyPwd(Request $request) {
+        #後端驗證
+        request()->validate([
+            "old_password"=>["required"],
+            "password"=>["required", "confirmed"], //confirmed laravel自己的確認密碼, 會檢查name=password跟password_confirmation有沒有相等
+        ]);
+
+        #param
+        $view = "welcome_modifypwd";
+        $data = Users::login(session("login_id"), $request->input("old_password"));
+        if($data){
+            $data = Users::find(session("login_id"));
+            $data->password = password_hash($request->input("password"), PASSWORD_BCRYPT);
+            $data->save();
+            $model["success"] = "修改密碼成功<br/>請再次登入";
+            return view("welcome_login", $model);
+        }else{
+            $model["fail"] = "修改密碼失敗!";
+            if($data == NULL){
+                $model["fail"] .= "<br/>舊密碼錯誤";
+            }
+            if($request->input("password") != $request->input("password_confirmation")){
+                $model["fail"] .= "<br/>確認密碼不相符";
+            }
+        }
+        return view($view, $model);
+    }
 }

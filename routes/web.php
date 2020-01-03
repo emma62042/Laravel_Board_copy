@@ -20,7 +20,7 @@ Route::post("/welcome/delete", "WelcomeController@delete");
 Route::get("/welcome/login", "WelcomeController@loginView");
 Route::post("/welcome/login", "WelcomeController@login");
 
-Route::get("/welcome/logout", 'WelcomeController@logout');
+Route::get("/welcome/logout", "WelcomeController@logout");
 // Route::get("/welcome/signup", function(){
 //     return view("welcome_signup");
 // });
@@ -28,6 +28,9 @@ Route::get("/welcome/signup", "WelcomeController@signupView");
 Route::post("/welcome/signup", "WelcomeController@signup");
 
 Route::get("/welcome/searchMsg", "WelcomeController@searchMsg");
+
+Route::get("/welcome/modifyPwd", "WelcomeController@modifyPwdView");
+Route::post("/welcome/modifyPwd", "WelcomeController@modifyPwd");
 //------------------------------------------------------------------------------------------------------------
 Route::resource("/todo", "TodoController", ["except" => ["show"]]); //except method get+key預設是show
 Route::get("/todo/delete", "TodoController@delete");

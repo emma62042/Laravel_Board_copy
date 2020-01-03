@@ -120,6 +120,7 @@
 		    		<div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
 		            	<ul class="navbar-nav text-right">
 		        			<li class="nav-item"><a class="nav-link" href="/welcome/create">新增留言</a></li>
+		        			<li class="nav-item"><a class="nav-link" href="/welcome/modifyPwd">修改密碼</a></li>
 		                </ul>
 		            </div>
 				@endif
