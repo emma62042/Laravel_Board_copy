@@ -50,7 +50,7 @@ class WelcomeController extends Controller
     }
     
     /**
-     * [create]--resource自帶的呼叫function
+     * [create 新增]--resource自帶的呼叫function
      * 直接送到 edit
      * @param  Request $request [nothing]
      * @return  送到edit
@@ -62,7 +62,7 @@ class WelcomeController extends Controller
     }
     
     /**
-     * [edit]--resource自帶的呼叫function
+     * [edit 修改]--resource自帶的呼叫function
      * 要進入須先登入
      * 未登入顯示alert並保持原頁面不跳頁
      * 判斷是新增或修改留言，並傳送要顯示的標題、留言，導向至create view
@@ -139,7 +139,7 @@ class WelcomeController extends Controller
     }
 
     /**
-     * [destroy]--resource自帶的呼叫function
+     * [destroy 刪除]--resource自帶的呼叫function
      * 刪除留言，需要msg_id
      * @param  Request $request [nothing]
      * @param  [type]  $key     [msg_id]
@@ -155,6 +155,29 @@ class WelcomeController extends Controller
         return Redirect::to("welcome")->with($model); //回到首頁的網址
     }
     
+    /**
+     * [searchMsg 查詢]
+     * 搜尋標題或內容
+     * 跟首頁共用頁面
+     * @param  Request $request ["searchInput"]
+     * @return view:welcome_index.blade.php
+     *         1.searchList:回傳搜尋結果陣列
+     *         2.searchInput:儲存剛剛打的搜尋字串
+     */
+    public function searchMsg(Request $request) {
+        #param
+        $view = "welcome_index";
+
+        #取出search的留言
+        $searchList = Boards::searchMsg($request);//way 1-自行定義的查詢function
+        $model["searchList"] = $searchList;
+        $model["searchInput"] = $request->input("searchInput");
+
+        return view($view, $model);
+    }
+
+//------------------------會員↓-----------------------------------------------------------------------------------------
+
     /**
      * [loginView]
      * 導向至login view
@@ -266,11 +289,13 @@ class WelcomeController extends Controller
         request()->validate([
             "id"=>["required"],
             "password"=>["required", "confirmed"], //confirmed laravel自己的確認密碼, 會檢查name=password跟password_confirmation有沒有相等
-            "UserEmail"=>["required", "email"]
+            "UserEmail"=>["required", "email"],
         ]);
 
         $view = "welcome_signup";
         $check = Users::idCheck($request->input("id"));
+
+        #帳號確認完成，開始註冊
         if($check == NULL && $request->input("password") == $request->input("password_confirmation")){
             $data = new Users();
             $data->id = $request->input("id");
@@ -296,26 +321,7 @@ class WelcomeController extends Controller
         return view($view, $model);
     }
 
-    /**
-     * [searchMsg]
-     * 搜尋標題或內容
-     * 跟首頁共用頁面
-     * @param  Request $request ["searchInput"]
-     * @return view:welcome_index.blade.php
-     *         1.searchList:回傳搜尋結果陣列
-     *         2.searchInput:儲存剛剛打的搜尋字串
-     */
-    public function searchMsg(Request $request) {
-        #param
-        $view = "welcome_index";
-
-        #取出search的留言
-        $searchList = Boards::searchMsg($request);//way 1-自行定義的查詢function
-        $model["searchList"] = $searchList;
-        $model["searchInput"] = $request->input("searchInput");
-
-        return view($view, $model);
-    }
+    
 
     public function modifyPwdView() {
         if(session()->has("login_id")){
@@ -352,5 +358,30 @@ class WelcomeController extends Controller
             }
         }
         return view($view, $model);
+    }
+
+    public function modifyInfoView() {
+        if(session()->has("login_id")){
+            $data = Users::find(session("login_id"));
+            $model["UserEmail"] = $data->UserEmail;
+            return view("welcome_modifyinfo", $model);
+        }else{
+            redirect()->back()->with("alert", "請先登入!"); //保持原頁面，傳送alert msg
+        }
+    }
+
+    public function modifyInfo(Request $request) {
+        #後端驗證
+        request()->validate([
+            "UserEmail"=>["required", "email"],
+        ]);
+
+        #param
+        $view = "welcome_modifyinfo";
+        $data = Users::find(session("login_id"));
+        $data->UserEmail = $request->input("UserEmail");
+        $data->save();
+        $model["success"] = "修改Email成功!!";
+        return Redirect::to("welcome")->with($model);
     }
 }

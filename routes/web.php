@@ -31,6 +31,9 @@ Route::get("/welcome/searchMsg", "WelcomeController@searchMsg");
 
 Route::get("/welcome/modifyPwd", "WelcomeController@modifyPwdView");
 Route::post("/welcome/modifyPwd", "WelcomeController@modifyPwd");
+
+Route::get("/welcome/modifyInfo", "WelcomeController@modifyInfoView");
+Route::post("/welcome/modifyInfo", "WelcomeController@modifyInfo");
 //------------------------------------------------------------------------------------------------------------
 Route::resource("/todo", "TodoController", ["except" => ["show"]]); //except method get+key預設是show
 Route::get("/todo/delete", "TodoController@delete");
