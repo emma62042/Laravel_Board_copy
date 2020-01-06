@@ -17,6 +17,12 @@
 	            	</td>
 	            </tr>
 	            <tr>
+		        	<th>修改生日</th>
+		        	<td>
+		        		<input id="birtydaypicker" name="birtydaypicker" value="<?php echo e($birthday); ?>">
+		        	</td>
+		        </tr>
+	            <tr>
 	            	<td colspan="2" align="center">
 	            		<button class="btn btn-secondary" type="submit" >修改資料</button>
 	            	</td>

@@ -251,15 +251,6 @@ class WelcomeController extends Controller
         return view("welcome_signup");
     }
 
-    public function idcheck(Request $request) { //要收到他傳過來的東西
-        $check = Users::idCheck($request->input("id"));
-        if($check){
-            return "false";
-        }else{
-            return "true";
-        }
-    }
-    
     /**
      * [signup]
      * 從login view接收post回來的資料，判斷註冊成功與否
@@ -305,6 +296,7 @@ class WelcomeController extends Controller
             $data->password = password_hash($request->input("password"), PASSWORD_BCRYPT);
             $data->UserName = ($request->input("UserName") != "") ? $request->input("UserName") : $request->input("id");
             $data->UserEmail = $request->input("UserEmail");
+            $data->birthday = date("Y-m-d", strtotime($request->input("birtydaypicker"))); //mm/dd/yyyy to yyyy-mm-dd
             $data->save();
             $model["success"] = "signup success!<br/>請登入";
             return view("welcome_login", $model);
@@ -366,6 +358,7 @@ class WelcomeController extends Controller
         if(session()->has("login_id")){
             $data = Users::find(session("login_id"));
             $model["UserEmail"] = $data->UserEmail;
+            $model["birthday"] = date("m/d/Y", strtotime($data->birthday)); // yyyy-mm-dd to mm/dd/yyyy 
             return view("welcome_modifyinfo", $model);
         }else{
             return redirect()->back()->with("alert", "請先登入!"); //保持原頁面，傳送alert msg
@@ -382,6 +375,7 @@ class WelcomeController extends Controller
         $view = "welcome_modifyinfo";
         $data = Users::find(session("login_id"));
         $data->UserEmail = $request->input("UserEmail");
+        $data->birthday = date("Y-m-d", strtotime($request->input("birtydaypicker"))); // mm/dd/yyyy to yyyy-mm-dd
         $data->save();
         $model["success"] = "修改Email成功!!";
         return Redirect::to("welcome")->with($model);

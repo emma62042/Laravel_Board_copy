@@ -4,8 +4,11 @@
 	<head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <!-- 掛載CSS樣式 -->
-        <link rel="stylesheet" href="/css/rwd_table.css"/><!-- table rwd -->
+        
 	    <link rel="stylesheet" href="/bootstrap-4.4.1-dist/css/bootstrap.min.css"/>
+	    <link rel="stylesheet" href="/open-iconic-master/font/css/open-iconic-bootstrap.css"/>
+	    <link rel="stylesheet" href="/gijgo/css/gijgo.min.css"/><!-- date css -->
+	    <link rel="stylesheet" href="/css/rwd_table.css"/><!-- table rwd -->
 	    <link rel="stylesheet" href="/css/background.css"/><!-- background css -->
 
 	    <!-- 掛載JS樣式 -->
@@ -16,6 +19,7 @@
 	    <!-- bootstarp有用到jQuery的js, 所以要放在jquery後面 -->
 	    <script src="/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script> 
 	    <script src="/bootstrap-4.4.1-dist/js/bootstrap.js"></script>
+	    <script src="/gijgo/js/gijgo.min.js"></script> <!-- date js -->
 
 	    <!-- 前端驗證 jquery validated -->
 	    <script>
@@ -79,6 +83,14 @@
 	    				}
 	    			}
 	            });
+
+	            //日期選單gijgo
+	            $("#birtydaypicker").datepicker({
+		            uiLibrary: "bootstrap4",
+		            /*icons: {
+		           		rightIcon: "<span class='oi oi-calendar' title='calendar'></span>"
+		   			},*/
+		        });
             });
         </script>
         <style>

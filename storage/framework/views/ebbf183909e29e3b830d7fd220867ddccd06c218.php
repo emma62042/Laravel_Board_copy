@@ -40,6 +40,12 @@
 		        	</td>
 		        </tr>
 		        <tr>
+		        	<th>生日</th>
+		        	<td>
+		        		<input id="birtydaypicker" name="birtydaypicker" value="01/31/1995">
+		        	</td>
+		        </tr>
+		        <tr>
 		        	<td colspan="2" align="center">
 		        		<button class="btn btn-secondary" type="submit" >註冊</button>
 		        	</td>

@@ -72,6 +72,15 @@ center88留言板 with Laravel+Bootstrap
 *  完成留言板，code review準備
 1. 加入會員資料修改功能
 2. 完成我的留言功能
+3. 註冊加入生日  
+    ([日期選單git](https://github.com/smalot/bootstrap-datetimepicker))  
+    ([gijgo日期<比較直覺>](https://gijgo.com/datepicker/configuration/icons.rightIcon))  
+    ([iconic](https://github.com/iconic/open-iconic))  
+4. 日期格式轉換  
+    SQL存的date是yyyy-mmm-dd  
+    gijgo的date是mm/dd/yyyy  
+    ([mm/dd/yyyy to yyyy-mm-dd](https://stackoverflow.com/questions/3288257/how-to-convert-mm-dd-yyyy-to-yyyy-mm-dd))  
+    ([yyyy-mm-dd to mm/dd/yyyy](https://stackoverflow.com/questions/2487921/convert-a-date-format-in-php))
 
 ##
 未做工作:  
@@ -84,7 +93,7 @@ center88留言板 with Laravel+Bootstrap
 * 會員資料修改√
 * 會員密碼修改√
 * 我的留言√
-* 加入生日
+* 加入生日√
 
 ___
 
