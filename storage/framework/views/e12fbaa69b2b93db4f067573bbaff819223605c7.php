@@ -3,7 +3,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection("content"); ?>
-    <h2 class="display-4" style="text-align:center; margin-bottom:30px;">Modify Info</h2>
+    <h2 style="text-align:center;">Modify Info</h2>
 
     
     <form class="form1" name="form1" method="post" action="<?php echo e(action('WelcomeController@modifyInfo')); ?>">

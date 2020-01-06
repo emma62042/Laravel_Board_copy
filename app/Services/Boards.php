@@ -51,4 +51,23 @@ class Boards extends BaseModel {
 
         return $data->paginate(5);
     }
+
+    /**
+     * [myMsg]
+     * 我的留言
+     * 用->paginate(5)分頁，1頁5個留言
+     * @param  $login_id [session("login_id")]
+     * @return $myList
+     */
+    public static function myMsg($login_id){
+        $data = DB::table("Boards as b")
+        ->join("Users as u", "u.id", "=", "b.user_id")
+        ->select("b.msg_id", "b.title", "b.msg", "b.created_at", "b.updated_at", "b.user_id", "u.UserName")
+        ->where("b.user_id", "=", $login_id)
+        ->orderBy("b.updated_at", "desc");
+
+        return $data->paginate(5);
+    }
+
 }
+?>

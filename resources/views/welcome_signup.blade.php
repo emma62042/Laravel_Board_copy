@@ -43,6 +43,20 @@
 		        	</td>
 		        </tr>
 		        <tr>
+		        	<th>生日</th>
+		        	<td>
+		        		<input class="form-control" type="text" name="UserEmail" value="{{ old('UserEmail') }}" required>
+		        		<div class="col-auto my-1">
+							<label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+							<select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+								<option selected value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+						</div>
+		        	</td>
+		        </tr>
+		        <tr>
 		        	<td colspan="2" align="center">
 		        		<button class="btn btn-secondary" type="submit" >註冊</button>
 		        	</td>

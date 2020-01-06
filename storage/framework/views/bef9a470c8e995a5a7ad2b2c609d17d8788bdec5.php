@@ -3,10 +3,10 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection("content"); ?>
-    <h2 class="display-4" style="text-align:center; margin-bottom:30px;"><?php echo e(isset($searchList) ? "Search result" : "All the Msg"); ?></h2>
+    <h2 class="display-4" style="text-align:center; margin-bottom:30px;"><?php echo e(isset($searchList) ? "Search result" : (isset($myList) ? "My Msg" : "All the Msg")); ?></h2>
   	
   	
-    <?php ($msgList = isset($searchList) ? $searchList : $dataList); ?>
+    <?php ($msgList = isset($searchList) ? $searchList : (isset($myList) ? $myList : $dataList)); ?>
     <?php if(sizeof($msgList) > 0): ?>
         <table class="table table-striped table-bordered table-rwd">
         	

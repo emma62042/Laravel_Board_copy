@@ -6,10 +6,10 @@
 @endsection
 
 @section("content")
-    <h2 class="display-4" style="text-align:center; margin-bottom:30px;">{{ isset($searchList) ? "Search result" : "All the Msg" }}</h2>
+    <h2 class="display-4" style="text-align:center; margin-bottom:30px;">{{ isset($searchList) ? "Search result" : (isset($myList) ? "My Msg" : "All the Msg")}}</h2>
   	
   	{{-- 首頁顯示所有留言/如果有搜尋陣列searchList, 用搜尋陣列 --}}
-    @php($msgList = isset($searchList) ? $searchList : $dataList)
+    @php($msgList = isset($searchList) ? $searchList : (isset($myList) ? $myList : $dataList))
     @if(sizeof($msgList) > 0)
         <table class="table table-striped table-bordered table-rwd">
         	{{-- tr-only-hide,RWD在變成小螢幕時用到 --}}

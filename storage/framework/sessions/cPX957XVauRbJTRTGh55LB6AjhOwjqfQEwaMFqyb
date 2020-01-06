@@ -1,1 +1,1 @@
-a:5:{s:6:"_token";s:40:"etk73YFTwkCp24emHvA9zMzHZ7OD2ACxMhP5OgpE";s:9:"_previous";a:1:{s:3:"url";s:29:"http://localhost:8000/welcome";}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}s:8:"login_id";s:11:"secret_test";s:10:"login_name";s:11:"secret_test";}
+a:4:{s:6:"_token";s:40:"etk73YFTwkCp24emHvA9zMzHZ7OD2ACxMhP5OgpE";s:9:"_previous";a:1:{s:3:"url";s:21:"http://localhost:8000";}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}s:10:"login_name";s:11:"secret_test";}

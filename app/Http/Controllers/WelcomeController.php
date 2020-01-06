@@ -5,6 +5,7 @@
  * @history
  * 	    center69-陳煜珊 2019/06/05 增加註解及驗證
  *      center88-吳宜芬 2019/12/31 修改及增加註解
+ *      center88-吳宜芬 2020/01/06 新增刪除修改會回到前一個頁面
  * ----------------------------------------------------------------
  */
 namespace App\Http\Controllers;
@@ -43,8 +44,6 @@ class WelcomeController extends Controller
         #傳遞到顯示的blade
         $model["login_id"] = $request->session()->get("login_id");
         $model["login_name"] = $request->session()->get("login_name");
-        $model["success"] = $request->session()->get("success"); //取得session中回傳來的訊息
-        $model["fail"] = $request->session()->get("fail"); //取得session中回傳來的訊息
         $model["dataList"] = $dataList;
         return view($view, $model);
     }
@@ -109,8 +108,8 @@ class WelcomeController extends Controller
             "Msg"=>["required", "min:3"]
         ]);
         #取得傳遞過來的資料
-        $title = ($request->has("Title")) ?$request->input("Title") :NULL;
-        $msg = ($request->has("Title")) ?$request->input("Msg") :NULL;
+        $title = ($request->has("Title")) ? $request->input("Title") :NULL;
+        $msg = ($request->has("Title")) ? $request->input("Msg") :NULL;
         
         #builder
         if($key == "new_a_msg"){
@@ -135,7 +134,9 @@ class WelcomeController extends Controller
         }else{
             $model["success"] = "Edit Finish!";
         }
-        return Redirect::to("welcome")->with($model); //放$model到session裡
+
+        //回到新增修改頁面的上一頁
+        return Redirect::to($request->input("backUrl"))->with($model); //放$model到session裡
     }
 
     /**
@@ -152,7 +153,7 @@ class WelcomeController extends Controller
         $data->delete();
         $model["success"] = "Delete Success!";
         //DB::delete("delete from todos where id= ?", [$request->id]);
-        return Redirect::to("welcome")->with($model); //回到首頁的網址
+        return redirect()->back()->with($model); //回到刪除頁面的上一頁
     }
     
     /**
@@ -219,6 +220,7 @@ class WelcomeController extends Controller
             $request->session()->put("login_name", $data->UserName);
             return Redirect::to("welcome")->with($model);
         }else{
+            $model["id"] = $request->input("id");
             $model["fail"] = "login fail! 帳號或密碼不相符";
         }
         return view($view, $model);
@@ -325,9 +327,9 @@ class WelcomeController extends Controller
 
     public function modifyPwdView() {
         if(session()->has("login_id")){
-            return view("welcome_modifypwd");
+            return view("welcome_modifyPwd");
         }else{
-            redirect()->back()->with("alert", "請先登入!"); //保持原頁面，傳送alert msg
+            return redirect()->back()->with("alert", "請先登入!"); //保持原頁面，傳送alert msg
         }
     }
 
@@ -346,8 +348,8 @@ class WelcomeController extends Controller
             $data = Users::find(session("login_id"));
             $data->password = password_hash($request->input("password"), PASSWORD_BCRYPT);
             $data->save();
-            $model["success"] = "修改密碼成功<br/>請再次登入";
-            return view("welcome_login", $model);
+            $model["success"] = "修改密碼成功!!";
+            return Redirect::to("welcome")->with($model);
         }else{
             $model["fail"] = "修改密碼失敗!";
             if($data == NULL){
@@ -366,7 +368,7 @@ class WelcomeController extends Controller
             $model["UserEmail"] = $data->UserEmail;
             return view("welcome_modifyinfo", $model);
         }else{
-            redirect()->back()->with("alert", "請先登入!"); //保持原頁面，傳送alert msg
+            return redirect()->back()->with("alert", "請先登入!"); //保持原頁面，傳送alert msg
         }
     }
 
@@ -384,4 +386,28 @@ class WelcomeController extends Controller
         $model["success"] = "修改Email成功!!";
         return Redirect::to("welcome")->with($model);
     }
+
+    /**
+     * [myMsg 我的留言]
+     * 跟首頁共用頁面
+     * @param  Request $request [nothing]
+     * @return view:welcome_index.blade.php
+     *         1.myList:回傳我的留言結果陣列
+     */
+    public function myMsg(Request $request) {
+        #會員已登入確認
+        if(session()->has("login_id")){
+            #param
+            $view = "welcome_index";
+
+            #取出會員id的留言
+            $myList = Boards::myMsg(session("login_id"));//way 1-自行定義的查詢function
+            $model["myList"] = $myList;
+
+            return view($view, $model);
+        }else{
+            return redirect()->back()->with("alert", "請先登入!"); //保持原頁面，傳送alert msg
+        }
+    }
 }
+?>

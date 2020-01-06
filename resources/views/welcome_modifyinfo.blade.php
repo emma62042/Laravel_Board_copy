@@ -6,7 +6,7 @@
 @endsection
 
 @section("content")
-    <h2 style="text-align:center;">Modify Info</h2>
+    <h2 class="display-4" style="text-align:center; margin-bottom:30px;">Modify Info</h2>
 
     {{-- 修改會員資料 --}}
     <form class="form1" name="form1" method="post" action="{{ action('WelcomeController@modifyInfo') }}">

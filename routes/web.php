@@ -13,29 +13,33 @@
 
 Route::get("/", "WelcomeController@index");
 Route::resource("/welcome", "WelcomeController", ["except" => ["show"]]);//except method post+key預設是show,為了delete
-Route::post("/welcome/delete", "WelcomeController@delete");
-// Route::get("/welcome/login", function(){
-//     return view("welcome_login");
-// });
+
+//搜尋
+Route::get("/welcome/searchMsg", "WelcomeController@searchMsg");
+
+//登入
 Route::get("/welcome/login", "WelcomeController@loginView");
 Route::post("/welcome/login", "WelcomeController@login");
 
+//登出
 Route::get("/welcome/logout", "WelcomeController@logout");
-// Route::get("/welcome/signup", function(){
-//     return view("welcome_signup");
-// });
+
+//註冊
 Route::get("/welcome/signup", "WelcomeController@signupView");
 Route::post("/welcome/signup", "WelcomeController@signup");
 
-Route::get("/welcome/searchMsg", "WelcomeController@searchMsg");
-
+//修改密碼
 Route::get("/welcome/modifyPwd", "WelcomeController@modifyPwdView");
 Route::post("/welcome/modifyPwd", "WelcomeController@modifyPwd");
 
+//修改會員資料
 Route::get("/welcome/modifyInfo", "WelcomeController@modifyInfoView");
 Route::post("/welcome/modifyInfo", "WelcomeController@modifyInfo");
-//------------------------------------------------------------------------------------------------------------
-Route::resource("/todo", "TodoController", ["except" => ["show"]]); //except method get+key預設是show
-Route::get("/todo/delete", "TodoController@delete");
-//Route::post("/todo/up1date", "TodoController@up1date");
 
+//我的留言
+Route::get("/welcome/myMsg", "WelcomeController@myMsg");
+//------------------------------------------------------------------------------------------------------------
+//Route::resource("/todo", "TodoController", ["except" => ["show"]]); //except method get+key預設是show
+//Route::get("/todo/delete", "TodoController@delete");
+//Route::post("/todo/up1date", "TodoController@up1date");
+?>

@@ -36,7 +36,7 @@
 	            	rules:{
 	            		id:{ 
 	                        remote:{
-	                            url:"{{ action('WelcomeController@signupView') }}",
+	                            url:"{{ action('WelcomeController@signup') }}",
 	                            type:"post",
 	                            data:{
 	                            	id:function(){
@@ -60,6 +60,21 @@
 	        				remote:"帳號已有人使用!"
 	        			},
 	    				password_confirmation:{
+	    					equalTo:"密碼驗證不符!" //同rule的function名稱 ex. equalTo/remote/required...
+	    				}
+	    			}
+	            });
+	            
+	            //修改密碼頁面驗證:密碼重複驗證
+            	$("#modifyPwdForm").validate({
+	            	//debug:true,
+	            	rules:{
+	                	password_confirmation:{
+					    	equalTo: "#password"
+					    }
+	        		},
+	        		messages:{
+	        			password_confirmation:{
 	    					equalTo:"密碼驗證不符!" //同rule的function名稱 ex. equalTo/remote/required...
 	    				}
 	    			}
@@ -122,20 +137,22 @@
 		        			<li class="nav-item"><a class="nav-link" href="/welcome/create">新增留言</a></li>
 		        			<li class="nav-item"><a class="nav-link" href="/welcome/modifyPwd">修改密碼</a></li>
 		        			<li class="nav-item"><a class="nav-link" href="/welcome/modifyInfo">修改會員資料</a></li>
+		        			<li class="nav-item"><a class="nav-link" href="/welcome/myMsg">我的留言</a></li>
 		                </ul>
 		            </div>
 				@endif
 			</nav>
 
 			{{-- 一些alert，顯示在content上面 --}}
-			@if(isset($success) && $success != "")
+			@if(session("success") != "" || (isset($success) && $success != ""))
 		      	<div class="alert alert-success" role="alert" style="text-align:center; margin:5px;">
 		          	<span>
-		          		{!! (isset($success) && $success != "") ?$success :"" !!}
+		          		{!! isset($success) && $success != "" ? $success : "" !!}
+		          		{!! (session("success") != "") ? session("success") : "" !!}
 		          	</span>
 		        </div>	
 		    @endif
-		    @if((isset($fail) && $fail != "") || $errors->any()) {{-- 輸出ERROR ALERT --}}
+		    @if(session("fail") != "" || (isset($fail) && $fail != "") || $errors->any()) {{-- 輸出ERROR ALERT --}}
 		        <div class="alert alert-danger" role="alert" style="text-align:center; margin:5px;">
 		        	<ul class="list-unstyled">
 		        		@if($errors->any())
@@ -145,7 +162,8 @@
 						@endif
 						<li>
 							<span>
-				          		{!! (isset($fail) && $fail != "") ?$fail :"" !!}
+								{!! isset($fail) && $fail != "" ? $fail : "" !!}
+				          		{!! (session("fail") != "") ? session("fail") : "" !!}
 				          	</span>
 				        </li>
 					</ul>

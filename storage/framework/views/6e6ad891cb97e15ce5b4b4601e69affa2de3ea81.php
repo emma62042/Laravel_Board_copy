@@ -36,7 +36,7 @@
 	            	rules:{
 	            		id:{ 
 	                        remote:{
-	                            url:"<?php echo e(action('WelcomeController@signupView')); ?>",
+	                            url:"<?php echo e(action('WelcomeController@signup')); ?>",
 	                            type:"post",
 	                            data:{
 	                            	id:function(){
@@ -60,6 +60,21 @@
 	        				remote:"帳號已有人使用!"
 	        			},
 	    				password_confirmation:{
+	    					equalTo:"密碼驗證不符!" //同rule的function名稱 ex. equalTo/remote/required...
+	    				}
+	    			}
+	            });
+	            
+	            //修改密碼頁面驗證:密碼重複驗證
+            	$("#modifyPwdForm").validate({
+	            	//debug:true,
+	            	rules:{
+	                	password_confirmation:{
+					    	equalTo: "#password"
+					    }
+	        		},
+	        		messages:{
+	        			password_confirmation:{
 	    					equalTo:"密碼驗證不符!" //同rule的function名稱 ex. equalTo/remote/required...
 	    				}
 	    			}
@@ -122,21 +137,24 @@
 		        			<li class="nav-item"><a class="nav-link" href="/welcome/create">新增留言</a></li>
 		        			<li class="nav-item"><a class="nav-link" href="/welcome/modifyPwd">修改密碼</a></li>
 		        			<li class="nav-item"><a class="nav-link" href="/welcome/modifyInfo">修改會員資料</a></li>
+		        			<li class="nav-item"><a class="nav-link" href="/welcome/myMsg">我的留言</a></li>
 		                </ul>
 		            </div>
 				<?php endif; ?>
 			</nav>
 
 			
-			<?php if(isset($success) && $success != ""): ?>
+			<?php if(session("success") != "" || (isset($success) && $success != "")): ?>
 		      	<div class="alert alert-success" role="alert" style="text-align:center; margin:5px;">
 		          	<span>
-		          		<?php echo (isset($success) && $success != "") ?$success :""; ?>
+		          		<?php echo isset($success) && $success != "" ? $success : ""; ?>
+
+		          		<?php echo (session("success") != "") ? session("success") : ""; ?>
 
 		          	</span>
 		        </div>	
 		    <?php endif; ?>
-		    <?php if((isset($fail) && $fail != "") || $errors->any()): ?> 
+		    <?php if(session("fail") != "" || (isset($fail) && $fail != "") || $errors->any()): ?> 
 		        <div class="alert alert-danger" role="alert" style="text-align:center; margin:5px;">
 		        	<ul class="list-unstyled">
 		        		<?php if($errors->any()): ?>
@@ -146,7 +164,9 @@
 						<?php endif; ?>
 						<li>
 							<span>
-				          		<?php echo (isset($fail) && $fail != "") ?$fail :""; ?>
+								<?php echo isset($fail) && $fail != "" ? $fail : ""; ?>
+
+				          		<?php echo (session("fail") != "") ? session("fail") : ""; ?>
 
 				          	</span>
 				        </li>

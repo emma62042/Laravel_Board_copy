@@ -71,6 +71,7 @@ center88留言板 with Laravel+Bootstrap
 ## 2020/1/6
 *  完成留言板，code review準備
 1. 加入會員資料修改功能
+2. 完成我的留言功能
 
 ##
 未做工作:  
@@ -82,7 +83,7 @@ center88留言板 with Laravel+Bootstrap
 * 非會員不能改留言√
 * 會員資料修改√
 * 會員密碼修改√
-* 我的留言
+* 我的留言√
 * 加入生日
 
 ___

@@ -3,7 +3,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection("content"); ?>
-    <h2 style="text-align:center;">Login</h2>
+    <h2 class="display-4" style="text-align:center; margin-bottom:30px;">Login</h2>
 
     
     <form class="form1" name="form1" method="post" action="<?php echo e(action('WelcomeController@login')); ?>">
@@ -13,7 +13,7 @@
 	            <tr>
 	            	<th>帳號</th>
 	            	<td>
-	            		<input class="form-control" type="text" name="id" value="<?php echo e(old('id')); ?>" required>
+	            		<input class="form-control" type="text" name="id" value="<?php echo e(isset($id) ? $id : old('id')); ?>" required>
 	            	</td>
 	            </tr>
 	            <tr>
