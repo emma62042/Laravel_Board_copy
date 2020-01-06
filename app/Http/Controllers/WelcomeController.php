@@ -5,7 +5,8 @@
  * @history
  * 	    center69-陳煜珊 2019/06/05 增加註解及驗證
  *      center88-吳宜芬 2019/12/31 修改及增加註解
- *      center88-吳宜芬 2020/01/06 新增刪除修改會回到前一個頁面
+ *      center88-吳宜芬 2020/01/06 新增刪除修改會回到前一個頁面，其他的回到index
+ *      center88-吳宜芬 2020/01/06 加註解
  * ----------------------------------------------------------------
  */
 namespace App\Http\Controllers;
@@ -37,7 +38,7 @@ class WelcomeController extends Controller
         #取出全部的留言
         $dataList = Boards::findAll();//way 1-自行定義的查詢function
         //要用哪一種都可以，依照自己的需求選擇
-        //$dataList = DB::select("UserName", "UserEmail")->get();//way2-使用Laravel的SQL ORM方法
+        //$dataList = DB::select("nickname", "email")->get();//way2-使用Laravel的SQL ORM方法
         //$dataList = DB::table("Users")->get();
         //$dataList = DB::all();//way3-使用Laravel的ORM方法
         
@@ -90,7 +91,7 @@ class WelcomeController extends Controller
     }
     
     /**
-     * [update]--resource自帶的呼叫function
+     * [update 新增修改]--resource自帶的呼叫function
      * 從create view接收post回來的資料，判斷是新增或修改留言
      * 並寫入標題、留言、作者進資料庫，
      * 將一些alert放入session, 導向至index view
@@ -180,7 +181,7 @@ class WelcomeController extends Controller
 //------------------------會員↓-----------------------------------------------------------------------------------------
 
     /**
-     * [loginView]
+     * [loginView 登入]
      * 導向至login view
      * @return view:welcome_login.blade.php
      */
@@ -217,7 +218,7 @@ class WelcomeController extends Controller
         if($data){
             $model["success"] = "login success!";
             $request->session()->put("login_id", $data->id);
-            $request->session()->put("login_name", $data->UserName);
+            $request->session()->put("login_name", $data->nickname);
             return Redirect::to("welcome")->with($model);
         }else{
             $model["id"] = $request->input("id");
@@ -227,7 +228,7 @@ class WelcomeController extends Controller
     }
 
     /**
-     * [logout]
+     * [logout 登出]
      * 登出,需要login_id,從session拿
      * @param  Request $request [nothing]
      * @return view:welcome_index.blade.php
@@ -240,7 +241,7 @@ class WelcomeController extends Controller
     }
     
     /**
-     * [signupView]
+     * [signupView 註冊]
      * 導向至signup view
      * >>前端帳號驗證jQuery validate remote url
      * >>$request->input("checkid")=="1"進入驗證
@@ -256,7 +257,7 @@ class WelcomeController extends Controller
      * 從login view接收post回來的資料，判斷註冊成功與否
      * 檢查:id不重複,password確認
      * 存入資料庫
-     * @param  Request $request ["id", "password", "ck_password", "UserName", "UserEmail"]
+     * @param  Request $request ["id", "password", "ck_password", "nickname", "email"]
      * @return 註冊成功:
      *             view:welcome_index.blade.php
      *             1.success:回傳註冊成功訊息
@@ -264,8 +265,8 @@ class WelcomeController extends Controller
      *             view:welcome_signup.blade.php
      *             1.fail:回傳註冊失敗訊息
      *             2.id:上次輸入的id
-     *             3.UserName:上次輸入的UserName
-     *             4.UserEmail:上次輸入的UserEmail
+     *             3.nickname:上次輸入的nickname
+     *             4.email:上次輸入的email
      */
     public function signup(Request $request) { //要收到他傳過來的東西
         #前端帳號驗證jQuery validate remote url
@@ -282,7 +283,7 @@ class WelcomeController extends Controller
         request()->validate([
             "id"=>["required"],
             "password"=>["required", "confirmed"], //confirmed laravel自己的確認密碼, 會檢查name=password跟password_confirmation有沒有相等
-            "UserEmail"=>["required", "email"],
+            "email"=>["required", "email"],
         ]);
 
         $view = "welcome_signup";
@@ -294,8 +295,8 @@ class WelcomeController extends Controller
             $data->id = $request->input("id");
             //$data->password = $request->input("password");
             $data->password = password_hash($request->input("password"), PASSWORD_BCRYPT);
-            $data->UserName = ($request->input("UserName") != "") ? $request->input("UserName") : $request->input("id");
-            $data->UserEmail = $request->input("UserEmail");
+            $data->nickname = ($request->input("nickname") != "") ? $request->input("nickname") : $request->input("id");
+            $data->email = $request->input("email");
             $data->birthday = date("Y-m-d", strtotime($request->input("birtydaypicker"))); //mm/dd/yyyy to yyyy-mm-dd
             $data->save();
             $model["success"] = "signup success!<br/>請登入";
@@ -303,8 +304,8 @@ class WelcomeController extends Controller
         }else{
             $model["fail"] = "signup fail!";
             $model["id"] = $request->input("id");
-            $model["UserName"] = $request->input("UserName");
-            $model["UserEmail"] = $request->input("UserEmail");
+            $model["nickname"] = $request->input("nickname");
+            $model["email"] = $request->input("email");
             if($check != NULL){
                 $model["fail"] .= "<br/>帳號已被使用";
             }
@@ -315,8 +316,11 @@ class WelcomeController extends Controller
         return view($view, $model);
     }
 
-    
-
+    /**
+     * [modifyPwdView 修改密碼]
+     * 導向至modifyPwd view
+     * @return view:welcome_modifyPwd.blade.php
+     */
     public function modifyPwdView() {
         if(session()->has("login_id")){
             return view("welcome_modifyPwd");
@@ -325,7 +329,17 @@ class WelcomeController extends Controller
         }
     }
 
-
+    /**
+     * [modifyPwd]
+     * 確認密碼並修改密碼
+     * @param  Request $request ["old_password", "password", "password_confirmation"]
+     * @return 成功:
+     *             view:welcome_index.blade.php
+     *             1.success:回傳改密碼成功訊息
+     *         失敗:
+     *             view:不動
+     *             1.fail:回傳註冊失敗訊息
+     */
     public function modifyPwd(Request $request) {
         #後端驗證
         request()->validate([
@@ -354,10 +368,16 @@ class WelcomeController extends Controller
         return view($view, $model);
     }
 
+    /**
+     * [modifyInfoView 修改會員資料]
+     * @return view:welcome_modifyInfo.blade.php
+     *         1.email:會員email
+     *         2.birthday:會員生日
+     */
     public function modifyInfoView() {
         if(session()->has("login_id")){
             $data = Users::find(session("login_id"));
-            $model["UserEmail"] = $data->UserEmail;
+            $model["email"] = $data->email;
             $model["birthday"] = date("m/d/Y", strtotime($data->birthday)); // yyyy-mm-dd to mm/dd/yyyy 
             return view("welcome_modifyinfo", $model);
         }else{
@@ -368,13 +388,13 @@ class WelcomeController extends Controller
     public function modifyInfo(Request $request) {
         #後端驗證
         request()->validate([
-            "UserEmail"=>["required", "email"],
+            "email"=>["required", "email"],
         ]);
 
         #param
         $view = "welcome_modifyinfo";
         $data = Users::find(session("login_id"));
-        $data->UserEmail = $request->input("UserEmail");
+        $data->email = $request->input("email");
         $data->birthday = date("Y-m-d", strtotime($request->input("birtydaypicker"))); // mm/dd/yyyy to yyyy-mm-dd
         $data->save();
         $model["success"] = "修改Email成功!!";

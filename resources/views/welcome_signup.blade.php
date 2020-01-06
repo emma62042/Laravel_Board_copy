@@ -33,13 +33,13 @@
 		        <tr>
 		        	<th>暱稱</th>
 		        	<td>
-		        		<input class="form-control" type="text" name="UserName" placeholder="未輸入將以id為暱稱" value="{{ isset($fail) ? $id : old('UserName') }}">
+		        		<input class="form-control" type="text" name="nickname" placeholder="未輸入將以id為暱稱" value="{{ isset($fail) ? $id : old('nickname') }}">
 		        	</td>
 		        </tr>
 		        <tr>
 		        	<th><span style="color:red;">*</span>E-mail</th>
 		        	<td>
-		        		<input class="form-control" type="text" name="UserEmail" value="{{ old('UserEmail') }}" required>
+		        		<input class="form-control" type="text" name="email" value="{{ old('email') }}" required>
 		        	</td>
 		        </tr>
 		        <tr>

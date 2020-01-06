@@ -36,7 +36,7 @@
         			<td data-th="Msg" class="text-break">{!! nl2br($row->msg) !!}</td>{{-- 加上text-break自動換行 --}}
         			{{-- <td data-th="創建時間">{{ $row->created_at }}</td> --}}
         			<td data-th="最後修改時間">{{ $row->updated_at }}</td>
-        			<td data-th="作者" scope="col" class="text-nowrap">{{ $row->UserName."(".$row->user_id.")" }}</td>
+        			<td data-th="作者" scope="col" class="text-nowrap">{{ $row->nickname."(".$row->user_id.")" }}</td>
                     @if(session("login_id"))
             			<td data-th="修改">
                             @if(session("login_id") == $row->user_id)

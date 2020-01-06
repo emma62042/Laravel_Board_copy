@@ -13,7 +13,7 @@
 	            <tr>
 	            	<th><span style="color:red;">*</span>修改email</th>
 	            	<td>
-	            		<input class="form-control" type="email" name="UserEmail" value="<?php echo e($UserEmail); ?>" required>
+	            		<input class="form-control" type="email" name="email" value="<?php echo e($email); ?>" required>
 	            	</td>
 	            </tr>
 	            <tr>

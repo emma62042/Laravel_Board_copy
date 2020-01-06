@@ -16,7 +16,7 @@
 	            <tr>
 	            	<th><span style="color:red;">*</span>修改email</th>
 	            	<td>
-	            		<input class="form-control" type="email" name="UserEmail" value="{{ $UserEmail }}" required>
+	            		<input class="form-control" type="email" name="email" value="{{ $email }}" required>
 	            	</td>
 	            </tr>
 	            <tr>

@@ -11,7 +11,7 @@ class Users extends BaseModel {
     protected $connection = "TestDb"; //資料庫名
     protected $primaryKey = "id"; //PK欄位
     protected $table = "Users"; //資料表名
-    protected $fillable = [	"id","UserName","UserEmail", "created_at", "updated_at",];//指定了可以被批量賦值的欄位(不一定要加)
+    protected $fillable = [	"id","nickname","email", "created_at", "updated_at",];//指定了可以被批量賦值的欄位(不一定要加)
     //$fillable would give you protection there 防止使用者直接改himl的input欄位造成id跳號，不在$fillable裡但是被create那會ignore, 用在Boards::create()
     
     public $incrementing = true; //primaryKey非自動遞增設為false
@@ -25,7 +25,7 @@ class Users extends BaseModel {
      */
     public static function findAll(){
         $data = DB::table("Users")
-        ->select("id", "UserName", "UserEmail");
+        ->select("id", "nickname", "email");
         
         return $data->get();
     }

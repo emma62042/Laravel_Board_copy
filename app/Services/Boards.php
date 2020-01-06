@@ -28,7 +28,7 @@ class Boards extends BaseModel {
     public static function findAll(){
         $data = DB::table("Boards as b")
         ->join("Users as u", "u.id", "=", "b.user_id")
-        ->select("b.msg_id", "b.title", "b.msg", "b.created_at", "b.updated_at", "b.user_id", "u.UserName")
+        ->select("b.msg_id", "b.title", "b.msg", "b.created_at", "b.updated_at", "b.user_id", "u.nickname")
         ->orderBy("b.updated_at", "desc");
 
         return $data->paginate(5);
@@ -44,7 +44,7 @@ class Boards extends BaseModel {
     public static function searchMsg(Request $request){
         $data = DB::table("Boards as b")
         ->join("Users as u", "u.id", "=", "b.user_id")
-        ->select("b.msg_id", "b.title", "b.msg", "b.created_at", "b.updated_at", "b.user_id", "u.UserName")
+        ->select("b.msg_id", "b.title", "b.msg", "b.created_at", "b.updated_at", "b.user_id", "u.nickname")
         ->where("b.title", "like", "%".$request->searchInput."%")
         ->orWhere("b.msg", "like", "%".$request->searchInput."%")
         ->orderBy("b.updated_at", "desc");
@@ -62,7 +62,7 @@ class Boards extends BaseModel {
     public static function myMsg($login_id){
         $data = DB::table("Boards as b")
         ->join("Users as u", "u.id", "=", "b.user_id")
-        ->select("b.msg_id", "b.title", "b.msg", "b.created_at", "b.updated_at", "b.user_id", "u.UserName")
+        ->select("b.msg_id", "b.title", "b.msg", "b.created_at", "b.updated_at", "b.user_id", "u.nickname")
         ->where("b.user_id", "=", $login_id)
         ->orderBy("b.updated_at", "desc");
 

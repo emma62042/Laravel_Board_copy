@@ -1,1 +1,1 @@
-a:4:{s:6:"_token";s:40:"zB38uvGXn3kf4lOeqrCGPPQ98ae9ZPZDKNnneUWm";s:9:"_previous";a:1:{s:3:"url";s:29:"http://localhost:8000/welcome";}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}s:10:"login_name";s:12:"生日測試";}
+a:5:{s:6:"_token";s:40:"zB38uvGXn3kf4lOeqrCGPPQ98ae9ZPZDKNnneUWm";s:9:"_previous";a:1:{s:3:"url";s:77:"http://localhost:8000/welcome/searchMsg?page=2&searchInput=%E6%B8%AC%E8%A9%A6";}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}s:10:"login_name";s:12:"生日測試";s:8:"login_id";s:4:"date";}
