@@ -81,6 +81,7 @@ center88留言板 with Laravel+Bootstrap
     gijgo的date是mm/dd/yyyy  
     ([mm/dd/yyyy to yyyy-mm-dd](https://stackoverflow.com/questions/3288257/how-to-convert-mm-dd-yyyy-to-yyyy-mm-dd))  
     ([yyyy-mm-dd to mm/dd/yyyy](https://stackoverflow.com/questions/2487921/convert-a-date-format-in-php))
+5. 改掉Users表裡的UserName->nickname跟UserEmail->email
 
 ##
 未做工作:  
