@@ -20,8 +20,7 @@ use Illuminate\Support\Facades\DB;
 use App\Services\Users; 
 use App\Services\Boards;
 
-class WelcomeController extends Controller
-{
+class WelcomeController extends Controller {
     /**
      * [index]--resource自帶的呼叫function
      * 首頁畫面
@@ -31,7 +30,7 @@ class WelcomeController extends Controller
      *          2.dataList:全部留言
      *          3.success、fail:如果有成功或失敗的alert，用model傳出
      */
-    public function index(Request $request){
+    public function index(Request $request) {
         #param
         $view = "welcome_index";
 
@@ -385,6 +384,12 @@ class WelcomeController extends Controller
         }
     }
 
+    /**
+     * [modifyInfo]
+     * @param  Request $request ["email", "birthday"]
+     * @return view:welcome_index.blade.php
+     *         1.success:回傳成功訊息
+     */
     public function modifyInfo(Request $request) {
         #後端驗證
         request()->validate([

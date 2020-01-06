@@ -33,8 +33,7 @@
         			<td data-th="#" scope="col" class="text-nowrap">{{ $msg_number }}</td>
         			<td data-th="Msg id" scope="col" class="text-nowrap">{{ $row->msg_id }}</td>
         			<td data-th="Title" scope="col" class="text-nowrap">{{ $row->title }}</td>
-        			<td data-th="Msg" class="text-break">{!! nl2br($row->msg) !!}</td>{{-- 加上text-break自動換行 --}}
-        			{{-- <td data-th="創建時間">{{ $row->created_at }}</td> --}}
+        			<td data-th="Msg" class="text-break">{!! nl2br($row->msg) !!}</td> {{-- 加上text-break自動換行 --}}
         			<td data-th="最後修改時間">{{ $row->updated_at }}</td>
         			<td data-th="作者" scope="col" class="text-nowrap">{{ $row->nickname."(".$row->user_id.")" }}</td>
                     @if(session("login_id"))
@@ -49,7 +48,8 @@
     						<td data-th="刪除">
                                 @if(session("login_id") == $row->user_id)
                  					<input name="_method" type="hidden" value="delete">
-        							<input name="_token" type="hidden" value="{{ csrf_token() }}" /> {{-- 保護您的應用程式不受到 CSRF (跨網站請求偽造) 攻擊 --}}
+                                    {{-- 保護您的應用程式不受到 CSRF (跨網站請求偽造) 攻擊 --}}
+        							<input name="_token" type="hidden" value="{{ csrf_token() }}" /> 
         							<button class="btn btn-secondary" type="submit">Delete</button>
                                 @endif
                  			</td>
@@ -62,7 +62,7 @@
         {{-- 分頁頁碼 Laravel寫好了 按鈕+功能, links括號裡是頁碼的php, 目前用預設的, 在resourse/view/vendor裡 --}}
         {{-- links("vendor.pagination.檔名") --}}
         {{-- 好像也可以自己做css, 還沒研究 --}}
-            {{-- 搜尋模式:因為用get, 要加上appends(array("searchInput" => $searchInput)), 網址列才可以保留搜尋的get --}}
+            {{-- 搜尋模式:因為"用get", 要加上appends(array("searchInput" => $searchInput)), 網址列才可以保留搜尋的get --}}
             {{-- ex. http://localhost:8000/welcome/searchMsg?searchInput=測試&page=2 --}}
         {!! isset($searchList) ? $msgList->appends(array("searchInput"=>$searchInput))->links("vendor.pagination.complicated-bootstrap-4") : $msgList->links("vendor.pagination.complicated-bootstrap-4") !!}
     @endif

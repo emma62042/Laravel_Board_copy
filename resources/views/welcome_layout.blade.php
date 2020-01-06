@@ -2,26 +2,26 @@
 <!DOCTYPE html>
 <html lang="tw">
 	<head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <!-- 掛載CSS樣式 -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        {{-- 掛載CSS樣式 --}}
         
 	    <link rel="stylesheet" href="/bootstrap-4.4.1-dist/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" href="/open-iconic-master/font/css/open-iconic-bootstrap.css"/>
-	    <link rel="stylesheet" href="/gijgo/css/gijgo.min.css"/><!-- date css -->
-	    <link rel="stylesheet" href="/css/rwd_table.css"/><!-- table rwd -->
-	    <link rel="stylesheet" href="/css/background.css"/><!-- background css -->
+	    <link rel="stylesheet" href="/gijgo/css/gijgo.min.css"/> {{-- gijgo datepicker css --}}
+	    <link rel="stylesheet" href="/css/rwd_table.css"/> {{-- table rwd --}}
+	    <link rel="stylesheet" href="/css/background.css"/> {{-- background css --}}
 
-	    <!-- 掛載JS樣式 -->
+	    {{-- 掛載JS樣式 --}}
 	    <script src="/js/jquery-3.4.1.min.js"></script>
 	    <script src="/js/jquery-validation-1.19.1/dist/jquery.validate.min.js"></script>
 	    <script src="/js/jquery-validation-1.19.1/dist/localization/messages_zh_TW.js"></script>
 
-	    <!-- bootstarp有用到jQuery的js, 所以要放在jquery後面 -->
+	    {{-- bootstarp有用到jQuery的js, 所以要放在jquery後面 --}}
 	    <script src="/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script> 
 	    <script src="/bootstrap-4.4.1-dist/js/bootstrap.js"></script>
-	    <script src="/gijgo/js/gijgo.min.js"></script> <!-- date js -->
+	    <script src="/gijgo/js/gijgo.min.js"></script> {{-- gijgo datepicker js --}}
 
-	    <!-- 前端驗證 jquery validated -->
+	    {{-- 前端驗證 jquery validated --}}
 	    <script>
 	    	$(document).ready(function(){
 	    		//由controller發送alert
@@ -36,13 +36,12 @@
 
 	    		//註冊頁面驗證:帳號重複、密碼重複驗證
             	$("#signupForm").validate({
-	            	//debug:true,
 	            	rules:{
 	            		id:{ 
 	                        remote:{
 	                            url:"{{ action('WelcomeController@signup') }}",
 	                            type:"post",
-	                            data:{
+	                            data:{ //post到signup的request
 	                            	id:function(){
 	                                	return $("#id").val();
 	                            	},
@@ -51,13 +50,13 @@
 	                            	},
 	                            	_token:function() {
 	                            		return "{{ csrf_token() }}";
-	                            	}
+	                            	},
 								}
 							}  
 						},
 	                	password_confirmation:{
 					    	equalTo: "#password"
-					    }
+					    },
 	        		},
 	        		messages:{
 	        			id:{
@@ -65,7 +64,7 @@
 	        			},
 	    				password_confirmation:{
 	    					equalTo:"密碼驗證不符!" //同rule的function名稱 ex. equalTo/remote/required...
-	    				}
+	    				},
 	    			}
 	            });
 	            
@@ -75,16 +74,16 @@
 	            	rules:{
 	                	password_confirmation:{
 					    	equalTo: "#password"
-					    }
+					    },
 	        		},
 	        		messages:{
 	        			password_confirmation:{
-	    					equalTo:"密碼驗證不符!" //同rule的function名稱 ex. equalTo/remote/required...
-	    				}
+	    					equalTo:"密碼驗證不符!"
+	    				},
 	    			}
 	            });
 
-	            //日期選單gijgo
+	            //日期選單gijgo datepicker
 	            $("#birtydaypicker").datepicker({
 		            uiLibrary: "bootstrap4",
 		            /*icons: {
@@ -133,12 +132,12 @@
 			{{-- 導覽列 --}}
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
     			<a class="navbar-brand">留言板</a>
-    			{{-- 搜尋功能用get --}}
+    			{{-- 搜尋功能(用get) --}}
     			<form class="form-inline mr-auto" action="{{ action('WelcomeController@searchMsg') }}" method="get">
 					<input class="form-control mr-sm-2" type="search" placeholder="Search title or msg" name="searchInput" value="{{ isset($searchInput) ? $searchInput : '' }}">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 				</form>
-				{{-- 會員功能:新增留言 --}}
+				{{-- 會員功能:新增留言|修改密碼|修改會員資料|我的留言 --}}
     			@if(session("login_id"))
 					<a class="navbar-brand">會員專區</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

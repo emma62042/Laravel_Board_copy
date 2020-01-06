@@ -45,7 +45,8 @@
 		        <tr>
 		        	<th>生日</th>
 		        	<td>
-		        		<input id="birtydaypicker" name="birtydaypicker" value="01/31/1995">
+		        		{{-- 使用gijgo的datepicker,header有jquery --}}
+		        		<input id="birtydaypicker" name="birtydaypicker" value="01/31/1995"> 
 		        	</td>
 		        </tr>
 		        <tr>

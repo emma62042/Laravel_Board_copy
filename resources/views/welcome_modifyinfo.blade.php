@@ -22,6 +22,7 @@
 	            <tr>
 		        	<th>修改生日</th>
 		        	<td>
+		        		{{-- 使用gijgo的datepicker,header有jquery --}}
 		        		<input id="birtydaypicker" name="birtydaypicker" value="{{ $birthday }}">
 		        	</td>
 		        </tr>
