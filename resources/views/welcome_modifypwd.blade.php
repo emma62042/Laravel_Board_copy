@@ -1,4 +1,4 @@
-{{-- 登入畫面 --}}
+{{-- 修改密碼畫面 --}}
 @extends("welcome_layout")
 
 @section("title")
