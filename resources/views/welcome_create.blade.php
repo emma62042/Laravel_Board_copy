@@ -15,14 +15,13 @@
                 <form class="form1 col col-md-8" name="form1" method="post" action="{{ ($msg_id != '') ? action('WelcomeController@update', ['msg_id'=>$msg_id]) : 'new_a_msg' }}">
                     <input name="_token" type="hidden" value="{{ csrf_token() }}">
                     <input name="_method" type="hidden" value="put">
-                    <input name="backUrl" type="hidden" value="{{ url()->previous() }}"> {{-- 紀錄上一頁的url(SearchMsg/MyMsg/AllMsg) --}}
                     <div class="form-group">
                         <label for="Title"><span style="color:red;">*</span>Title</label>
-                        <input type="text" class="form-control" name="Title" placeholder="請輸入標題" value="{{ isset($title) ? $title : old('Title') }}">
+                        <input type="text" class="form-control" name="Title" placeholder="請輸入標題" value="{{ isset($title) ? $title : old('Title') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="Msg"><span style="color:red;">*</span>Msg</label>
-                        <textarea type="text" class="form-control" name="Msg" style="height:100px;" placeholder="請輸入留言" >{{ isset($msg) ? $msg : old("Msg") }}</textarea>
+                        <textarea type="text" class="form-control" name="Msg" style="height:100px;" placeholder="請輸入留言" required>{{ isset($msg) ? $msg : old("Msg") }}</textarea>
                     </div>
                     <div class="form-group d-flex justify-content-md-center">
                         <button type="submit" class="btn btn-primary">Save</button>

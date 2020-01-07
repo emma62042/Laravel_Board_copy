@@ -30,19 +30,20 @@
 		        <tr>
 		        	<th>暱稱</th>
 		        	<td>
-		        		<input class="form-control" type="text" name="UserName" placeholder="未輸入將以id為暱稱" value="<?php echo e(isset($fail) ? $id : old('UserName')); ?>">
+		        		<input class="form-control" type="text" name="nickname" placeholder="未輸入將以id為暱稱" value="<?php echo e(isset($fail) ? $id : old('nickname')); ?>">
 		        	</td>
 		        </tr>
 		        <tr>
 		        	<th><span style="color:red;">*</span>E-mail</th>
 		        	<td>
-		        		<input class="form-control" type="text" name="UserEmail" value="<?php echo e(old('UserEmail')); ?>" required>
+		        		<input class="form-control" type="text" name="email" value="<?php echo e(old('email')); ?>" required>
 		        	</td>
 		        </tr>
 		        <tr>
 		        	<th>生日</th>
 		        	<td>
-		        		<input id="birtydaypicker" name="birtydaypicker" value="01/31/1995">
+		        		
+		        		<input id="birtydaypicker" name="birtydaypicker" value="<?php echo e(isset($birthday) ? $birthday : ((old('birtydaypicker') != NULL) ? old('birtydaypicker') : '01/31/1995')); ?>"> 
 		        	</td>
 		        </tr>
 		        <tr>

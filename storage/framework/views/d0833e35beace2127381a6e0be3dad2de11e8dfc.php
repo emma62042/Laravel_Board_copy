@@ -15,11 +15,11 @@
                     <input name="backUrl" type="hidden" value="<?php echo e(url()->previous()); ?>"> 
                     <div class="form-group">
                         <label for="Title"><span style="color:red;">*</span>Title</label>
-                        <input type="text" class="form-control" name="Title" placeholder="請輸入標題" value="<?php echo e(isset($title) ? $title : old('Title')); ?>">
+                        <input type="text" class="form-control" name="Title" placeholder="請輸入標題" value="<?php echo e(isset($title) ? $title : old('Title')); ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="Msg"><span style="color:red;">*</span>Msg</label>
-                        <textarea type="text" class="form-control" name="Msg" style="height:100px;" placeholder="請輸入留言" ><?php echo e(isset($msg) ? $msg : old("Msg")); ?></textarea>
+                        <textarea type="text" class="form-control" name="Msg" style="height:100px;" placeholder="請輸入留言" required><?php echo e(isset($msg) ? $msg : old("Msg")); ?></textarea>
                     </div>
                     <div class="form-group d-flex justify-content-md-center">
                         <button type="submit" class="btn btn-primary">Save</button>

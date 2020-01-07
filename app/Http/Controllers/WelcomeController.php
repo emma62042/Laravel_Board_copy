@@ -5,7 +5,6 @@
  * @history
  * 	    center69-陳煜珊 2019/06/05 增加註解及驗證
  *      center88-吳宜芬 2019/12/31 修改及增加註解
- *      center88-吳宜芬 2020/01/06 新增刪除修改會回到前一個頁面，其他的回到index
  *      center88-吳宜芬 2020/01/06 加註解
  * ----------------------------------------------------------------
  */
@@ -23,12 +22,10 @@ use App\Services\Boards;
 class WelcomeController extends Controller {
     /**
      * [index]--resource自帶的呼叫function
-     * 首頁畫面
+     * 首頁畫面:顯示所有留言
      * @param  Request $request [nothing]
      * @return  view:index.blade.php
-     *          1.login_id、login_name:登入有id跟name
-     *          2.dataList:全部留言
-     *          3.success、fail:如果有成功或失敗的alert，用model傳出
+     *          1.dataList:全部留言
      */
     public function index(Request $request) {
         #param
@@ -42,26 +39,26 @@ class WelcomeController extends Controller {
         //$dataList = DB::all();//way3-使用Laravel的ORM方法
         
         #傳遞到顯示的blade
-        $model["login_id"] = $request->session()->get("login_id");
-        $model["login_name"] = $request->session()->get("login_name");
         $model["dataList"] = $dataList;
         return view($view, $model);
     }
     
     /**
      * [create 新增]--resource自帶的呼叫function
+     * >>按鈕在layout navbar
      * 直接送到 edit
      * @param  Request $request [nothing]
      * @return  送到edit
-     *          1.$request:目前都沒有
+     *          1.$request:nothing
      *          2.不帶key值(用來判斷新增key=null或修改key=id)
      */
     public function create(Request $request) {
-        return $this->edit($request, null);//null=>create 沒有key，所以不需要帶入值
+        return $this->edit($request, null); //key=null : create 沒有key，所以不需要帶入值
     }
     
     /**
      * [edit 修改]--resource自帶的呼叫function
+     * >>按鈕在index table
      * 要進入須先登入
      * 未登入顯示alert並保持原頁面不跳頁
      * 判斷是新增或修改留言，並傳送要顯示的標題、留言，導向至create view
@@ -91,6 +88,7 @@ class WelcomeController extends Controller {
     
     /**
      * [update 新增修改]--resource自帶的呼叫function
+     * >>按鈕在create submit
      * 從create view接收post回來的資料，判斷是新增或修改留言
      * 並寫入標題、留言、作者進資料庫，
      * 將一些alert放入session, 導向至index view
@@ -104,8 +102,8 @@ class WelcomeController extends Controller {
     public function update(Request $request, $key) {
         #後端確認input有值、最短最長
         request()->validate([
-            "Title"=>["required", "min:3", "max:255"],
-            "Msg"=>["required", "min:3"]
+            "Title"=>["required", "min:2", "max:255"],
+            "Msg"=>["required", "min:2"]
         ]);
         #取得傳遞過來的資料
         $title = ($request->has("Title")) ? $request->input("Title") :NULL;
@@ -122,7 +120,7 @@ class WelcomeController extends Controller {
         if($title != "" && $msg != ""){
             $data->title = $title;
             $data->msg = $msg;
-            $data->user_id = $request->session()->has("login_id") ? $request->session()->get("login_id") : 3 ;
+            $data->user_id = $request->session()->get("login_id");
         }
 
         #save
@@ -134,13 +132,12 @@ class WelcomeController extends Controller {
         }else{
             $model["success"] = "Edit Finish!";
         }
-
-        //回到新增修改頁面的上一頁
-        return Redirect::to($request->input("backUrl"))->with($model); //放$model到session裡
+        return Redirect::to("welcome")->with($model); //放$model到session裡
     }
 
     /**
      * [destroy 刪除]--resource自帶的呼叫function
+     * >>按鈕在index table
      * 刪除留言，需要msg_id
      * @param  Request $request [nothing]
      * @param  [type]  $key     [msg_id]
@@ -158,6 +155,7 @@ class WelcomeController extends Controller {
     
     /**
      * [searchMsg 查詢]
+     * >>按鈕在layout navbar
      * 搜尋標題或內容
      * 跟首頁共用頁面
      * @param  Request $request ["searchInput"]
@@ -181,6 +179,7 @@ class WelcomeController extends Controller {
 
     /**
      * [loginView 登入]
+     * >>按鈕在layout sign
      * 導向至login view
      * @return view:welcome_login.blade.php
      */
@@ -190,6 +189,7 @@ class WelcomeController extends Controller {
     
     /**
      * [login]
+     * >>按鈕在login submit
      * 從login view接收post回來的資料，判斷登入成功與否
      * @param  Request $request ["id", "password"]
      * @return 登入成功:
@@ -211,9 +211,7 @@ class WelcomeController extends Controller {
 
         $view = "welcome_login";
         $data = Users::login($request->input("id"), $request->input("password")); //id+驗證
-        //$data = Users::idCheck($request->input("id")); //id驗證
-        //password解密驗證
-        //if($data && password_verify($request->input("password"), $data->password)){
+        
         if($data){
             $model["success"] = "login success!";
             $request->session()->put("login_id", $data->id);
@@ -228,6 +226,7 @@ class WelcomeController extends Controller {
 
     /**
      * [logout 登出]
+     * >>按鈕在layout sign
      * 登出,需要login_id,從session拿
      * @param  Request $request [nothing]
      * @return view:welcome_index.blade.php
@@ -241,6 +240,7 @@ class WelcomeController extends Controller {
     
     /**
      * [signupView 註冊]
+     * >>按鈕在login 最下面
      * 導向至signup view
      * >>前端帳號驗證jQuery validate remote url
      * >>$request->input("checkid")=="1"進入驗證
@@ -253,6 +253,7 @@ class WelcomeController extends Controller {
 
     /**
      * [signup]
+     * >>按鈕在signup submit
      * 從login view接收post回來的資料，判斷註冊成功與否
      * 檢查:id不重複,password確認
      * 存入資料庫
@@ -289,11 +290,12 @@ class WelcomeController extends Controller {
         $check = Users::idCheck($request->input("id"));
 
         #帳號確認完成，開始註冊
+        //true:new一個帳號，密碼加密，save
+        //false:可保留資訊保留，回傳錯誤訊息
         if($check == NULL && $request->input("password") == $request->input("password_confirmation")){
             $data = new Users();
             $data->id = $request->input("id");
-            //$data->password = $request->input("password");
-            $data->password = password_hash($request->input("password"), PASSWORD_BCRYPT);
+            $data->password = password_hash($request->input("password"), PASSWORD_BCRYPT); //加密
             $data->nickname = ($request->input("nickname") != "") ? $request->input("nickname") : $request->input("id");
             $data->email = $request->input("email");
             $data->birthday = date("Y-m-d", strtotime($request->input("birtydaypicker"))); //mm/dd/yyyy to yyyy-mm-dd
@@ -305,6 +307,7 @@ class WelcomeController extends Controller {
             $model["id"] = $request->input("id");
             $model["nickname"] = $request->input("nickname");
             $model["email"] = $request->input("email");
+            $model["birthday"] = $request->input("birthday");
             if($check != NULL){
                 $model["fail"] .= "<br/>帳號已被使用";
             }
@@ -317,6 +320,7 @@ class WelcomeController extends Controller {
 
     /**
      * [modifyPwdView 修改密碼]
+     * >>按鈕在layout navbar
      * 導向至modifyPwd view
      * @return view:welcome_modifyPwd.blade.php
      */
@@ -330,6 +334,7 @@ class WelcomeController extends Controller {
 
     /**
      * [modifyPwd]
+     * >>按鈕在modifyPwd submit
      * 確認密碼並修改密碼
      * @param  Request $request ["old_password", "password", "password_confirmation"]
      * @return 成功:
@@ -369,6 +374,7 @@ class WelcomeController extends Controller {
 
     /**
      * [modifyInfoView 修改會員資料]
+     * >>按鈕在layout navbar
      * @return view:welcome_modifyInfo.blade.php
      *         1.email:會員email
      *         2.birthday:會員生日
@@ -386,9 +392,10 @@ class WelcomeController extends Controller {
 
     /**
      * [modifyInfo]
+     * >>按鈕在modifyInfo submit
      * @param  Request $request ["email", "birthday"]
      * @return view:welcome_index.blade.php
-     *         1.success:回傳成功訊息
+     *         1.success:回傳修改資料成功訊息
      */
     public function modifyInfo(Request $request) {
         #後端驗證
@@ -408,6 +415,7 @@ class WelcomeController extends Controller {
 
     /**
      * [myMsg 我的留言]
+     * >>按鈕在layout navbar
      * 跟首頁共用頁面
      * @param  Request $request [nothing]
      * @return view:welcome_index.blade.php

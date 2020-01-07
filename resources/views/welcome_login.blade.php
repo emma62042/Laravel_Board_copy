@@ -34,7 +34,7 @@
 	    </div>
     </form>  
 
-    {{-- 無帳號去註冊 --}}   
+    {{-- 無帳號去註冊→ --}}   
     <div style="text-align:center; margin:5px;">
         <button class="btn btn-secondary" onclick="location.href='{{ action('WelcomeController@signupView') }}'">
         	去註冊→

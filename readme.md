@@ -84,6 +84,12 @@ center88留言板 with Laravel+Bootstrap
 5. 改掉Users表裡的UserName->nickname跟UserEmail->email
 6. 整理註解
 
+## 2020/1/7
+*  發現"back()"如果發生錯誤回到create view 就回不去上一頁了
+1. 改掉create回上頁，直接回首頁
+2. 加上註解，去掉註解的程式
+3. 整理註解
+
 ##
 未做工作:  
 * 頁碼功能√

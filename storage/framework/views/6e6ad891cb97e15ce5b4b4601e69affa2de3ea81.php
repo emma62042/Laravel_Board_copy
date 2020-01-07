@@ -2,26 +2,26 @@
 <!DOCTYPE html>
 <html lang="tw">
 	<head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <!-- 掛載CSS樣式 -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        
         
 	    <link rel="stylesheet" href="/bootstrap-4.4.1-dist/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" href="/open-iconic-master/font/css/open-iconic-bootstrap.css"/>
-	    <link rel="stylesheet" href="/gijgo/css/gijgo.min.css"/><!-- date css -->
-	    <link rel="stylesheet" href="/css/rwd_table.css"/><!-- table rwd -->
-	    <link rel="stylesheet" href="/css/background.css"/><!-- background css -->
+	    <link rel="stylesheet" href="/gijgo/css/gijgo.min.css"/> 
+	    <link rel="stylesheet" href="/css/rwd_table.css"/> 
+	    <link rel="stylesheet" href="/css/background.css"/> 
 
-	    <!-- 掛載JS樣式 -->
+	    
 	    <script src="/js/jquery-3.4.1.min.js"></script>
 	    <script src="/js/jquery-validation-1.19.1/dist/jquery.validate.min.js"></script>
 	    <script src="/js/jquery-validation-1.19.1/dist/localization/messages_zh_TW.js"></script>
 
-	    <!-- bootstarp有用到jQuery的js, 所以要放在jquery後面 -->
+	    
 	    <script src="/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script> 
 	    <script src="/bootstrap-4.4.1-dist/js/bootstrap.js"></script>
-	    <script src="/gijgo/js/gijgo.min.js"></script> <!-- date js -->
+	    <script src="/gijgo/js/gijgo.min.js"></script> 
 
-	    <!-- 前端驗證 jquery validated -->
+	    
 	    <script>
 	    	$(document).ready(function(){
 	    		//由controller發送alert
@@ -36,13 +36,12 @@
 
 	    		//註冊頁面驗證:帳號重複、密碼重複驗證
             	$("#signupForm").validate({
-	            	//debug:true,
 	            	rules:{
 	            		id:{ 
 	                        remote:{
 	                            url:"<?php echo e(action('WelcomeController@signup')); ?>",
 	                            type:"post",
-	                            data:{
+	                            data:{ //post到signup的request
 	                            	id:function(){
 	                                	return $("#id").val();
 	                            	},
@@ -51,13 +50,13 @@
 	                            	},
 	                            	_token:function() {
 	                            		return "<?php echo e(csrf_token()); ?>";
-	                            	}
+	                            	},
 								}
 							}  
 						},
 	                	password_confirmation:{
 					    	equalTo: "#password"
-					    }
+					    },
 	        		},
 	        		messages:{
 	        			id:{
@@ -65,7 +64,7 @@
 	        			},
 	    				password_confirmation:{
 	    					equalTo:"密碼驗證不符!" //同rule的function名稱 ex. equalTo/remote/required...
-	    				}
+	    				},
 	    			}
 	            });
 	            
@@ -75,22 +74,30 @@
 	            	rules:{
 	                	password_confirmation:{
 					    	equalTo: "#password"
-					    }
+					    },
 	        		},
 	        		messages:{
 	        			password_confirmation:{
-	    					equalTo:"密碼驗證不符!" //同rule的function名稱 ex. equalTo/remote/required...
-	    				}
+	    					equalTo:"密碼驗證不符!"
+	    				},
 	    			}
 	            });
 
-	            //日期選單gijgo
+	            //日期選單gijgo datepicker
 	            $("#birtydaypicker").datepicker({
 		            uiLibrary: "bootstrap4",
 		            /*icons: {
 		           		rightIcon: "<span class='oi oi-calendar' title='calendar'></span>"
 		   			},*/
 		        });
+
+		        //刪除確認
+		        $(".form_del").submit(function(){
+					if(confirm("確定要刪除嗎?"))
+						return true;
+					else
+						return false;
+				});
             });
         </script>
         <style>
@@ -128,7 +135,6 @@
 					<a class="display-4 text-decoration-none text-reset" href="/welcome">CENTER 88 留言板</a>
 				</div>
 			</div>
-
 
 			
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">

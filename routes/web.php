@@ -10,9 +10,21 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+/*
+|--------------------------------------------------------------------------
+| resource
+|--------------------------------------------------------------------------
+| index 	| 首頁:顯示所有留言
+| create 	| 新增:to edit with key=null
+| store 	| 
+| show 		| 
+| edit 		| 修改:呼叫新增與修改的View
+| update  	| 執行新增與修改
+| destroy 	| 刪除:執行刪除留言
+*/
 
 Route::get("/", "WelcomeController@index");
-Route::resource("/welcome", "WelcomeController", ["except" => ["show"]]);//except method post+key預設是show,為了delete
+Route::resource("/welcome", "WelcomeController", ["except" => ["show"]]); //except method get+key預設是show
 
 //搜尋
 Route::get("/welcome/searchMsg", "WelcomeController@searchMsg");

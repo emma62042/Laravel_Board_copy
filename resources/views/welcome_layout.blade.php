@@ -90,6 +90,14 @@
 		           		rightIcon: "<span class='oi oi-calendar' title='calendar'></span>"
 		   			},*/
 		        });
+
+		        //刪除確認
+		        $(".form_del").submit(function(){
+					if(confirm("確定要刪除嗎?"))
+						return true;
+					else
+						return false;
+				});
             });
         </script>
         <style>
@@ -127,7 +135,6 @@
 					<a class="display-4 text-decoration-none text-reset" href="/welcome">CENTER 88 留言板</a>
 				</div>
 			</div>
-
 
 			{{-- 導覽列 --}}
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">

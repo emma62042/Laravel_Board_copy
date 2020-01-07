@@ -3,7 +3,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection("content"); ?>
-    <h2 style="text-align:center;">Modify Password</h2>
+    <h2 class="display-4" style="text-align:center; margin-bottom:30px;">Modify Password</h2>
 
     
     <form id="modifyPwdForm" method="post" action="<?php echo e(action('WelcomeController@modifyPwd')); ?>">
@@ -19,7 +19,7 @@
 	            <tr>
 	            	<th><span style="color:red;">*</span>新密碼</th>
 	            	<td>
-	            		<input class="form-control" type="password" name="password" required>
+	            		<input id="password" class="form-control" type="password" name="password" required>
 	            	</td>
 	            </tr>
 	            <tr>

@@ -46,7 +46,7 @@
 		        	<th>生日</th>
 		        	<td>
 		        		{{-- 使用gijgo的datepicker,header有jquery --}}
-		        		<input id="birtydaypicker" name="birtydaypicker" value="01/31/1995"> 
+		        		<input id="birtydaypicker" name="birtydaypicker" value="{{ isset($birthday) ? $birthday : ((old('birtydaypicker') != NULL) ? old('birtydaypicker') : '01/31/1995')}}"> 
 		        	</td>
 		        </tr>
 		        <tr>

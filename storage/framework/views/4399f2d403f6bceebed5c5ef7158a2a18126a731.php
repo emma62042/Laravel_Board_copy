@@ -19,6 +19,7 @@
 	            <tr>
 		        	<th>修改生日</th>
 		        	<td>
+		        		
 		        		<input id="birtydaypicker" name="birtydaypicker" value="<?php echo e($birthday); ?>">
 		        	</td>
 		        </tr>
