@@ -89,6 +89,8 @@ center88留言板 with Laravel+Bootstrap
 1. 改掉create回上頁，直接回首頁
 2. 加上註解，去掉註解的程式
 3. 整理註解
+4. gijgo的日期格式轉換其實用format就好([gijgo格式轉換](https://gijgo.com/datepicker/configuration/minDate))
+5. 生日可null
 
 ##
 未做工作:  

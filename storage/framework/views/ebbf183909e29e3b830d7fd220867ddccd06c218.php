@@ -43,7 +43,7 @@
 		        	<th>生日</th>
 		        	<td>
 		        		
-		        		<input id="birtydaypicker" name="birtydaypicker" value="<?php echo e(isset($birthday) ? $birthday : ((old('birtydaypicker') != NULL) ? old('birtydaypicker') : '01/31/1995')); ?>"> 
+		        		<input id="birtydaypicker" name="birtydaypicker" value="<?php echo e(isset($birthday) ? $birthday : ((old('birtydaypicker') != NULL) ? old('birtydaypicker') : '1995-01-31')); ?>"> 
 		        	</td>
 		        </tr>
 		        <tr>

@@ -12,7 +12,6 @@
                 <form class="form1 col col-md-8" name="form1" method="post" action="<?php echo e(($msg_id != '') ? action('WelcomeController@update', ['msg_id'=>$msg_id]) : 'new_a_msg'); ?>">
                     <input name="_token" type="hidden" value="<?php echo e(csrf_token()); ?>">
                     <input name="_method" type="hidden" value="put">
-                    <input name="backUrl" type="hidden" value="<?php echo e(url()->previous()); ?>"> 
                     <div class="form-group">
                         <label for="Title"><span style="color:red;">*</span>Title</label>
                         <input type="text" class="form-control" name="Title" placeholder="請輸入標題" value="<?php echo e(isset($title) ? $title : old('Title')); ?>" required>

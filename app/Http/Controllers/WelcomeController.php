@@ -242,9 +242,6 @@ class WelcomeController extends Controller {
      * [signupView 註冊]
      * >>按鈕在login 最下面
      * 導向至signup view
-     * >>前端帳號驗證jQuery validate remote url
-     * >>$request->input("checkid")=="1"進入驗證
-     * >>無重複帳號回傳ture
      * @return view:welcome_signup.blade.php
      */
     public function signupView() {
@@ -298,7 +295,7 @@ class WelcomeController extends Controller {
             $data->password = password_hash($request->input("password"), PASSWORD_BCRYPT); //加密
             $data->nickname = ($request->input("nickname") != "") ? $request->input("nickname") : $request->input("id");
             $data->email = $request->input("email");
-            $data->birthday = date("Y-m-d", strtotime($request->input("birtydaypicker"))); //mm/dd/yyyy to yyyy-mm-dd
+            $data->birthday = $request->input("birtydaypicker");
             $data->save();
             $model["success"] = "signup success!<br/>請登入";
             return view("welcome_login", $model);
@@ -307,7 +304,7 @@ class WelcomeController extends Controller {
             $model["id"] = $request->input("id");
             $model["nickname"] = $request->input("nickname");
             $model["email"] = $request->input("email");
-            $model["birthday"] = $request->input("birthday");
+            $model["birthday"] = $request->input("birtydaypicker");
             if($check != NULL){
                 $model["fail"] .= "<br/>帳號已被使用";
             }
@@ -383,7 +380,7 @@ class WelcomeController extends Controller {
         if(session()->has("login_id")){
             $data = Users::find(session("login_id"));
             $model["email"] = $data->email;
-            $model["birthday"] = date("m/d/Y", strtotime($data->birthday)); // yyyy-mm-dd to mm/dd/yyyy 
+            $model["birthday"] = $data->birthday; 
             return view("welcome_modifyinfo", $model);
         }else{
             return redirect()->back()->with("alert", "請先登入!"); //保持原頁面，傳送alert msg
@@ -407,9 +404,9 @@ class WelcomeController extends Controller {
         $view = "welcome_modifyinfo";
         $data = Users::find(session("login_id"));
         $data->email = $request->input("email");
-        $data->birthday = date("Y-m-d", strtotime($request->input("birtydaypicker"))); // mm/dd/yyyy to yyyy-mm-dd
+        $data->birthday = $request->input("birtydaypicker");
         $data->save();
-        $model["success"] = "修改Email成功!!";
+        $model["success"] = "修改會員資料成功!!";
         return Redirect::to("welcome")->with($model);
     }
 

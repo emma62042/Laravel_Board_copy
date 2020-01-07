@@ -85,6 +85,8 @@
 
 	            //日期選單gijgo datepicker
 	            $("#birtydaypicker").datepicker({
+	            	format: 'yyyy-mm-dd',
+	            	minDate: "1900-01-01",
 		            uiLibrary: "bootstrap4",
 		            /*icons: {
 		           		rightIcon: "<span class='oi oi-calendar' title='calendar'></span>"
