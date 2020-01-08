@@ -113,7 +113,7 @@
 		<div class="container">
 			{{-- 最上排登入登出 --}}
 			<div class="sign d-flex justify-content-end">
-				<ul class="list-inline">
+				<ul class="list-inline mt-1">
 					@if(session("login_id"))
 						<li class="list-inline-item">welcome {{ session("login_name") }} (id = {{ session("login_id") }})</li>
 						<li class="list-inline-item">
@@ -131,10 +131,15 @@
 				</ul>
 			</div>
 
-			{{-- center 88 留言板 Card --}}
+			{{-- center 88 留言板 Card+media --}}
 			<div class="card text-white bg-secondary mb-3">
 				<div class="card-body">
-					<a class="display-4 text-decoration-none text-reset" href="/welcome">CENTER 88 留言板</a>
+					<div class="media">
+						<img class="mr-3" src="/img/post-it.png" style="width: 10%; height: 10%;" alt="Generic placeholder image">
+						<div class="align-self-center media-body">
+							<a class="display-4 text-decoration-none text-reset" href="/welcome">CENTER 88 留言板</a>
+						</div>
+					</div>
 				</div>
 			</div>
 

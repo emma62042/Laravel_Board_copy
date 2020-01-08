@@ -113,7 +113,7 @@
 		<div class="container">
 			
 			<div class="sign d-flex justify-content-end">
-				<ul class="list-inline">
+				<ul class="list-inline mt-1">
 					<?php if(session("login_id")): ?>
 						<li class="list-inline-item">welcome <?php echo e(session("login_name")); ?> (id = <?php echo e(session("login_id")); ?>)</li>
 						<li class="list-inline-item">
@@ -134,7 +134,12 @@
 			
 			<div class="card text-white bg-secondary mb-3">
 				<div class="card-body">
-					<a class="display-4 text-decoration-none text-reset" href="/welcome">CENTER 88 留言板</a>
+					<div class="media">
+						<img class="mr-3" src="/img/post-it.png" style="width: 10%; height: 10%;" alt="Generic placeholder image">
+						<div class="align-self-center media-body">
+							<a class="display-4 text-decoration-none text-reset" href="/welcome">CENTER 88 留言板</a>
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -155,10 +160,10 @@
 		    		
 		    		<div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent"> 
 		            	<ul class="navbar-nav text-right"> 
-		        			<li class="nav-item"><a class="nav-link" href="/welcome/create">新增留言</a></li>
-		        			<li class="nav-item"><a class="nav-link" href="/welcome/modifyPwd">修改密碼</a></li>
-		        			<li class="nav-item"><a class="nav-link" href="/welcome/modifyInfo">修改會員資料</a></li>
-		        			<li class="nav-item"><a class="nav-link" href="/welcome/myMsg">我的留言</a></li>
+							<li class="nav-item"><a class="nav-link" href="/welcome/create">新增留言</a></li>
+							<li class="nav-item"><a class="nav-link" href="/welcome/modifyPwd">修改密碼</a></li>
+							<li class="nav-item"><a class="nav-link" href="/welcome/modifyInfo">修改會員資料</a></li>
+							<li class="nav-item"><a class="nav-link" href="/welcome/myMsg">我的留言</a></li>
 		                </ul>
 		            </div>
 				<?php endif; ?>

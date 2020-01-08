@@ -1,8 +1,5 @@
-table {
-	table-layout: fixed;
-	word-wrap: break-word;
-}
-@media (max-width: 990px) {
+/* 配合navbar的navbar-expand-lg | sm≥576px | md≥768px | lg≥992px */
+@media (max-width: 992px) {
 	/*針對tr去做隱藏,隱藏第一個標題的tr*/
 	tr.tr-only-hide {display: none !important;}
 	/*讓tr變成區塊主要讓他有個區塊*/

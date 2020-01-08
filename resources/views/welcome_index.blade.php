@@ -17,13 +17,13 @@
         		<th style="width: 5%;">#</th>
         		<th style="width: 7%;">Msg id</th>
         		<th style="width: 15%;">Title</th>
-        		<th style="width: 30%;">Msg</th>
+        		<th style="width: 25%;">Msg</th>
         		{{-- <th>創建時間</th> --}}
-        		<th style="width: 15%;">最後修改時間▽</th>
-        		<th style="width: 10%;">作者</th>
+        		<th style="width: 16%;">最後修改時間▽</th>
+        		<th style="width: 15%;">作者</th>
                 @if(session("login_id"))
             		<th style="width: 8%;">修改</th>
-            		<th style="width: 10%;">刪除</th>
+            		<th style="width: 7%;">刪除</th>
                 @endif
         	</tr>
         	@foreach($msgList as $key=>$row)
@@ -50,7 +50,7 @@
                  					<input name="_method" type="hidden" value="delete">
                                     {{-- 保護您的應用程式不受到 CSRF (跨網站請求偽造) 攻擊 --}}
         							<input name="_token" type="hidden" value="{{ csrf_token() }}" /> 
-        							<button class="btn btn-secondary" type="submit">Delete</button>
+        							<button class="btn btn-secondary" type="submit"><span class="oi oi-trash" title="trash"></span></button>
                                 @endif
                  			</td>
              			</form>

@@ -96,6 +96,7 @@ center88留言板 with Laravel+Bootstrap
 *  搞懂navbar
 1. flex-grow-0的問題
 2. 重頭念bootstrap
+3. center 88 留言板 Card+media 
 
 ##
 未做工作:  

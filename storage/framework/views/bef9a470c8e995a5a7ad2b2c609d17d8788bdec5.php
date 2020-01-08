@@ -15,13 +15,13 @@
         		<th style="width: 5%;">#</th>
         		<th style="width: 7%;">Msg id</th>
         		<th style="width: 15%;">Title</th>
-        		<th style="width: 30%;">Msg</th>
+        		<th style="width: 25%;">Msg</th>
         		
-        		<th style="width: 15%;">最後修改時間▽</th>
-        		<th style="width: 10%;">作者</th>
+        		<th style="width: 16%;">最後修改時間▽</th>
+        		<th style="width: 15%;">作者</th>
                 <?php if(session("login_id")): ?>
             		<th style="width: 8%;">修改</th>
-            		<th style="width: 10%;">刪除</th>
+            		<th style="width: 7%;">刪除</th>
                 <?php endif; ?>
         	</tr>
         	<?php $__currentLoopData = $msgList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -48,7 +48,7 @@
                  					<input name="_method" type="hidden" value="delete">
                                     
         							<input name="_token" type="hidden" value="<?php echo e(csrf_token()); ?>" /> 
-        							<button class="btn btn-secondary" type="submit">Delete</button>
+        							<button class="btn btn-secondary" type="submit"><span class="oi oi-trash" title="trash"></span></button>
                                 <?php endif; ?>
                  			</td>
              			</form>
