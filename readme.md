@@ -97,6 +97,8 @@ center88留言板 with Laravel+Bootstrap
 1. flex-grow-0的問題
 2. 重頭念bootstrap
 3. center 88 留言板 Card+media 
+4. navbar加入dropdown | dropdown 按第一次沒反應，要第二次以後才正常([解決方案](https://cheaster.blogspot.com/2018/10/bootstrap-4-dropdown.html))基本上就是bootstrap.min.js 跟 bootstrap.js 不能重複載入
+5. 
 
 ##
 未做工作:  

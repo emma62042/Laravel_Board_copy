@@ -9,8 +9,9 @@
   	
     <?php ($msgList = isset($searchList) ? $searchList : (isset($myList) ? $myList : $dataList)); ?>
     <?php if(sizeof($msgList) > 0): ?>
-        <table class="table table-striped table-bordered table-rwd" style="table-layout: fixed; word-wrap: break-word;">
+        <table class="table table-hover table-bordered table-rwd" style="table-layout: fixed; word-wrap: break-word;">
         	
+            <thead class="thead-dark">
         	<tr class="tr-only-hide">
         		<th style="width: 5%;">#</th>
         		<th style="width: 7%;">Msg id</th>
@@ -24,6 +25,7 @@
             		<th style="width: 7%;">刪除</th>
                 <?php endif; ?>
         	</tr>
+            </thead>
         	<?php $__currentLoopData = $msgList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         		<tr>
                     <?php ($msg_number = ($msgList->currentPage()-1)*$msgList->perPage()+$key+1); ?> 

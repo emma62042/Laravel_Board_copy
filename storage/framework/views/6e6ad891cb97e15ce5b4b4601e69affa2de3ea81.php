@@ -18,7 +18,6 @@
 
 	    
 	    <script src="/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script> 
-	    <script src="/bootstrap-4.4.1-dist/js/bootstrap.js"></script>
 	    <script src="/gijgo/js/gijgo.min.js"></script> 
 
 	    
@@ -161,8 +160,14 @@
 		    		<div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent"> 
 		            	<ul class="navbar-nav text-right"> 
 							<li class="nav-item"><a class="nav-link" href="/welcome/create">新增留言</a></li>
-							<li class="nav-item"><a class="nav-link" href="/welcome/modifyPwd">修改密碼</a></li>
-							<li class="nav-item"><a class="nav-link" href="/welcome/modifyInfo">修改會員資料</a></li>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" role="button" id="modify" data-toggle="dropdown">修改資料</a>
+									<div class="dropdown-menu" aria-labelledby="modify">
+									    <a class="dropdown-item" href="/welcome/modifyPwd">修改密碼</a>
+									    <a class="dropdown-item" href="/welcome/modifyInfo">修改會員資料</a>
+									</div>
+								
+							</li>
 							<li class="nav-item"><a class="nav-link" href="/welcome/myMsg">我的留言</a></li>
 		                </ul>
 		            </div>

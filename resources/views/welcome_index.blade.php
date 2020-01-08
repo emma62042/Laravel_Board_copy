@@ -11,8 +11,9 @@
   	{{-- 首頁顯示所有留言/如果有搜尋陣列searchList, 用搜尋陣列 --}}
     @php($msgList = isset($searchList) ? $searchList : (isset($myList) ? $myList : $dataList))
     @if(sizeof($msgList) > 0)
-        <table class="table table-striped table-bordered table-rwd" style="table-layout: fixed; word-wrap: break-word;">
+        <table class="table table-hover table-bordered table-rwd" style="table-layout: fixed; word-wrap: break-word;">
         	{{-- tr-only-hide,RWD在變成小螢幕時用到 --}}
+            <thead class="thead-dark">
         	<tr class="tr-only-hide">
         		<th style="width: 5%;">#</th>
         		<th style="width: 7%;">Msg id</th>
@@ -26,6 +27,7 @@
             		<th style="width: 7%;">刪除</th>
                 @endif
         	</tr>
+            </thead>
         	@foreach($msgList as $key=>$row)
         		<tr>
                     @php ($msg_number = ($msgList->currentPage()-1)*$msgList->perPage()+$key+1) {{-- 計算留言編號 --}}
