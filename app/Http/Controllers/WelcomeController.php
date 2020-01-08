@@ -77,8 +77,12 @@ class WelcomeController extends Controller {
             $model["msg_id"] = $key;
             if ($key != NULL) {
                 $data = Boards::find($key);
-                $model["title"] = $data->title;
-                $model["msg"] = $data->msg;
+                if($data->user_id == session("login_id")){
+                    $model["title"] = $data->title;
+                    $model["msg"] = $data->msg;
+                }else{
+                    return redirect()->back()->with("alert", "請勿修改他人留言!"); //保持原頁面，傳送alert msg
+                }
             }
             return view($view, $model);
         }else{
@@ -147,10 +151,14 @@ class WelcomeController extends Controller {
      */
     public function destroy(Request $request, $key) { //要收到他傳過來的東西
         $data = Boards::find($key);
-        $data->delete();
-        $model["success"] = "Delete Success!";
-        //DB::delete("delete from todos where id= ?", [$request->id]);
-        return redirect()->back()->with($model); //回到刪除頁面的上一頁
+        if($data->user_id == session("login_id")){
+            $data->delete();
+            $model["success"] = "Delete Success!";
+            //DB::delete("delete from todos where id= ?", [$request->id]);
+            return redirect()->back()->with($model); //回到刪除頁面的上一頁
+        }else{
+            return redirect()->back()->with("alert", "請勿修改他人留言!"); //保持原頁面，傳送alert msg
+        }
     }
     
     /**

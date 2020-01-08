@@ -68,5 +68,13 @@ class Boards extends BaseModel {
         return $data->paginate(5);
     }
 
+
+    public static function authorCheck($user_id){
+        if(session("login_id") == $user_id){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 ?>

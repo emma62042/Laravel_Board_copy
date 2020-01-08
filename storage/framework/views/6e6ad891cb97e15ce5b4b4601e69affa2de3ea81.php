@@ -147,8 +147,10 @@
     			<a class="navbar-brand">搜尋</a>
     			
     			<form class="form-inline" action="<?php echo e(action('WelcomeController@searchMsg')); ?>" method="get">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search title or msg" name="searchInput" value="<?php echo e(isset($searchInput) ? $searchInput : ''); ?>">
-					<button class="btn btn-outline-success" type="submit">Search</button>
+    				<div class="input-group">
+						<input class="form-control mr-sm-2" type="search" placeholder="Search title or msg" name="searchInput" value="<?php echo e(isset($searchInput) ? $searchInput : ''); ?>">
+						<button class="btn btn-outline-success" type="submit">Search</button>
+					</div>
 				</form>
 				
     			<?php if(session("login_id")): ?>
@@ -160,13 +162,12 @@
 		    		<div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent"> 
 		            	<ul class="navbar-nav text-right"> 
 							<li class="nav-item"><a class="nav-link" href="/welcome/create">新增留言</a></li>
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="#" role="button" id="modify" data-toggle="dropdown">修改資料</a>
-									<div class="dropdown-menu" aria-labelledby="modify">
-									    <a class="dropdown-item" href="/welcome/modifyPwd">修改密碼</a>
-									    <a class="dropdown-item" href="/welcome/modifyInfo">修改會員資料</a>
-									</div>
-								
+							<li class="nav-item dropdown"> 
+								<a class="nav-link dropdown-toggle" href="#" role="button" id="navbarDropdown" data-toggle="dropdown">修改資料</a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								    <a class="dropdown-item" href="/welcome/modifyPwd">修改密碼</a>
+								    <a class="dropdown-item" href="/welcome/modifyInfo">修改會員資料</a>
+								</div>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="/welcome/myMsg">我的留言</a></li>
 		                </ul>

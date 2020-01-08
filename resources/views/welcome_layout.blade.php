@@ -147,8 +147,10 @@
     			<a class="navbar-brand">搜尋</a>
     			{{-- 搜尋功能(用get) --}}
     			<form class="form-inline" action="{{ action('WelcomeController@searchMsg') }}" method="get">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search title or msg" name="searchInput" value="{{ isset($searchInput) ? $searchInput : '' }}">
-					<button class="btn btn-outline-success" type="submit">Search</button>
+    				<div class="input-group">
+						<input class="form-control mr-sm-2" type="search" placeholder="Search title or msg" name="searchInput" value="{{ isset($searchInput) ? $searchInput : '' }}">
+						<button class="btn btn-outline-success" type="submit">Search</button>
+					</div>
 				</form>
 				{{-- 會員功能:新增留言|修改密碼|修改會員資料|我的留言 --}}
     			@if(session("login_id"))

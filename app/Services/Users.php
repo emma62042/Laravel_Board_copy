@@ -22,12 +22,14 @@ class Users extends BaseModel {
      * @author center69-陳煜珊
      * @return 先沒有用到
      */
-    public static function findAll(){
-        $data = DB::table("Users")
-        ->select("id", "nickname", "email");
-        
-        return $data->get();
+    public static function loginedCheck(){
+        if(session()->has("login_id")){
+            return true;
+        }else{
+            return false;
+        }
     }
+
 
     /**
      * [login]
