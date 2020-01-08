@@ -5,14 +5,16 @@
 	<title>TestLogin</title>
 @endsection
 
-@section("content")
-    <h2 class="display-4" style="text-align:center; margin-bottom:30px;">Login</h2>
+@section("content-title")
+    Login
+@endsection
 
-    {{-- 登入輸入帳號密碼 --}}
+@section("content")
+	{{-- 登入輸入帳號密碼 --}}
     <form class="form1" name="form1" method="post" action="{{ action('WelcomeController@login') }}">
         <input name="_token" type="hidden" value="{{ csrf_token() }}">
         <div class="row justify-content-md-center">
-	        <table class="table table-striped table-bordered col col-md-6">
+	        <table class="table table-striped table-bordered col col-md-10 col-lg-6">
 	            <tr>
 	            	<th>帳號</th>
 	            	<td>

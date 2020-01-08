@@ -140,20 +140,21 @@
 
 			{{-- 導覽列 --}}
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    			<a class="navbar-brand">留言板</a>
+    			<a class="navbar-brand">搜尋</a>
     			{{-- 搜尋功能(用get) --}}
-    			<form class="form-inline mr-auto" action="{{ action('WelcomeController@searchMsg') }}" method="get">
+    			<form class="form-inline" action="{{ action('WelcomeController@searchMsg') }}" method="get">
 					<input class="form-control mr-sm-2" type="search" placeholder="Search title or msg" name="searchInput" value="{{ isset($searchInput) ? $searchInput : '' }}">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					<button class="btn btn-outline-success" type="submit">Search</button>
 				</form>
 				{{-- 會員功能:新增留言|修改密碼|修改會員資料|我的留言 --}}
     			@if(session("login_id"))
-					<a class="navbar-brand">會員專區</a>
+    				<a class="navbar-brand ml-auto">會員專區</a> {{-- ml-auto:把會員專區的brand margin-left all --}}
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    			<span class="navbar-toggler-icon"></span>
 		    		</button>
-		    		<div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
-		            	<ul class="navbar-nav text-right">
+		    		{{-- flex-grow-0:原本navbar-collapse預設flex-grow-1填滿,讓navbar-brand在最左邊,如果要把navbar-brand放右邊要取消flex-grow-1 --}}
+		    		<div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent"> 
+		            	<ul class="navbar-nav text-right"> {{-- text-right:下放選單 字在右邊 --}}
 		        			<li class="nav-item"><a class="nav-link" href="/welcome/create">新增留言</a></li>
 		        			<li class="nav-item"><a class="nav-link" href="/welcome/modifyPwd">修改密碼</a></li>
 		        			<li class="nav-item"><a class="nav-link" href="/welcome/modifyInfo">修改會員資料</a></li>
@@ -192,6 +193,9 @@
 
 		    {{-- 主要顯示區間content --}}	
 			<div class="content">
+				<h2 class="display-4" style="text-align:center; margin-bottom:30px;">
+					@yield("content-title")
+				</h2>
 				@yield("content")
 	    	</div>
 	    </div>

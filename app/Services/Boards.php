@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Services\BaseModel;
 use App\Services\Users;
-use Illuminate\Http\Request;
 
 class Boards extends BaseModel {
     protected $connection = "TestDb"; //資料庫名
@@ -41,12 +40,12 @@ class Boards extends BaseModel {
      * @param  Request $request ["searchInput"]
      * @return $searchList
      */
-    public static function searchMsg(Request $request){
+    public static function searchMsg($searchInput){
         $data = DB::table("Boards as b")
         ->join("Users as u", "u.id", "=", "b.user_id")
         ->select("b.msg_id", "b.title", "b.msg", "b.created_at", "b.updated_at", "b.user_id", "u.nickname")
-        ->where("b.title", "like", "%".$request->searchInput."%")
-        ->orWhere("b.msg", "like", "%".$request->searchInput."%")
+        ->where("b.title", "like", "%".$searchInput."%")
+        ->orWhere("b.msg", "like", "%".$searchInput."%")
         ->orderBy("b.updated_at", "desc");
 
         return $data->paginate(5);

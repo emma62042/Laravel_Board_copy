@@ -4,14 +4,17 @@
 @section("title")
     <title>TestSignup</title>
 @endsection
-@section("content")
-  	<h2 style="text-align:center;">Signup註冊</h2>
 
+@section("content-title")
+    Signup註冊
+@endsection
+
+@section("content")
   	{{-- 註冊表單 --}}
   	<form id="signupForm" method="post" action="{{ action('WelcomeController@signup') }}">
       	<input name="_token" id="token" type="hidden" value="{{ csrf_token() }}">
       	<div class="row justify-content-md-center">
-	        <table class="table table-striped table-bordered col col-md-6">
+	        <table class="table table-striped table-bordered col col-md-10 col-lg-6">
 		      	<tr>
 		        	<th><span style="color:red;">*</span>帳號</th>
 		        	<td>

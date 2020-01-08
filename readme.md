@@ -92,6 +92,11 @@ center88留言板 with Laravel+Bootstrap
 4. gijgo的日期格式轉換其實用format就好([gijgo格式轉換](https://gijgo.com/datepicker/configuration/minDate))
 5. 生日可null
 
+## 2020/1/8
+*  搞懂navbar
+1. flex-grow-0的問題
+2. 重頭念bootstrap
+
 ##
 未做工作:  
 * 頁碼功能√

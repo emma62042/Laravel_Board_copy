@@ -1,3 +1,7 @@
+table {
+	table-layout: fixed;
+	word-wrap: break-word;
+}
 @media (max-width: 990px) {
 	/*針對tr去做隱藏,隱藏第一個標題的tr*/
 	tr.tr-only-hide {display: none !important;}

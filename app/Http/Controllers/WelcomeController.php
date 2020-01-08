@@ -168,7 +168,7 @@ class WelcomeController extends Controller {
         $view = "welcome_index";
 
         #取出search的留言
-        $searchList = Boards::searchMsg($request);//way 1-自行定義的查詢function
+        $searchList = Boards::searchMsg($request->input("searchInput"));//way 1-自行定義的查詢function
         $model["searchList"] = $searchList;
         $model["searchInput"] = $request->input("searchInput");
 
@@ -288,7 +288,7 @@ class WelcomeController extends Controller {
 
         #帳號確認完成，開始註冊
         //true:new一個帳號，密碼加密，save
-        //false:可保留資訊保留，回傳錯誤訊息
+        //else:可保留資訊保留，回傳錯誤訊息
         if($check == NULL && $request->input("password") == $request->input("password_confirmation")){
             $data = new Users();
             $data->id = $request->input("id");
