@@ -155,10 +155,10 @@
 		    		{{-- flex-grow-0:原本navbar-collapse預設flex-grow-1填滿,讓navbar-brand在最左邊,如果要把navbar-brand放右邊要取消flex-grow-1 --}}
 		    		<div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent"> 
 		            	<ul class="navbar-nav text-right"> {{-- text-right:下放選單 字在右邊 --}}
-		        			<li class="nav-item"><a class="nav-link" href="/welcome/create">新增留言</a></li>
-		        			<li class="nav-item"><a class="nav-link" href="/welcome/modifyPwd">修改密碼</a></li>
-		        			<li class="nav-item"><a class="nav-link" href="/welcome/modifyInfo">修改會員資料</a></li>
-		        			<li class="nav-item"><a class="nav-link" href="/welcome/myMsg">我的留言</a></li>
+							<li class="nav-item"><a class="nav-link" href="/welcome/create">新增留言</a></li>
+							<li class="nav-item"><a class="nav-link" href="/welcome/modifyPwd">修改密碼</a></li>
+							<li class="nav-item"><a class="nav-link" href="/welcome/modifyInfo">修改會員資料</a></li>
+							<li class="nav-item"><a class="nav-link" href="/welcome/myMsg">我的留言</a></li>
 		                </ul>
 		            </div>
 				@endif
