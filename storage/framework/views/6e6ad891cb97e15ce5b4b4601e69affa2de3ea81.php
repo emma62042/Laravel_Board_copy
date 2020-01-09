@@ -22,7 +22,7 @@
 
 	    
 	    <script>
-	    	$(document).ready(function(){
+	    	$(document).ready(function(){//加在各自的VIEW
 	    		//由controller發送alert
 	    		var msg = "<?php echo e(session('alert')); ?>";
 			    var exist = "<?php echo e(session('alert') != null); ?>";
@@ -148,8 +148,10 @@
     			
     			<form class="form-inline mr-auto" action="<?php echo e(action('WelcomeController@searchMsg')); ?>" method="get">
     				<div class="input-group">
-						<input class="form-control mr-sm-2" type="search" placeholder="Search title or msg" name="searchInput" value="<?php echo e(isset($searchInput) ? $searchInput : ''); ?>">
-						<button class="btn btn-outline-success" type="submit">Search</button>
+						<input class="form-control" type="search" placeholder="Search title or msg" name="searchInput" value="<?php echo e(isset($searchInput) ? $searchInput : ''); ?>">
+						<div class="input-group-append">
+							<button class="btn btn-outline-success" type="submit">Search</button>
+						</div>
 					</div>
 				</form>
 				

@@ -100,22 +100,23 @@ center88留言板 with Laravel+Bootstrap
 4. navbar加入dropdown | dropdown 按第一次沒反應，要第二次以後才正常([解決方案](https://cheaster.blogspot.com/2018/10/bootstrap-4-dropdown.html))基本上就是bootstrap.min.js 跟 bootstrap.js 不能重複載入
 5. 加入不能修改他人留言
 
-## 2020/1/8
+## 2020/1/9
 *  code review
 1. 留言有空白格在index顯示要保留
+2. code review有被稱讚，也一些問題
 
 ##
 未做工作:  
-* 頁碼功能√
-* 搜尋功能√
-* 使用者輸入值驗證前後端都要做-完成√
-* 密碼加密√
 * Laravel本身的登入
-* 非會員不能改留言√
-* 會員資料修改√
-* 會員密碼修改√
-* 我的留言√
-* 加入生日√
+* controller 分成board / user
+* 送到model 的參數要有預設值跟確認有值
+* 變數命名規則要照專案風格
+* href要用action, 避免專案名稱更改,url失效
+* script如果是for各自的view, 寫在各自的view最下面
+* form要驗證最好用id, 不跟其他人的form名字衝突
+* model function 用 findByUser, findBySearch...
+* search跟index的controller function寫同一個
+* git 學習
 
 ___
 

@@ -1,14 +1,17 @@
 <?php $__env->startSection("title"); ?>
     <title>TestSignup</title>
 <?php $__env->stopSection(); ?>
-<?php $__env->startSection("content"); ?>
-  	<h2 style="text-align:center;">Signup註冊</h2>
 
+<?php $__env->startSection("content-title"); ?>
+    Signup註冊
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection("content"); ?>
   	
   	<form id="signupForm" method="post" action="<?php echo e(action('WelcomeController@signup')); ?>">
       	<input name="_token" id="token" type="hidden" value="<?php echo e(csrf_token()); ?>">
       	<div class="row justify-content-md-center">
-	        <table class="table table-striped table-bordered col col-md-6">
+	        <table class="table table-striped table-bordered col col-md-10 col-lg-6">
 		      	<tr>
 		        	<th><span style="color:red;">*</span>帳號</th>
 		        	<td>

@@ -111,7 +111,7 @@ class WelcomeController extends Controller {
         ]);
         #取得傳遞過來的資料
         $title = ($request->has("Title")) ? $request->input("Title") :NULL;
-        $msg = ($request->has("Title")) ? $request->input("Msg") :NULL;
+        $msg = ($request->has("Msg")) ? $request->input("Msg") :NULL;
         
         #builder
         if($key == "new_a_msg"){
@@ -180,7 +180,7 @@ class WelcomeController extends Controller {
         $model["searchList"] = $searchList;
         $model["searchInput"] = $request->input("searchInput");
 
-        return view($view, $model);
+        return view($view, $model);//加預設
     }
 
 //------------------------會員↓-----------------------------------------------------------------------------------------

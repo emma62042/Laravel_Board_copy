@@ -44,7 +44,7 @@ class Boards extends BaseModel {
         $data = DB::table("Boards as b")
         ->join("Users as u", "u.id", "=", "b.user_id")
         ->select("b.msg_id", "b.title", "b.msg", "b.created_at", "b.updated_at", "b.user_id", "u.nickname")
-        ->where("b.title", "like", "%".$searchInput."%")
+        ->where("b.title", "LIKE", "%".$searchInput."%")
         ->orWhere("b.msg", "like", "%".$searchInput."%")
         ->orderBy("b.updated_at", "desc");
 
@@ -66,15 +66,6 @@ class Boards extends BaseModel {
         ->orderBy("b.updated_at", "desc");
 
         return $data->paginate(5);
-    }
-
-
-    public static function authorCheck($user_id){
-        if(session("login_id") == $user_id){
-            return true;
-        }else{
-            return false;
-        }
     }
 }
 ?>

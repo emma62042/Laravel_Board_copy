@@ -2,14 +2,16 @@
 	<title>TestModifyPwd</title>
 <?php $__env->stopSection(); ?>
 
-<?php $__env->startSection("content"); ?>
-    <h2 class="display-4" style="text-align:center; margin-bottom:30px;">Modify Password</h2>
+<?php $__env->startSection("content-title"); ?>
+    Modify Password
+<?php $__env->stopSection(); ?>
 
+<?php $__env->startSection("content"); ?>
     
     <form id="modifyPwdForm" method="post" action="<?php echo e(action('WelcomeController@modifyPwd')); ?>">
         <input name="_token" type="hidden" value="<?php echo e(csrf_token()); ?>">
         <div class="row justify-content-md-center">
-	        <table class="table table-striped table-bordered col col-md-6">
+	        <table class="table table-striped table-bordered col col-md-10 col-lg-6">
 	            <tr>
 	            	<th><span style="color:red;">*</span>舊密碼</th>
 	            	<td>

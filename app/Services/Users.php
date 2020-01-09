@@ -3,6 +3,7 @@
 namespace app\Services;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use App\Services\BaseModel;
 
@@ -17,10 +18,11 @@ class Users extends BaseModel {
     public $timestamps = true; //時間戳記非自動產生設定為false
     
     /**
-     *  查詢資料表的所有資料
-     * @abstract 思考看看，加上查詢的條件應該要如何寫
-     * @author center69-陳煜珊
-     * @return 先沒有用到
+     * [loginedCheck]
+     * 確認是否登入
+     * >問題點:如果想要用redirect()->back()回上一頁(就是同畫面)，寫在這裡會跳不回上一頁
+     * 只能指定固定頁面，例如跳回首頁
+     * @return [bool] [已登入/未登入]
      */
     public static function loginedCheck(){
         if(session()->has("login_id")){
@@ -29,7 +31,6 @@ class Users extends BaseModel {
             return false;
         }
     }
-
 
     /**
      * [login]
