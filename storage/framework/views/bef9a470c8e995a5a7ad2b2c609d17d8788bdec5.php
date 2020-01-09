@@ -33,7 +33,7 @@
         			<td data-th="#"><?php echo e($msg_number); ?></td>
         			<td data-th="Msg id"><?php echo e($row->msg_id); ?></td>
         			<td data-th="Title"><?php echo e($row->title); ?></td>
-        			<td data-th="Msg" class="text-break"><?php echo nl2br($row->msg); ?></td> 
+        			<td data-th="Msg" class="text-break"><?php echo nl2br(str_replace(" ", "&nbsp;", $row->msg)); ?></td> 
         			<td data-th="最後修改時間"><?php echo e($row->updated_at); ?></td>
         			<td data-th="作者"><?php echo e($row->nickname."(".$row->user_id.")"); ?></td>
                     <?php if(session("login_id")): ?>

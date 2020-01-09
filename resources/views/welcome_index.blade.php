@@ -35,7 +35,7 @@
         			<td data-th="#">{{ $msg_number }}</td>
         			<td data-th="Msg id">{{ $row->msg_id }}</td>
         			<td data-th="Title">{{ $row->title }}</td>
-        			<td data-th="Msg" class="text-break">{!! nl2br($row->msg) !!}</td> {{-- 加上text-break自動換行 --}}
+        			<td data-th="Msg" class="text-break">{!! nl2br(str_replace(" ", "&nbsp;", $row->msg)) !!}</td> {{-- 加上text-break自動換行 --}}
         			<td data-th="最後修改時間">{{ $row->updated_at }}</td>
         			<td data-th="作者">{{ $row->nickname."(".$row->user_id.")" }}</td>
                     @if(session("login_id"))

@@ -146,7 +146,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
     			<a class="navbar-brand">搜尋</a>
     			
-    			<form class="form-inline" action="<?php echo e(action('WelcomeController@searchMsg')); ?>" method="get">
+    			<form class="form-inline mr-auto" action="<?php echo e(action('WelcomeController@searchMsg')); ?>" method="get">
     				<div class="input-group">
 						<input class="form-control mr-sm-2" type="search" placeholder="Search title or msg" name="searchInput" value="<?php echo e(isset($searchInput) ? $searchInput : ''); ?>">
 						<button class="btn btn-outline-success" type="submit">Search</button>
@@ -164,7 +164,7 @@
 							<li class="nav-item"><a class="nav-link" href="/welcome/create">新增留言</a></li>
 							<li class="nav-item dropdown"> 
 								<a class="nav-link dropdown-toggle" href="#" role="button" id="navbarDropdown" data-toggle="dropdown">修改資料</a>
-								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<div class="dropdown-menu text-lg-left text-md-right" aria-labelledby="navbarDropdown">
 								    <a class="dropdown-item" href="/welcome/modifyPwd">修改密碼</a>
 								    <a class="dropdown-item" href="/welcome/modifyInfo">修改會員資料</a>
 								</div>

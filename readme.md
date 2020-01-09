@@ -100,6 +100,10 @@ center88留言板 with Laravel+Bootstrap
 4. navbar加入dropdown | dropdown 按第一次沒反應，要第二次以後才正常([解決方案](https://cheaster.blogspot.com/2018/10/bootstrap-4-dropdown.html))基本上就是bootstrap.min.js 跟 bootstrap.js 不能重複載入
 5. 加入不能修改他人留言
 
+## 2020/1/8
+*  code review
+1. 留言有空白格在index顯示要保留
+
 ##
 未做工作:  
 * 頁碼功能√
