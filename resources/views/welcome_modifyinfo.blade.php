@@ -11,7 +11,7 @@
 
 @section("content")
     {{-- 修改會員資料 --}}
-    <form class="form1" name="form1" method="post" action="{{ action('WelcomeController@modifyInfo') }}">
+    <form class="form1" name="form1" method="post" action="{{ action('BoardController@modifyInfo') }}">
         <input name="_token" type="hidden" value="{{ csrf_token() }}">
         <div class="row justify-content-md-center">
 	        <table class="table table-striped table-bordered col col-md-10 col-lg-6">

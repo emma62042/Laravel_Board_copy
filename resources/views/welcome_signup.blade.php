@@ -11,7 +11,7 @@
 
 @section("content")
   	{{-- 註冊表單 --}}
-  	<form id="signupForm" method="post" action="{{ action('WelcomeController@signup') }}">
+  	<form id="signupForm" method="post" action="{{ action('BoardController@signup') }}">
       	<input name="_token" id="token" type="hidden" value="{{ csrf_token() }}">
       	<div class="row justify-content-md-center">
 	        <table class="table table-striped table-bordered col col-md-10 col-lg-6">

@@ -38,7 +38,7 @@
 	            	rules:{
 	            		id:{ 
 	                        remote:{
-	                            url:"{{ action('WelcomeController@signup') }}",
+	                            url:"{{ action('BoardController@signup') }}",
 	                            type:"post",
 	                            data:{ //post到signup的request
 	                            	id:function(){
@@ -116,13 +116,13 @@
 					@if(session("login_id"))
 						<li class="list-inline-item">welcome {{ session("login_name") }} (id = {{ session("login_id") }})</li>
 						<li class="list-inline-item">
-							<button class="btn btn-dark" onclick="location.href='{{ action('WelcomeController@logout') }}'">
+							<button class="btn btn-dark" onclick="location.href='{{ action('BoardController@logout') }}'">
 								Logout
 							</button>
 						</li>
 					@else
 						<li class="list-inline-item">
-							<button class="btn btn-primary" onclick="location.href='{{ action('WelcomeController@loginView') }}'">
+							<button class="btn btn-primary" onclick="location.href='{{ action('BoardController@loginView') }}'">
 								Login
 							</button>
 						</li>
@@ -136,7 +136,7 @@
 					<div class="media">
 						<img class="mr-3" src="/img/post-it.png" style="width: 10%; height: 10%;" alt="Generic placeholder image">
 						<div class="align-self-center media-body">
-							<a class="display-4 text-decoration-none text-reset" href="/welcome">CENTER 88 留言板</a>
+							<a class="display-4 text-decoration-none text-reset" href="{{ action('BoardController@index') }}">CENTER 88 留言板</a>
 						</div>
 					</div>
 				</div>
@@ -146,7 +146,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
     			<a class="navbar-brand">搜尋</a>
     			{{-- 搜尋功能(用get) --}}
-    			<form class="form-inline mr-auto" action="{{ action('WelcomeController@searchMsg') }}" method="get">
+    			<form class="form-inline mr-auto" action="{{ action('BoardController@index') }}" method="get">
     				<div class="input-group">
 						<input class="form-control" type="search" placeholder="Search title or msg" name="searchInput" value="{{ isset($searchInput) ? $searchInput : '' }}">
 						<div class="input-group-append">
@@ -163,15 +163,15 @@
 		    		{{-- flex-grow-0:原本navbar-collapse預設flex-grow-1填滿,讓navbar-brand在最左邊,如果要把navbar-brand放右邊要取消flex-grow-1 --}}
 		    		<div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent"> 
 		            	<ul class="navbar-nav text-right"> {{-- text-right:下放選單 字在右邊 --}}
-							<li class="nav-item"><a class="nav-link" href="/welcome/create">新增留言</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{ action('BoardController@create') }}">新增留言</a></li>
 							<li class="nav-item dropdown"> {{-- 下拉選單 --}}
 								<a class="nav-link dropdown-toggle" href="#" role="button" id="navbarDropdown" data-toggle="dropdown">修改資料</a>
 								<div class="dropdown-menu text-lg-left text-md-right" aria-labelledby="navbarDropdown">
-								    <a class="dropdown-item" href="/welcome/modifyPwd">修改密碼</a>
-								    <a class="dropdown-item" href="/welcome/modifyInfo">修改會員資料</a>
+								    <a class="dropdown-item" href="{{ action('BoardController@modifyPwdView') }}">修改密碼</a>
+								    <a class="dropdown-item" href="{{ action('BoardController@modifyInfoView') }}">修改會員資料</a>
 								</div>
 							</li>
-							<li class="nav-item"><a class="nav-link" href="/welcome/myMsg">我的留言</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{ action('BoardController@myMsg') }}">我的留言</a></li>
 		                </ul>
 		            </div>
 				@endif

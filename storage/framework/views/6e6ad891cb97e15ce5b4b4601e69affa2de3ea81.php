@@ -38,7 +38,7 @@
 	            	rules:{
 	            		id:{ 
 	                        remote:{
-	                            url:"<?php echo e(action('WelcomeController@signup')); ?>",
+	                            url:"<?php echo e(action('BoardController@signup')); ?>",
 	                            type:"post",
 	                            data:{ //post到signup的request
 	                            	id:function(){
@@ -116,13 +116,13 @@
 					<?php if(session("login_id")): ?>
 						<li class="list-inline-item">welcome <?php echo e(session("login_name")); ?> (id = <?php echo e(session("login_id")); ?>)</li>
 						<li class="list-inline-item">
-							<button class="btn btn-dark" onclick="location.href='<?php echo e(action('WelcomeController@logout')); ?>'">
+							<button class="btn btn-dark" onclick="location.href='<?php echo e(action('BoardController@logout')); ?>'">
 								Logout
 							</button>
 						</li>
 					<?php else: ?>
 						<li class="list-inline-item">
-							<button class="btn btn-primary" onclick="location.href='<?php echo e(action('WelcomeController@loginView')); ?>'">
+							<button class="btn btn-primary" onclick="location.href='<?php echo e(action('BoardController@loginView')); ?>'">
 								Login
 							</button>
 						</li>
@@ -136,7 +136,7 @@
 					<div class="media">
 						<img class="mr-3" src="/img/post-it.png" style="width: 10%; height: 10%;" alt="Generic placeholder image">
 						<div class="align-self-center media-body">
-							<a class="display-4 text-decoration-none text-reset" href="/welcome">CENTER 88 留言板</a>
+							<a class="display-4 text-decoration-none text-reset" href="<?php echo e(action('BoardController@index')); ?>">CENTER 88 留言板</a>
 						</div>
 					</div>
 				</div>
@@ -146,7 +146,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
     			<a class="navbar-brand">搜尋</a>
     			
-    			<form class="form-inline mr-auto" action="<?php echo e(action('WelcomeController@searchMsg')); ?>" method="get">
+    			<form class="form-inline mr-auto" action="<?php echo e(action('BoardController@index')); ?>" method="get">
     				<div class="input-group">
 						<input class="form-control" type="search" placeholder="Search title or msg" name="searchInput" value="<?php echo e(isset($searchInput) ? $searchInput : ''); ?>">
 						<div class="input-group-append">
@@ -163,15 +163,15 @@
 		    		
 		    		<div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent"> 
 		            	<ul class="navbar-nav text-right"> 
-							<li class="nav-item"><a class="nav-link" href="/welcome/create">新增留言</a></li>
+							<li class="nav-item"><a class="nav-link" href="<?php echo e(action('BoardController@create')); ?>">新增留言</a></li>
 							<li class="nav-item dropdown"> 
 								<a class="nav-link dropdown-toggle" href="#" role="button" id="navbarDropdown" data-toggle="dropdown">修改資料</a>
 								<div class="dropdown-menu text-lg-left text-md-right" aria-labelledby="navbarDropdown">
-								    <a class="dropdown-item" href="/welcome/modifyPwd">修改密碼</a>
-								    <a class="dropdown-item" href="/welcome/modifyInfo">修改會員資料</a>
+								    <a class="dropdown-item" href="<?php echo e(action('BoardController@modifyPwdView')); ?>">修改密碼</a>
+								    <a class="dropdown-item" href="<?php echo e(action('BoardController@modifyInfoView')); ?>">修改會員資料</a>
 								</div>
 							</li>
-							<li class="nav-item"><a class="nav-link" href="/welcome/myMsg">我的留言</a></li>
+							<li class="nav-item"><a class="nav-link" href="<?php echo e(action('BoardController@myMsg')); ?>">我的留言</a></li>
 		                </ul>
 		            </div>
 				<?php endif; ?>

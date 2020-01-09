@@ -23,33 +23,31 @@
 | destroy 	| 刪除:執行刪除留言
 */
 
-Route::get("/", "WelcomeController@index");
-Route::resource("/welcome", "WelcomeController", ["except" => ["show"]]); //except method get+key預設是show
+Route::get("/", "BoardController@index");
+Route::resource("/board", "BoardController", ["except" => ["show"]]); //except method get+key預設是show
 
-//搜尋
-Route::get("/welcome/searchMsg", "WelcomeController@searchMsg");
 
 //登入
-Route::get("/welcome/login", "WelcomeController@loginView");
-Route::post("/welcome/login", "WelcomeController@login");
+Route::get("/board/login", "BoardController@loginView");
+Route::post("/board/login", "BoardController@login");
 
 //登出
-Route::get("/welcome/logout", "WelcomeController@logout");
+Route::get("/board/logout", "BoardController@logout");
 
 //註冊
-Route::get("/welcome/signup", "WelcomeController@signupView");
-Route::post("/welcome/signup", "WelcomeController@signup");
+Route::get("/board/signup", "BoardController@signupView");
+Route::post("/board/signup", "BoardController@signup");
 
 //修改密碼
-Route::get("/welcome/modifyPwd", "WelcomeController@modifyPwdView");
-Route::post("/welcome/modifyPwd", "WelcomeController@modifyPwd");
+Route::get("/board/modifyPwd", "BoardController@modifyPwdView");
+Route::post("/board/modifyPwd", "BoardController@modifyPwd");
 
 //修改會員資料
-Route::get("/welcome/modifyInfo", "WelcomeController@modifyInfoView");
-Route::post("/welcome/modifyInfo", "WelcomeController@modifyInfo");
+Route::get("/board/modifyInfo", "BoardController@modifyInfoView");
+Route::post("/board/modifyInfo", "BoardController@modifyInfo");
 
 //我的留言
-Route::get("/welcome/myMsg", "WelcomeController@myMsg");
+Route::get("/board/myMsg", "BoardController@myMsg");
 //------------------------------------------------------------------------------------------------------------
 //Route::resource("/todo", "TodoController", ["except" => ["show"]]); //except method get+key預設是show
 //Route::get("/todo/delete", "TodoController@delete");

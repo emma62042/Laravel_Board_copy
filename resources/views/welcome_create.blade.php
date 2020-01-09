@@ -14,7 +14,7 @@
     <div class="card">
         <div class="card-body">
             <div class="row justify-content-center">
-                <form class="form1 col col-lg-8 col-md-12" name="form1" method="post" action="{{ ($msg_id != '') ? action('WelcomeController@update', ['msg_id'=>$msg_id]) : 'new_a_msg' }}">
+                <form class="form1 col col-lg-8 col-md-12" name="form1" method="post" action="{{ ($msg_id != '') ? action('BoardController@update', ['msg_id'=>$msg_id]) : 'new_a_msg' }}">
                     <input name="_token" type="hidden" value="{{ csrf_token() }}">
                     <input name="_method" type="hidden" value="put">
                     <div class="form-group">

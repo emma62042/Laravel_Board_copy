@@ -11,7 +11,7 @@
 
 @section("content")
 	{{-- 登入輸入帳號密碼 --}}
-    <form class="form1" name="form1" method="post" action="{{ action('WelcomeController@login') }}">
+    <form class="form1" name="form1" method="post" action="{{ action('BoardController@login') }}">
         <input name="_token" type="hidden" value="{{ csrf_token() }}">
         <div class="row justify-content-md-center">
 	        <table class="table table-striped table-bordered col col-md-10 col-lg-6">
@@ -38,7 +38,7 @@
 
     {{-- 無帳號去註冊→ --}}   
     <div style="text-align:center; margin:5px;">
-        <button class="btn btn-secondary" onclick="location.href='{{ action('WelcomeController@signupView') }}'">
+        <button class="btn btn-secondary" onclick="location.href='{{ action('BoardController@signupView') }}'">
         	去註冊→
         </button>
     </div>

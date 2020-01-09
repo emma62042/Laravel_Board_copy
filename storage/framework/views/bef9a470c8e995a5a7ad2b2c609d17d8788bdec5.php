@@ -39,12 +39,12 @@
                     <?php if(session("login_id")): ?>
             			<td data-th="修改">
                             <?php if(session("login_id") == $row->user_id): ?>
-                				<button class="btn btn-secondary" onclick="location.href='<?php echo e(action('WelcomeController@edit', ['id'=>$row->msg_id])); ?>'">
+                				<button class="btn btn-secondary" onclick="location.href='<?php echo e(action('BoardController@edit', ['id'=>$row->msg_id])); ?>'">
                 	 				Edit
                  				</button>
                             <?php endif; ?>
              			</td>
-    					<form class="form_del" method="post" action="<?php echo e(action('WelcomeController@destroy', ['id'=>$row->msg_id])); ?>" >
+    					<form class="form_del" method="post" action="<?php echo e(action('BoardController@destroy', ['id'=>$row->msg_id])); ?>" >
     						<td data-th="刪除">
                                 <?php if(session("login_id") == $row->user_id): ?>
                  					<input name="_method" type="hidden" value="delete">

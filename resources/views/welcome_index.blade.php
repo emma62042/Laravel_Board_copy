@@ -41,12 +41,12 @@
                     @if(session("login_id"))
             			<td data-th="修改">
                             @if(session("login_id") == $row->user_id)
-                				<button class="btn btn-secondary" onclick="location.href='{{ action('WelcomeController@edit', ['id'=>$row->msg_id]) }}'">
+                				<button class="btn btn-secondary" onclick="location.href='{{ action('BoardController@edit', ['id'=>$row->msg_id]) }}'">
                 	 				Edit
                  				</button>
                             @endif
              			</td>
-    					<form class="form_del" method="post" action="{{ action('WelcomeController@destroy', ['id'=>$row->msg_id]) }}" >
+    					<form class="form_del" method="post" action="{{ action('BoardController@destroy', ['id'=>$row->msg_id]) }}" >
     						<td data-th="刪除">
                                 @if(session("login_id") == $row->user_id)
                  					<input name="_method" type="hidden" value="delete">

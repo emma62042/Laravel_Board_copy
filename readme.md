@@ -104,6 +104,7 @@ center88留言板 with Laravel+Bootstrap
 *  code review
 1. 留言有空白格在index顯示要保留
 2. code review有被稱讚，也一些問題
+3. WelcomeController改名BoardController
 
 ##
 未做工作:  

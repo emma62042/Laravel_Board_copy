@@ -40,7 +40,7 @@ class Boards extends BaseModel {
      * @param  Request $request ["searchInput"]
      * @return $searchList
      */
-    public static function searchMsg($searchInput){
+    public static function findBySearch($searchInput){
         $data = DB::table("Boards as b")
         ->join("Users as u", "u.id", "=", "b.user_id")
         ->select("b.msg_id", "b.title", "b.msg", "b.created_at", "b.updated_at", "b.user_id", "u.nickname")

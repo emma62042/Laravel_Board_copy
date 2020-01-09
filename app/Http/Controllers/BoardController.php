@@ -19,27 +19,39 @@ use Illuminate\Support\Facades\DB;
 use App\Services\Users; 
 use App\Services\Boards;
 
-class WelcomeController extends Controller {
+class BoardController extends Controller {
     /**
      * [index]--resource自帶的呼叫function
      * 首頁畫面:顯示所有留言
-     * @param  Request $request [nothing]
-     * @return  view:index.blade.php
+     * 搜尋畫面:搜尋標題或內容
+     * >>按鈕在layout navbar
+     * @param  Request $request [nothing / "searchInput"]
+     * @return  view:welcome_index.blade.php
      *          1.dataList:全部留言
+     *          2.searchList:回傳搜尋結果陣列
+     *          3.searchInput:儲存剛剛打的搜尋字串
      */
     public function index(Request $request) {
         #param
         $view = "welcome_index";
 
-        #取出全部的留言
-        $dataList = Boards::findAll();//way 1-自行定義的查詢function
+        if($request->has("searchInput")){
+            #搜尋:取出search的留言
+            $searchInput = $request->has("searchInput") ? $request->input("searchInput") : "";
+            $searchList = Boards::findBySearch($searchInput);//way 1-自行定義的查詢function
+            $model["searchList"] = isset($searchList) ? $searchList : "";
+            $model["searchInput"] = isset($searchInput) ? $searchInput : "";
+        }else{
+            #首頁:取出全部的留言
+            $dataList = Boards::findAll();//way 1-自行定義的查詢function
+            #傳遞到顯示的blade
+            $model["dataList"] = $dataList;
+        }
         //要用哪一種都可以，依照自己的需求選擇
         //$dataList = DB::select("nickname", "email")->get();//way2-使用Laravel的SQL ORM方法
         //$dataList = DB::table("Users")->get();
         //$dataList = DB::all();//way3-使用Laravel的ORM方法
         
-        #傳遞到顯示的blade
-        $model["dataList"] = $dataList;
         return view($view, $model);
     }
     
@@ -136,7 +148,7 @@ class WelcomeController extends Controller {
         }else{
             $model["success"] = "Edit Finish!";
         }
-        return Redirect::to("welcome")->with($model); //放$model到session裡
+        return Redirect::to("board")->with($model); //放$model到session裡
     }
 
     /**
@@ -159,28 +171,6 @@ class WelcomeController extends Controller {
         }else{
             return redirect()->back()->with("alert", "請勿修改他人留言!"); //保持原頁面，傳送alert msg
         }
-    }
-    
-    /**
-     * [searchMsg 查詢]
-     * >>按鈕在layout navbar
-     * 搜尋標題或內容
-     * 跟首頁共用頁面
-     * @param  Request $request ["searchInput"]
-     * @return view:welcome_index.blade.php
-     *         1.searchList:回傳搜尋結果陣列
-     *         2.searchInput:儲存剛剛打的搜尋字串
-     */
-    public function searchMsg(Request $request) {
-        #param
-        $view = "welcome_index";
-
-        #取出search的留言
-        $searchList = Boards::searchMsg($request->input("searchInput"));//way 1-自行定義的查詢function
-        $model["searchList"] = $searchList;
-        $model["searchInput"] = $request->input("searchInput");
-
-        return view($view, $model);//加預設
     }
 
 //------------------------會員↓-----------------------------------------------------------------------------------------
@@ -224,7 +214,7 @@ class WelcomeController extends Controller {
             $model["success"] = "login success!";
             $request->session()->put("login_id", $data->id);
             $request->session()->put("login_name", $data->nickname);
-            return Redirect::to("welcome")->with($model);
+            return Redirect::to("board")->with($model);
         }else{
             $model["id"] = $request->input("id");
             $model["fail"] = "login fail! 帳號或密碼不相符";
@@ -243,7 +233,7 @@ class WelcomeController extends Controller {
     public function logout(Request $request) { //要收到他傳過來的東西
         $request->session()->forget("login_id", "login_name");
         $model["success"] = "logout success!";
-        return Redirect::to("welcome")->with($model);
+        return Redirect::to("board")->with($model);
     }
     
     /**
@@ -364,7 +354,7 @@ class WelcomeController extends Controller {
             $data->password = password_hash($request->input("password"), PASSWORD_BCRYPT);
             $data->save();
             $model["success"] = "修改密碼成功!!";
-            return Redirect::to("welcome")->with($model);
+            return Redirect::to("board")->with($model);
         }else{
             $model["fail"] = "修改密碼失敗!";
             if($data == NULL){
@@ -415,7 +405,7 @@ class WelcomeController extends Controller {
         $data->birthday = $request->input("birtydaypicker");
         $data->save();
         $model["success"] = "修改會員資料成功!!";
-        return Redirect::to("welcome")->with($model);
+        return Redirect::to("board")->with($model);
     }
 
     /**
