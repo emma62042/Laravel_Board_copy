@@ -38,7 +38,7 @@
 	            	rules:{
 	            		id:{ 
 	                        remote:{
-	                            url:"{{ action('BoardController@signup') }}",
+	                            url:"{{ action('UsersController@signup') }}",
 	                            type:"post",
 	                            data:{ //post到signup的request
 	                            	id:function(){
@@ -116,13 +116,16 @@
 					@if(session("login_id"))
 						<li class="list-inline-item">welcome {{ session("login_name") }} (id = {{ session("login_id") }})</li>
 						<li class="list-inline-item">
-							<button class="btn btn-dark" onclick="location.href='{{ action('BoardController@logout') }}'">
-								Logout
-							</button>
+							<form method="post" action="{{ action('UsersController@destroy', ['id'=>session('login_id')])}}" >
+                 				<input name="_method" type="hidden" value="delete">
+                                {{-- 保護您的應用程式不受到 CSRF (跨網站請求偽造) 攻擊 --}}
+        						<input name="_token" type="hidden" value="{{ csrf_token() }}" /> 
+        						<button class="btn btn-dark">Logout</button>
+             				</form>
 						</li>
 					@else
 						<li class="list-inline-item">
-							<button class="btn btn-primary" onclick="location.href='{{ action('BoardController@loginView') }}'">
+							<button class="btn btn-primary" onclick="location.href='{{ action('UsersController@index') }}'">
 								Login
 							</button>
 						</li>
@@ -167,11 +170,11 @@
 							<li class="nav-item dropdown"> {{-- 下拉選單 --}}
 								<a class="nav-link dropdown-toggle" href="#" role="button" id="navbarDropdown" data-toggle="dropdown">修改資料</a>
 								<div class="dropdown-menu text-lg-left text-md-right" aria-labelledby="navbarDropdown">
-								    <a class="dropdown-item" href="{{ action('BoardController@modifyPwdView') }}">修改密碼</a>
-								    <a class="dropdown-item" href="{{ action('BoardController@modifyInfoView') }}">修改會員資料</a>
+								    <a class="dropdown-item" href="{{ action('UsersController@modifyPwdView') }}">修改密碼</a>
+								    <a class="dropdown-item" href="{{ action('UsersController@edit',['id'=>session('login_id')]) }}">修改會員資料</a>
 								</div>
 							</li>
-							<li class="nav-item"><a class="nav-link" href="{{ action('BoardController@myMsg') }}">我的留言</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{ action('UsersController@myMsg') }}">我的留言</a></li>
 		                </ul>
 		            </div>
 				@endif

@@ -105,19 +105,20 @@ center88留言板 with Laravel+Bootstrap
 1. 留言有空白格在index顯示要保留
 2. code review有被稱讚，也一些問題
 3. WelcomeController改名BoardController
+4. 加上UsersController，把會員移過去
 
 ##
 未做工作:  
-* Laravel本身的登入
-* controller 分成board / user
-* 送到model 的參數要有預設值跟確認有值
-* 變數命名規則要照專案風格
-* href要用action, 避免專案名稱更改,url失效
-* script如果是for各自的view, 寫在各自的view最下面
-* form要驗證最好用id, 不跟其他人的form名字衝突
-* model function 用 findByUser, findBySearch...
-* search跟index的controller function寫同一個
-* git 學習
+*   Laravel本身的登入
+* √ controller 分成board / user 
+*   送到model 的參數要有預設值跟確認有值
+*   變數命名規則要照專案風格
+*   href要用action, 避免專案名稱更改,url失效
+*   script如果是for各自的view, 寫在各自的view最下面
+*   form要驗證最好用id, 不跟其他人的form名字衝突
+*   model function 用 findByUser, findBySearch...
+*   search跟index的controller function寫同一個
+*   git 學習
 
 ___
 

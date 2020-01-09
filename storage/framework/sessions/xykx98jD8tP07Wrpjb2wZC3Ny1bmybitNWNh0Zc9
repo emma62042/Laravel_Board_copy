@@ -1,1 +1,1 @@
-a:5:{s:6:"_token";s:40:"x9mSME5G5um69NzyUPe2Twkm7VCf3ADZ9Mp7qtdz";s:9:"_previous";a:1:{s:3:"url";s:34:"http://localhost:8000/board/create";}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}s:8:"login_id";s:4:"emma";s:10:"login_name";s:6:"艾瑪";}
+a:4:{s:6:"_token";s:40:"x9mSME5G5um69NzyUPe2Twkm7VCf3ADZ9Mp7qtdz";s:9:"_previous";a:1:{s:3:"url";s:27:"http://localhost:8000/board";}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}s:10:"login_name";s:6:"艾瑪";}

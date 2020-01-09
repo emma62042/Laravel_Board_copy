@@ -8,7 +8,7 @@
 
 <?php $__env->startSection("content"); ?>
 	
-    <form class="form1" name="form1" method="post" action="<?php echo e(action('BoardController@login')); ?>">
+    <form class="form1" name="form1" method="post" action="<?php echo e(action('UsersController@login')); ?>">
         <input name="_token" type="hidden" value="<?php echo e(csrf_token()); ?>">
         <div class="row justify-content-md-center">
 	        <table class="table table-striped table-bordered col col-md-10 col-lg-6">
@@ -35,7 +35,7 @@
 
        
     <div style="text-align:center; margin:5px;">
-        <button class="btn btn-secondary" onclick="location.href='<?php echo e(action('BoardController@signupView')); ?>'">
+        <button class="btn btn-secondary" onclick="location.href='<?php echo e(action('UsersController@create')); ?>'">
         	去註冊→
         </button>
     </div>

@@ -8,8 +8,9 @@
 
 <?php $__env->startSection("content"); ?>
     
-    <form class="form1" name="form1" method="post" action="<?php echo e(action('BoardController@modifyInfo')); ?>">
+    <form class="form1" name="form1" method="post" action="<?php echo e(action('UsersController@update', ['id'=>session('login_id')])); ?>">
         <input name="_token" type="hidden" value="<?php echo e(csrf_token()); ?>">
+        <input name="_method" type="hidden" value="put">
         <div class="row justify-content-md-center">
 	        <table class="table table-striped table-bordered col col-md-10 col-lg-6">
 	            <tr>

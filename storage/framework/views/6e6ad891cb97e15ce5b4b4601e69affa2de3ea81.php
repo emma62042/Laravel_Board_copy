@@ -38,7 +38,7 @@
 	            	rules:{
 	            		id:{ 
 	                        remote:{
-	                            url:"<?php echo e(action('BoardController@signup')); ?>",
+	                            url:"<?php echo e(action('UsersController@signup')); ?>",
 	                            type:"post",
 	                            data:{ //post到signup的request
 	                            	id:function(){
@@ -116,13 +116,16 @@
 					<?php if(session("login_id")): ?>
 						<li class="list-inline-item">welcome <?php echo e(session("login_name")); ?> (id = <?php echo e(session("login_id")); ?>)</li>
 						<li class="list-inline-item">
-							<button class="btn btn-dark" onclick="location.href='<?php echo e(action('BoardController@logout')); ?>'">
-								Logout
-							</button>
+							<form method="post" action="<?php echo e(action('UsersController@destroy', ['id'=>session('login_id')])); ?>" >
+                 				<input name="_method" type="hidden" value="delete">
+                                
+        						<input name="_token" type="hidden" value="<?php echo e(csrf_token()); ?>" /> 
+        						<button class="btn btn-dark">Logout</button>
+             				</form>
 						</li>
 					<?php else: ?>
 						<li class="list-inline-item">
-							<button class="btn btn-primary" onclick="location.href='<?php echo e(action('BoardController@loginView')); ?>'">
+							<button class="btn btn-primary" onclick="location.href='<?php echo e(action('UsersController@index')); ?>'">
 								Login
 							</button>
 						</li>
@@ -167,11 +170,11 @@
 							<li class="nav-item dropdown"> 
 								<a class="nav-link dropdown-toggle" href="#" role="button" id="navbarDropdown" data-toggle="dropdown">修改資料</a>
 								<div class="dropdown-menu text-lg-left text-md-right" aria-labelledby="navbarDropdown">
-								    <a class="dropdown-item" href="<?php echo e(action('BoardController@modifyPwdView')); ?>">修改密碼</a>
-								    <a class="dropdown-item" href="<?php echo e(action('BoardController@modifyInfoView')); ?>">修改會員資料</a>
+								    <a class="dropdown-item" href="<?php echo e(action('UsersController@modifyPwdView')); ?>">修改密碼</a>
+								    <a class="dropdown-item" href="<?php echo e(action('UsersController@edit',['id'=>session('login_id')])); ?>">修改會員資料</a>
 								</div>
 							</li>
-							<li class="nav-item"><a class="nav-link" href="<?php echo e(action('BoardController@myMsg')); ?>">我的留言</a></li>
+							<li class="nav-item"><a class="nav-link" href="<?php echo e(action('UsersController@myMsg')); ?>">我的留言</a></li>
 		                </ul>
 		            </div>
 				<?php endif; ?>

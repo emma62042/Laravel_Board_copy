@@ -11,7 +11,7 @@
 
 @section("content")
     {{-- 修改密碼 --}}
-    <form id="modifyPwdForm" method="post" action="{{ action('BoardController@modifyPwd') }}">
+    <form id="modifyPwdForm" method="post" action="{{ action('UsersController@modifyPwd') }}">
         <input name="_token" type="hidden" value="{{ csrf_token() }}">
         <div class="row justify-content-md-center">
 	        <table class="table table-striped table-bordered col col-md-10 col-lg-6">

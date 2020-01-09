@@ -26,28 +26,19 @@
 Route::get("/", "BoardController@index");
 Route::resource("/board", "BoardController", ["except" => ["show"]]); //except method get+key預設是show
 
-
+Route::resource("/users", "UsersController", ["except" => ["show"]]); //except method get+key預設是show
 //登入
-Route::get("/board/login", "BoardController@loginView");
-Route::post("/board/login", "BoardController@login");
-
-//登出
-Route::get("/board/logout", "BoardController@logout");
+Route::post("/users/login", "UsersController@login");
 
 //註冊
-Route::get("/board/signup", "BoardController@signupView");
-Route::post("/board/signup", "BoardController@signup");
+Route::post("/users/signup", "UsersController@signup");
 
 //修改密碼
-Route::get("/board/modifyPwd", "BoardController@modifyPwdView");
-Route::post("/board/modifyPwd", "BoardController@modifyPwd");
+Route::get("/users/modifyPwd", "UsersController@modifyPwdView");
+Route::post("/users/modifyPwd", "UsersController@modifyPwd");
 
-//修改會員資料
-Route::get("/board/modifyInfo", "BoardController@modifyInfoView");
-Route::post("/board/modifyInfo", "BoardController@modifyInfo");
+Route::get("/users/myMsg", "UsersController@myMsg");
 
-//我的留言
-Route::get("/board/myMsg", "BoardController@myMsg");
 //------------------------------------------------------------------------------------------------------------
 //Route::resource("/todo", "TodoController", ["except" => ["show"]]); //except method get+key預設是show
 //Route::get("/todo/delete", "TodoController@delete");
