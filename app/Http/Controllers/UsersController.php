@@ -98,7 +98,7 @@ class UsersController extends Controller
      *             4.email:上次輸入的email
      */
     public function signup(Request $request) { //要收到他傳過來的東西
-        #後端驗證
+        #後端驗證123
         request()->validate([
             "id"=>["required"],
             "password"=>["required", "confirmed"], //confirmed laravel自己的確認密碼, 會檢查name=password跟password_confirmation有沒有相等
