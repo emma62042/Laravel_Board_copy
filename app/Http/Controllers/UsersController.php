@@ -108,7 +108,7 @@ class UsersController extends Controller
         $view = "welcome_signup";
         $check = Users::idCheck($request->input("id"));
 
-        #帳號確認完成，開始註冊
+        #帳號確認完成，開始註冊123
         //true:new一個帳號，密碼加密，save
         //else:可保留資訊保留，回傳錯誤訊息
         if($check == NULL && $request->input("password") == $request->input("password_confirmation")){
