@@ -121,7 +121,8 @@ class UsersController extends Controller
             $data->password = password_hash($request->input("password"), PASSWORD_BCRYPT); //加密
             $data->nickname = ($request->input("nickname") != "") ? $request->input("nickname") : $request->input("id");
             $data->email = $request->input("email");
-            $data->birthday = $request->input("birtydaypicker");
+            $data->birthday = $request->input("birtydaypicker", "");
+            $data->sex = $request->input("sex", "");
             $data->save();
             $model["success"] = "signup success!<br/>請登入";
             return view("welcome_login", $model);
@@ -210,9 +211,12 @@ class UsersController extends Controller
         if(Users::checkByLogined()){
             $login_id = session("login_id") != NULL ? session("login_id") : "";
             $data = Users::find($login_id);
+            $model["action"] = "edit";
+            $model["nickname"] = isset($data->nickname) ? $data->nickname : "";
             $model["email"] = isset($data->email) ? $data->email : "";
             $model["birthday"] = isset($data->birthday) ? $data->birthday : ""; 
-            return view("welcome_modifyinfo", $model);
+            $model["sex"] = isset($data->sex) ? $data->sex : ""; 
+            return view("welcome_signup", $model);
         }else{
             return redirect()->back()->with("alert", "請先登入!"); //保持原頁面，傳送alert msg
         }
@@ -231,18 +235,18 @@ class UsersController extends Controller
             return $this->signup($request);
         }elseif ($id == "modifyPwd"){
             return $this->modifyPwd($request);
-        }else{
+        }elseif ($id == "modifyInfo"){
             #後端驗證
             request()->validate([
                 "email"=>["required", "email"],
             ]);
 
             #param
-            $view = "welcome_modifyinfo";
             $login_id = session("login_id") != NULL ? session("login_id") : "";
             $data = Users::find($login_id);
             $data->email = $request->input("email");
-            $data->birthday = $request->input("birtydaypicker");
+            $data->birthday = $request->input("birtydaypicker", "");
+            $data->sex = $request->input("sex", "");
             $data->save();
             $model["success"] = "修改會員資料成功!!";
             return Redirect::to("board")->with($model);

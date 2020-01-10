@@ -116,6 +116,7 @@ center88留言板 with Laravel+Bootstrap
 4. 將script移到各自view底下
 5. 去掉不特定from validate
 6. 刪除留言的from class="form_del" 因為delete按鈕是迴圈產生的，用id作為javascript的key會造成只有第一個按鈕接收到，所以改用class
+7. 改成signup跟modifyInfo用同一個view
 
 ##
 未做工作:  
