@@ -107,6 +107,11 @@ center88留言板 with Laravel+Bootstrap
 3. WelcomeController改名BoardController
 4. 加上UsersController，把會員移過去
 
+
+## 2020/1/10
+*  修改code
+1. 把signup跟modifyPwd併進controller@update裡，用id區分
+
 ##
 未做工作:  
 * Laravel本身的登入

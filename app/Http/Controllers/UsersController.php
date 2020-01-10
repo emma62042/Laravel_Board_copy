@@ -67,7 +67,16 @@ class UsersController extends Controller
      * 導向至signup view
      * @return view:welcome_signup.blade.php
      */
-    public function create() {
+    public function create(Request $request) {
+        #前端帳號驗證jQuery validate remote "#signupForm" url 
+        if($request->input("checkid")=="1"){
+            $check = Users::idCheck($request->input("id"));
+            if($check){
+                return "false";
+            }else{
+                return "true";
+            }
+        }
         return view("welcome_signup");
     }
 
@@ -89,16 +98,6 @@ class UsersController extends Controller
      *             4.email:上次輸入的email
      */
     public function signup(Request $request) { //要收到他傳過來的東西
-        #前端帳號驗證jQuery validate remote url
-        if($request->input("checkid")=="1"){
-            $check = Users::idCheck($request->input("id"));
-            if($check){
-                return "false";
-            }else{
-                return "true";
-            }
-        }
-
         #後端驗證
         request()->validate([
             "id"=>["required"],
@@ -220,19 +219,25 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        #後端驗證
-        request()->validate([
-            "email"=>["required", "email"],
-        ]);
+        if($id = "signup"){
+            signup($request);
+        }else if($id = "modifyPwd"){
+            modifyPwd($request);
+        }else{
+            #後端驗證
+            request()->validate([
+                "email"=>["required", "email"],
+            ]);
 
-        #param
-        $view = "welcome_modifyinfo";
-        $data = Users::find(session("login_id"));
-        $data->email = $request->input("email");
-        $data->birthday = $request->input("birtydaypicker");
-        $data->save();
-        $model["success"] = "修改會員資料成功!!";
-        return Redirect::to("board")->with($model);
+            #param
+            $view = "welcome_modifyinfo";
+            $data = Users::find(session("login_id"));
+            $data->email = $request->input("email");
+            $data->birthday = $request->input("birtydaypicker");
+            $data->save();
+            $model["success"] = "修改會員資料成功!!";
+            return Redirect::to("board")->with($model);
+        }
     }
 
     /**

@@ -38,8 +38,8 @@
 	            	rules:{
 	            		id:{ 
 	                        remote:{
-	                            url:"{{ action('UsersController@signup') }}",
-	                            type:"post",
+	                            url:"{{ action('UsersController@create') }}",
+	                            type:"get",
 	                            data:{ //post到signup的request
 	                            	id:function(){
 	                                	return $("#id").val();

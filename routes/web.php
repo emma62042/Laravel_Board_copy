@@ -30,13 +30,10 @@ Route::resource("/users", "UsersController", ["except" => ["show"]]); //except m
 //登入
 Route::post("/users/login", "UsersController@login");
 
-//註冊
-Route::post("/users/signup", "UsersController@signup");
-
-//修改密碼
+//修改密碼View
 Route::get("/users/modifyPwd", "UsersController@modifyPwdView");
-Route::post("/users/modifyPwd", "UsersController@modifyPwd");
 
+//我的留言View
 Route::get("/users/myMsg", "UsersController@myMsg");
 
 //------------------------------------------------------------------------------------------------------------
