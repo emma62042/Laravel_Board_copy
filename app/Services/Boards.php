@@ -40,7 +40,7 @@ class Boards extends BaseModel {
      * @param  Request $request ["searchInput"]
      * @return $searchList
      */
-    public static function findBySearch($searchInput){
+    public static function findBySearch($searchInput = NULL){
         $data = DB::table("Boards as b")
         ->join("Users as u", "u.id", "=", "b.user_id")
         ->select("b.msg_id", "b.title", "b.msg", "b.created_at", "b.updated_at", "b.user_id", "u.nickname")
@@ -58,7 +58,7 @@ class Boards extends BaseModel {
      * @param  $login_id [session("login_id")]
      * @return $myList
      */
-    public static function myMsg($login_id){
+    public static function findByLoginUser($login_id = NULL){
         $data = DB::table("Boards as b")
         ->join("Users as u", "u.id", "=", "b.user_id")
         ->select("b.msg_id", "b.title", "b.msg", "b.created_at", "b.updated_at", "b.user_id", "u.nickname")

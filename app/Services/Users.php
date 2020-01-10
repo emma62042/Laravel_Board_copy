@@ -24,7 +24,7 @@ class Users extends BaseModel {
      * 只能指定固定頁面，例如跳回首頁
      * @return [bool] [已登入/未登入]
      */
-    public static function loginedCheck(){
+    public static function checkByLogined(){
         if(session()->has("login_id")){
             return true;
         }else{
@@ -41,7 +41,7 @@ class Users extends BaseModel {
      * @param  Request $request ["id", "password"]
      * @return $data
      */
-    public static function login($id, $password){
+    public static function login($id = NULL, $password = NULL){
         $data = DB::table("Users")
                 ->where("id", "=", $id)
                 ->first();
@@ -63,7 +63,7 @@ class Users extends BaseModel {
      * @param  Request $request [id]
      * @return $data
      */
-    public static function idCheck($id){
+    public static function checkById($id = NULL){
         $data = DB::table("Users")
                 ->where("id", "=", $id);
         return $data->first();

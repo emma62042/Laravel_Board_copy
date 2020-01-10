@@ -82,7 +82,7 @@ class BoardController extends Controller {
      *          3.msg:修改留言模式顯示原本的msg
      */
     public function edit(Request $request, $key) {
-        if(session()->has("login_id")){
+        if(Users::checkByLogined()){
             #param
             $view = "welcome_create";
             #傳遞到顯示的blade
@@ -90,8 +90,8 @@ class BoardController extends Controller {
             if ($key != NULL) {
                 $data = Boards::find($key);
                 if($data->user_id == session("login_id")){
-                    $model["title"] = $data->title;
-                    $model["msg"] = $data->msg;
+                    $model["title"] = isset($data->title) ? $data->title : "";
+                    $model["msg"] = isset($data->msg) ? $data->msg : "";
                 }else{
                     return redirect()->back()->with("alert", "請勿修改他人留言!"); //保持原頁面，傳送alert msg
                 }

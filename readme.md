@@ -111,17 +111,19 @@ center88留言板 with Laravel+Bootstrap
 ## 2020/1/10
 *  修改code
 1. 把signup跟modifyPwd併進controller@update裡，用id區分
+2. 加入model["xxx"]預設值
+3. 修改Model裡的function參數帶預設值，修改function名稱
 
 ##
 未做工作:  
 * Laravel本身的登入
 * controller 分成board / user √
-* 送到model 的參數要有預設值跟確認有值
+* 送到model 的參數要有預設值跟確認有值 √
 * 變數命名規則要照專案風格
 * href要用action, 避免專案名稱更改,url失效
 * script如果是for各自的view, 寫在各自的view最下面
 * form要驗證最好用id, 不跟其他人的form名字衝突
-* model function 用 findByUser, findBySearch...
+* model function 用 findByUser, findBySearch... √
 * search跟index的controller function寫同一個
 * git 學習
 

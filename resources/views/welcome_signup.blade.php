@@ -13,6 +13,7 @@
   	{{-- 註冊表單 --}}
   	<form id="signupForm" method="post" action="{{ action('UsersController@update', ['id'=>'signup']) }}">
       	<input name="_token" id="token" type="hidden" value="{{ csrf_token() }}">
+      	<input name="_method" type="hidden" value="put">
       	<div class="row justify-content-md-center">
 	        <table class="table table-striped table-bordered col col-md-10 col-lg-6">
 		      	<tr>
