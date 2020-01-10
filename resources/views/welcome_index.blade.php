@@ -46,6 +46,7 @@
                  				</button>
                             @endif
              			</td>
+                        {{-- class="form_del" 因為delete按鈕是迴圈產生的，用id作為javascript的key會造成只有第一個按鈕接收到，所以改用class--}}
     					<form class="form_del" method="post" action="{{ action('BoardController@destroy', ['id'=>$row->msg_id]) }}" >
     						<td data-th="刪除">
                                 @if(session("login_id") == $row->user_id)
@@ -60,7 +61,6 @@
         		</tr>
         	@endforeach
         </table>
-
         {{-- 分頁頁碼 Laravel寫好了 按鈕+功能, links括號裡是頁碼的php, 目前用預設的, 在resourse/view/vendor裡 --}}
         {{-- links("vendor.pagination.檔名") --}}
         {{-- 好像也可以自己做css, 還沒研究 --}}
@@ -68,4 +68,18 @@
             {{-- ex. http://localhost:8000/welcome/searchMsg?searchInput=測試&page=2 --}}
         {!! isset($searchList) ? $msgList->appends(array("searchInput"=>$searchInput))->links("vendor.pagination.complicated-bootstrap-4") : $msgList->links("vendor.pagination.complicated-bootstrap-4") !!}
     @endif
+@endsection
+
+@section("script")
+    <script>
+        $(document).ready(function(){//加在各自的VIEW
+            //刪除確認
+            $(".form_del").submit(function(){
+                if(confirm("確定要刪除嗎?"))
+                    return true;
+                else
+                    return false;
+            });
+        });
+    </script>
 @endsection

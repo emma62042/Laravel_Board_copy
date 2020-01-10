@@ -11,7 +11,7 @@
 
 @section("content")
 	{{-- 登入輸入帳號密碼 --}}
-    <form class="form1" name="form1" method="post" action="{{ action('UsersController@login') }}">
+    <form name="form1" method="post" action="{{ action('UsersController@login') }}">
         <input name="_token" type="hidden" value="{{ csrf_token() }}">
         <div class="row justify-content-md-center">
 	        <table class="table table-striped table-bordered col col-md-10 col-lg-6">

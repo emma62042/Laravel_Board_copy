@@ -38,7 +38,7 @@ class BoardController extends Controller {
         if($request->has("searchInput")){
             #搜尋:取出search的留言
             $searchInput = $request->has("searchInput") ? $request->input("searchInput") : "";
-            $searchList = Boards::findBySearch($searchInput);//way 1-自行定義的查詢function
+            $searchList = Boards::findBySearch($searchInput);
             $model["searchList"] = isset($searchList) ? $searchList : "";
             $model["searchInput"] = isset($searchInput) ? $searchInput : "";
         }else{
@@ -166,7 +166,6 @@ class BoardController extends Controller {
         if($data->user_id == session("login_id")){
             $data->delete();
             $model["success"] = "Delete Success!";
-            //DB::delete("delete from todos where id= ?", [$request->id]);
             return redirect()->back()->with($model); //回到刪除頁面的上一頁
         }else{
             return redirect()->back()->with("alert", "請勿修改他人留言!"); //保持原頁面，傳送alert msg

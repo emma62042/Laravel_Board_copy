@@ -60,5 +60,55 @@
 		        </tr>
 	      	</table>
 	    </div>
-	</form>     
+	</form>    
+@endsection
+
+@section("script")
+	<script>
+		$(document).ready(function(){//加在各自的VIEW
+			//註冊頁面驗證:帳號重複、密碼重複驗證
+        	$("#signupForm").validate({
+            	rules:{
+            		id:{ 
+                        remote:{
+                            url:"{{ action('UsersController@create') }}",
+                            type:"get",
+                            data:{ //post到signup的request
+                            	id:function(){
+                                	return $("#id").val();
+                            	},
+                            	checkid:function(){
+                                	return "1";
+                            	},
+                            	_token:function() {
+                            		return "{{ csrf_token() }}";
+                            	},
+							}
+						}  
+					},
+                	password_confirmation:{
+				    	equalTo: "#password"
+				    },
+        		},
+        		messages:{
+        			id:{
+        				remote:"帳號已有人使用!"
+        			},
+    				password_confirmation:{
+    					equalTo:"密碼驗證不符!" //同rule的function名稱 ex. equalTo/remote/required...
+    				},
+    			}
+            });
+
+            //日期選單gijgo datepicker
+            $("#birtydaypicker").datepicker({
+            	format: 'yyyy-mm-dd',
+            	minDate: "1900-01-01",
+	            uiLibrary: "bootstrap4",
+	            /*icons: {
+	           		rightIcon: "<span class='oi oi-calendar' title='calendar'></span>"
+	   			},*/
+	        });
+		});
+	</script>
 @endsection

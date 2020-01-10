@@ -36,5 +36,21 @@
 	            </tr>
 	        </table>
 	    </div>
-    </form>  
+    </form>
+@endsection
+
+@section("script")  
+    <script>
+		$(document).ready(function(){//加在各自的VIEW
+			//日期選單gijgo datepicker
+            $("#birtydaypicker").datepicker({
+            	format: 'yyyy-mm-dd',
+            	minDate: "1900-01-01",
+	            uiLibrary: "bootstrap4",
+	            /*icons: {
+	           		rightIcon: "<span class='oi oi-calendar' title='calendar'></span>"
+	   			},*/
+	        });
+		});
+	</script> 
 @endsection

@@ -29,76 +29,6 @@
 			    if(exist){
 			    	alert(msg);
 			    };
-
-			    //所有表單的前端required驗證
-	    		$(".form1").validate();
-
-	    		//註冊頁面驗證:帳號重複、密碼重複驗證
-            	$("#signupForm").validate({
-	            	rules:{
-	            		id:{ 
-	                        remote:{
-	                            url:"<?php echo e(action('UsersController@create')); ?>",
-	                            type:"get",
-	                            data:{ //post到signup的request
-	                            	id:function(){
-	                                	return $("#id").val();
-	                            	},
-	                            	checkid:function(){
-	                                	return "1";
-	                            	},
-	                            	_token:function() {
-	                            		return "<?php echo e(csrf_token()); ?>";
-	                            	},
-								}
-							}  
-						},
-	                	password_confirmation:{
-					    	equalTo: "#password"
-					    },
-	        		},
-	        		messages:{
-	        			id:{
-	        				remote:"帳號已有人使用!"
-	        			},
-	    				password_confirmation:{
-	    					equalTo:"密碼驗證不符!" //同rule的function名稱 ex. equalTo/remote/required...
-	    				},
-	    			}
-	            });
-	            
-	            //修改密碼頁面驗證:密碼重複驗證
-            	$("#modifyPwdForm").validate({
-	            	//debug:true,
-	            	rules:{
-	                	password_confirmation:{
-					    	equalTo: "#password"
-					    },
-	        		},
-	        		messages:{
-	        			password_confirmation:{
-	    					equalTo:"密碼驗證不符!"
-	    				},
-	    			}
-	            });
-
-	            //日期選單gijgo datepicker
-	            $("#birtydaypicker").datepicker({
-	            	format: 'yyyy-mm-dd',
-	            	minDate: "1900-01-01",
-		            uiLibrary: "bootstrap4",
-		            /*icons: {
-		           		rightIcon: "<span class='oi oi-calendar' title='calendar'></span>"
-		   			},*/
-		        });
-
-		        //刪除確認
-		        $(".form_del").submit(function(){
-					if(confirm("確定要刪除嗎?"))
-						return true;
-					else
-						return false;
-				});
             });
         </script>
         <style>
@@ -219,5 +149,6 @@
 				<?php echo $__env->yieldContent("content"); ?>
 	    	</div>
 	    </div>
+	    <?php echo $__env->yieldContent("script"); ?>
 	</body>
 </html>

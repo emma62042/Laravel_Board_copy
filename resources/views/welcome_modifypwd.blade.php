@@ -41,5 +41,26 @@
 	            </tr>
 	        </table>
 	    </div>
-    </form>  
+    </form>   
+@endsection
+
+@section("script")
+    <script>
+		$(document).ready(function(){//加在各自的VIEW
+			//修改密碼頁面驗證:密碼重複驗證
+        	$("#modifyPwdForm").validate({
+            	//debug:true,
+            	rules:{
+                	password_confirmation:{
+				    	equalTo: "#password"
+				    },
+        		},
+        		messages:{
+        			password_confirmation:{
+    					equalTo:"密碼驗證不符!"
+    				},
+    			}
+            });
+		});
+	</script>
 @endsection

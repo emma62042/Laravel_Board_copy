@@ -113,6 +113,9 @@ center88留言板 with Laravel+Bootstrap
 1. 把signup跟modifyPwd併進controller@update裡，用id區分
 2. 加入model["xxx"]預設值
 3. 修改Model裡的function參數帶預設值，修改function名稱
+4. 將script移到各自view底下
+5. 去掉不特定from validate
+6. 刪除留言的from class="form_del" 因為delete按鈕是迴圈產生的，用id作為javascript的key會造成只有第一個按鈕接收到，所以改用class
 
 ##
 未做工作:  
@@ -120,11 +123,11 @@ center88留言板 with Laravel+Bootstrap
 * controller 分成board / user √
 * 送到model 的參數要有預設值跟確認有值 √
 * 變數命名規則要照專案風格
-* href要用action, 避免專案名稱更改,url失效
-* script如果是for各自的view, 寫在各自的view最下面
+* href要用action, 避免專案名稱更改,url失效 √
+* script如果是for各自的view, 寫在各自的view最下面 √
 * form要驗證最好用id, 不跟其他人的form名字衝突
 * model function 用 findByUser, findBySearch... √
-* search跟index的controller function寫同一個
+* search跟index的controller function寫同一個 √
 * git 學習
 
 ___

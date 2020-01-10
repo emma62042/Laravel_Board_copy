@@ -44,6 +44,7 @@
                  				</button>
                             <?php endif; ?>
              			</td>
+                        
     					<form class="form_del" method="post" action="<?php echo e(action('BoardController@destroy', ['id'=>$row->msg_id])); ?>" >
     						<td data-th="刪除">
                                 <?php if(session("login_id") == $row->user_id): ?>
@@ -58,7 +59,6 @@
         		</tr>
         	<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </table>
-
         
         
         
@@ -67,6 +67,20 @@
         <?php echo isset($searchList) ? $msgList->appends(array("searchInput"=>$searchInput))->links("vendor.pagination.complicated-bootstrap-4") : $msgList->links("vendor.pagination.complicated-bootstrap-4"); ?>
 
     <?php endif; ?>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection("script"); ?>
+    <script>
+        $(document).ready(function(){//加在各自的VIEW
+            //刪除確認
+            $(".form_del").submit(function(){
+                if(confirm("確定要刪除嗎?"))
+                    return true;
+                else
+                    return false;
+            });
+        });
+    </script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make("welcome_layout", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
