@@ -125,7 +125,7 @@ center88留言板 with Laravel+Bootstrap
 * 變數命名規則要照專案風格
 * href要用action, 避免專案名稱更改,url失效 √
 * script如果是for各自的view, 寫在各自的view最下面 √
-* form要驗證最好用id, 不跟其他人的form名字衝突
+* form要驗證最好用id, 不跟其他人的form名字衝突 √
 * model function 用 findByUser, findBySearch... √
 * search跟index的controller function寫同一個 √
 * git 學習
