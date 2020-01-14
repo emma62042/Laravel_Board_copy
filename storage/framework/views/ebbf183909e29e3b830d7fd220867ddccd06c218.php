@@ -81,10 +81,15 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection("script"); ?>
+	
 	<script>
 		$(document).ready(function(){//加在各自的VIEW
 			//註冊頁面驗證:帳號重複、密碼重複驗證
         	$("#signupForm").validate({
+        		submitHandler:function(form){
+        			if(confirm("確定要<?php echo e(isset($action) ? '修改' : '註冊'); ?>嗎?"))
+	                    form.submit();
+				},
             	rules:{
             		id:{ 
                         remote:{

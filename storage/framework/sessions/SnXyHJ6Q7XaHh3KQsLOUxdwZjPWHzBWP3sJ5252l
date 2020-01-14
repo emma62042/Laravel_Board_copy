@@ -1,1 +1,1 @@
-a:4:{s:6:"_token";s:40:"6m5AOoRU24A973GVfY12qn35iGUsu0GxN4c4xCfP";s:9:"_previous";a:1:{s:3:"url";s:34:"http://localhost:8000/users/create";}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}s:10:"login_name";s:7:"emma123";}
+a:5:{s:6:"_token";s:40:"6m5AOoRU24A973GVfY12qn35iGUsu0GxN4c4xCfP";s:9:"_previous";a:1:{s:3:"url";s:37:"http://localhost:8000/users/emma/edit";}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}s:10:"login_name";s:6:"艾瑪";s:8:"login_id";s:4:"emma";}
