@@ -42,6 +42,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection("script"); ?>
+	
     <script>
 		$(document).ready(function(){//加在各自的VIEW
 			//修改密碼頁面驗證:密碼重複驗證
