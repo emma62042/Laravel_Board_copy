@@ -121,8 +121,8 @@ class UsersController extends Controller
             $data->password = password_hash($request->input("password"), PASSWORD_BCRYPT); //加密
             $data->nickname = ($request->input("nickname") != "") ? $request->input("nickname") : $request->input("id");
             $data->email = $request->input("email");
-            $data->birthday = $request->input("birtydaypicker", "");
-            $data->sex = $request->input("sex", "");
+            $data->birthday = $request->input("birtydaypicker", NULL);
+            $data->sex = $request->input("sex", NULL);
             $data->save();
             $model["success"] = "signup success!<br/>請登入";
             return view("welcome_login", $model);

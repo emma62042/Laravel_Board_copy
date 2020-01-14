@@ -96,12 +96,8 @@
                             	id:function(){
                                 	return $("#id").val();
                             	},
-                            	checkid:function(){
-                                	return "1";
-                            	},
-                            	_token:function() {
-                            		return "{{ csrf_token() }}";
-                            	},
+                            	checkid:"1",
+                            	_token:"{{ csrf_token() }}",
 							}
 						}  
 					},

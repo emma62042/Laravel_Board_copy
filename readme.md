@@ -118,6 +118,13 @@ center88留言板 with Laravel+Bootstrap
 6. 刪除留言的from class="form_del" 因為delete按鈕是迴圈產生的，用id作為javascript的key會造成只有第一個按鈕接收到，所以改用class
 7. 改成signup跟modifyInfo用同一個view
 
+## 2020/1/13
+*  耍費
+
+## 2020/1/10
+*  修改code
+1. 修改signup的validate remote傳值的值，單純字串不用function
+
 ##
 未做工作:  
 * Laravel本身的登入
