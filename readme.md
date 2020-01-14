@@ -121,7 +121,7 @@ center88留言板 with Laravel+Bootstrap
 ## 2020/1/13
 *  耍費
 
-## 2020/1/10
+## 2020/1/14
 *  修改code
 1. 修改signup的validate remote傳值的值，單純字串不用function
 
