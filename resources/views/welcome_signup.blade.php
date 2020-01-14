@@ -83,6 +83,7 @@
 @endsection
 
 @section("script")
+	{{-- 前端驗證 jquery validated --}}
 	<script>
 		$(document).ready(function(){//加在各自的VIEW
 			//註冊頁面驗證:帳號重複、密碼重複驗證

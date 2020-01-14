@@ -20,7 +20,7 @@
 	    <script src="/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script> 
 	    <script src="/gijgo/js/gijgo.min.js"></script> {{-- gijgo datepicker js --}}
 
-	    {{-- 前端驗證 jquery validated --}}
+	    {{-- alert --}}
 	    <script>
 	    	$(document).ready(function(){//加在各自的VIEW
 	    		//由controller發送alert

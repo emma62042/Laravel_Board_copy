@@ -73,7 +73,7 @@ class UsersController extends Controller
         #前端帳號驗證jQuery validate remote "#signupForm" url 
         if($request->input("checkid")=="1"){
             $id = $request->has("id") ? $request->input("id") : "";
-            $check = Users::checkById($id);
+            $check = Users::checkIfRightId($id);
             if($check){
                 return "false";
             }else{
@@ -110,7 +110,7 @@ class UsersController extends Controller
 
         $view = "welcome_signup";
         $id = $request->has("id") ? $request->input("id") : "";
-        $check = Users::checkById($id);
+        $check = Users::checkIfRightId($id);
 
         #帳號確認完成，開始註冊
         //true:new一個帳號，密碼加密，save
@@ -149,7 +149,7 @@ class UsersController extends Controller
      * @return view:welcome_modifyPwd.blade.php
      */
     public function modifyPwdView() {
-        if(Users::checkByLogined()){
+        if(Users::checkIfLogined()){
             return view("welcome_modifyPwd");
         }else{
             return redirect()->back()->with("alert", "請先登入!"); //保持原頁面，傳送alert msg
@@ -208,7 +208,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        if(Users::checkByLogined()){
+        if(Users::checkIfLogined()){
             $login_id = session("login_id") != NULL ? session("login_id") : "";
             $data = Users::find($login_id);
             $model["action"] = "edit";
@@ -263,7 +263,7 @@ class UsersController extends Controller
      */
     public function myMsg(Request $request) {
         #會員已登入確認
-        if(Users::checkByLogined()){
+        if(Users::checkIfLogined()){
             #param
             $view = "welcome_index";
 

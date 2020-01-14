@@ -82,7 +82,7 @@ class BoardController extends Controller {
      *          3.msg:修改留言模式顯示原本的msg
      */
     public function edit(Request $request, $key) {
-        if(Users::checkByLogined()){
+        if(Users::checkIfLogined()){
             #param
             $view = "welcome_create";
             #傳遞到顯示的blade
