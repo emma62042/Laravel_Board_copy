@@ -125,9 +125,7 @@ center88留言板 with Laravel+Bootstrap
 *  修改code
 1. 修改signup的validate remote傳值的值，單純字串不用function
 
-##
-未做工作:  
-* Laravel本身的登入
+## 2020-01-09 Code Review
 * controller 分成board / user √
 * 送到model 的參數要有預設值跟確認有值 √
 * 變數命名規則要照專案風格
@@ -136,6 +134,10 @@ center88留言板 with Laravel+Bootstrap
 * form要驗證最好用id, 不跟其他人的form名字衝突 √
 * model function 用 findByUser, findBySearch... √
 * search跟index的controller function寫同一個 √
+
+##
+未做工作:  
+* Laravel本身的登入
 * git 學習
 
 ___
