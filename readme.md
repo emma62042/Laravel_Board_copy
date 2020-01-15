@@ -124,7 +124,6 @@ center88留言板 with Laravel+Bootstrap
 ## 2020/1/14
 *  修改code
 1. 修改signup的validate remote傳值的值，單純字串不用function
-2. 國王說討論一下可以進專案了
 
 ## 2020/1/15
 *  虛擬機測試、下午要code review
