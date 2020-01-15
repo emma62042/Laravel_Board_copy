@@ -1,5 +1,5 @@
 <?php
-//center88 test
+//center88 test 中文測試
 //本機測試
 
 namespace App\Http\Controllers;
