@@ -118,7 +118,7 @@ center88留言板 with Laravel+Bootstrap
 7. 改成signup跟modifyInfo用同一個view
 
 ## 2020/1/13
-*  耍費
+*   
 
 ## 2020/1/14
 *  修改code
