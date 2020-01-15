@@ -124,6 +124,14 @@ center88留言板 with Laravel+Bootstrap
 ## 2020/1/14
 *  修改code
 1. 修改signup的validate remote傳值的值，單純字串不用function
+2. 國王說討論一下可以進專案了
+
+## 2020/1/15
+*  虛擬機測試、下午要code review
+1. 用虛擬機eclipse clone github的repositories下來
+2. 在虛擬機修改
+3. 專案->Team->commit->commit and push->打帳號密碼->按ok
+4. pull: 專案->Team->pull 就好
 
 ## 2020-01-09 Code Review
 * controller 分成board / user √
