@@ -1,4 +1,4 @@
-{{-- 註冊畫面 --}}
+{{-- 註冊/修改會員資料畫面 --}}
 @extends("welcome_layout")
 
 @section("title")
@@ -10,7 +10,7 @@
 @endsection
 
 @section("content")
-  	{{-- 註冊表單 --}}
+  	{{-- 註冊/修改會員資料表單 --}}
   	<form id="signupForm" method="post" action="{{ isset($action) ? action('UsersController@update', ['id'=>'modifyInfo']) : 'signup' }}">
       	<input name="_token" id="token" type="hidden" value="{{ csrf_token() }}">
       	<input name="_method" type="hidden" value="put">

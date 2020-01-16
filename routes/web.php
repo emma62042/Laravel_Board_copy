@@ -27,6 +27,7 @@ Route::get("/", "BoardController@index");
 Route::resource("/board", "BoardController", ["except" => ["show"]]); //except method get+key預設是show
 
 Route::resource("/users", "UsersController", ["except" => ["show"]]); //except method get+key預設是show
+//any
 //登入
 Route::post("/users/login", "UsersController@login");
 

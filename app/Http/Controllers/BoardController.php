@@ -88,7 +88,7 @@ class BoardController extends Controller {
             #傳遞到顯示的blade
             $model["msg_id"] = $key;
             if ($key != NULL) {
-                $data = Boards::find($key);
+                $data = Boards::find($key);//找不到會壞掉
                 if($data->user_id == session("login_id")){
                     $model["title"] = isset($data->title) ? $data->title : "";
                     $model["msg"] = isset($data->msg) ? $data->msg : "";
@@ -129,7 +129,8 @@ class BoardController extends Controller {
         if($key == "new_a_msg"){
             $data = new Boards();
         }else{ 
-            $data = Boards::find($key);
+            $data = Boards::find($key);//找不到data
+            //::static -> dynamic
         }
         
         #put data
@@ -162,7 +163,7 @@ class BoardController extends Controller {
      *         1.success:回傳刪除成功訊息
      */
     public function destroy(Request $request, $key) { //要收到他傳過來的東西
-        $data = Boards::find($key);
+        $data = Boards::find($key);//確認
         if($data->user_id == session("login_id")){
             $data->delete();
             $model["success"] = "Delete Success!";

@@ -4,7 +4,6 @@
 	<head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         {{-- 掛載CSS樣式 --}}
-        
 	    <link rel="stylesheet" href="/bootstrap-4.4.1-dist/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" href="/open-iconic-master/font/css/open-iconic-bootstrap.css"/>
 	    <link rel="stylesheet" href="/gijgo/css/gijgo.min.css"/> {{-- gijgo datepicker css --}}

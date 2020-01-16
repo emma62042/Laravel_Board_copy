@@ -41,7 +41,7 @@ class Users extends BaseModel {
      * @param  Request $request ["id", "password"]
      * @return $data
      */
-    public static function login($id = NULL, $password = NULL){
+    public static function login($id, $password){
         $data = DB::table("Users")
                 ->where("id", "=", $id)
                 ->first();
@@ -63,10 +63,16 @@ class Users extends BaseModel {
      * @param  Request $request [id]
      * @return $data
      */
-    public static function checkIfRightId($id = NULL){
+    //預設?沒必要不要用
+    public static function checkIfRightId($id){
         $data = DB::table("Users")
-                ->where("id", "=", $id);
-        return $data->first();
+                ->where("id", "=", $id)
+                ->first();
+        if(isset($data) && $data != array()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 ?>

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\Services\Users; 
 use App\Services\Boards;
 
+//大括號右邊 有空白
 class UsersController extends Controller
 {
     /**
@@ -52,7 +53,7 @@ class UsersController extends Controller
         $password = $request->has("password") ? $request->input("password") : "";
         $data = Users::login($id, $password); //id+驗證
         
-        if($data){
+        if($data){ //根據回傳type比較
             $model["success"] = "login success!";
             $request->session()->put("login_id", $data->id);
             $request->session()->put("login_name", $data->nickname);
@@ -75,14 +76,14 @@ class UsersController extends Controller
         #前端帳號驗證jQuery validate remote "#signupForm" url 
         if($request->input("checkid")=="1"){
             $id = $request->has("id") ? $request->input("id") : "";
-            $check = Users::checkIfRightId($id);
+            $check = Users::checkIfRightId($id);//bool用check
             if($check){
-                return "false";
+                return "false";//換個詞呼叫另一個function
             }else{
                 return "true";
             }
         }
-        return view("welcome_signup");
+        return view("welcome_signup");//view的名字跟function得名字
     }
 
     /**
@@ -212,12 +213,13 @@ class UsersController extends Controller
     {
         if(Users::checkIfLogined()){
             $login_id = session("login_id") != NULL ? session("login_id") : "";
-            $data = Users::find($login_id);
+            $data = Users::find($login_id);//if no data
             $model["action"] = "edit";
             $model["nickname"] = isset($data->nickname) ? $data->nickname : "";
             $model["email"] = isset($data->email) ? $data->email : "";
             $model["birthday"] = isset($data->birthday) ? $data->birthday : ""; 
             $model["sex"] = isset($data->sex) ? $data->sex : ""; 
+            //可以直接傳data過去
             return view("welcome_signup", $model);
         }else{
             return redirect()->back()->with("alert", "請先登入!"); //保持原頁面，傳送alert msg
@@ -244,7 +246,7 @@ class UsersController extends Controller
             ]);
 
             #param
-            $login_id = session("login_id") != NULL ? session("login_id") : "";
+            $login_id = (session("login_id") != NULL) ? session("login_id") : "";
             $data = Users::find($login_id);
             $data->email = $request->input("email");
             $data->birthday = $request->input("birtydaypicker", "");
@@ -252,7 +254,7 @@ class UsersController extends Controller
             $data->save();
             $model["success"] = "修改會員資料成功!!";
             return Redirect::to("board")->with($model);
-        }
+        }//else defult
     }
 
     /**
@@ -272,7 +274,7 @@ class UsersController extends Controller
             #取出會員id的留言
             $login_id = session("login_id") != NULL ? session("login_id") : "";
             $myList = Boards::findByLoginUser($login_id);//way 1-自行定義的查詢function
-            $model["myList"] = isset($myList) ? $myList : "";
+            $model["myList"] = isset($myList) ? $myList : array() ;//類型要注意
 
             return view($view, $model);
         }else{
