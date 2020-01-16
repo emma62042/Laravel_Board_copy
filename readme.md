@@ -131,6 +131,9 @@ center88留言板 with Laravel+Bootstrap
 3. 專案->Team->commit->commit and push->打帳號密碼->按ok
 4. pull: 專案->Team->pull 就好
 
+## 2020/1/16
+*  改code review的問題
+
 ## 2020-01-09 Code Review
 * controller 分成board / user √
 * 送到model 的參數要有預設值跟確認有值 √
