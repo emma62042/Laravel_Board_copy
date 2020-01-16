@@ -15,26 +15,9 @@ class Boards extends BaseModel {
     
     public $incrementing = true; //primaryKey非自動遞增設為false
     public $timestamps = true; //時間戳記非自動產生設定為false
-    
-    /**
-     * [findAll]
-     * 查詢Boards join Users表, join條件是u.id == b.user_id
-     * 取出全部結果
-     * 用b.updated_at降序
-     * 用->paginate(5)分頁，1頁5個留言
-     * @return $dataList
-     */
-    public static function findAll(){
-        $data = DB::table("Boards as b")
-        ->join("Users as u", "u.id", "=", "b.user_id")
-        ->select("b.msg_id", "b.title", "b.msg", "b.created_at", "b.updated_at", "b.user_id", "u.nickname")
-        ->orderBy("b.updated_at", "desc");
-
-        return $data->paginate(5);
-    }
 
     /**
-     * [searchMsg]
+     * [findBySearch]
      * 搜尋標題或內容
      * 用->paginate(5)分頁，1頁5個留言
      * @param  Request $request ["searchInput"]
@@ -53,13 +36,13 @@ class Boards extends BaseModel {
     }
 
     /**
-     * [myMsg]
+     * [findByLoginUser]
      * 我的留言
      * 用->paginate(5)分頁，1頁5個留言
      * @param  $login_id [session("login_id")]
      * @return $myList
      */
-    public static function findByLoginUser($login_id = NULL){
+    public static function findByLoginUser($login_id){
         $data = DB::table("Boards as b")
         ->join("Users as u", "u.id", "=", "b.user_id")
         ->select("b.msg_id", "b.title", "b.msg", "b.created_at", "b.updated_at", "b.user_id", "u.nickname")
@@ -67,6 +50,20 @@ class Boards extends BaseModel {
         ->orderBy("b.updated_at", "desc");
 
         return $data->paginate(5);
+    }
+
+    /**
+     * [checkIfRightMsg]
+     * 確認這個留言是屬於登入者的
+     * @param  $user_id
+     * @return bool
+     */
+    public static function checkIfRightMsg($user_id) {
+        if($user_id == session("login_id")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 ?>

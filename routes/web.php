@@ -28,6 +28,8 @@ Route::resource("/board", "BoardController", ["except" => ["show"]]); //except m
 
 Route::resource("/users", "UsersController", ["except" => ["show"]]); //except method get+key預設是show
 //any
+
+Route::get("/users/checkIdJquery", "UsersController@checkIdJquery");
 //登入
 Route::post("/users/login", "UsersController@login");
 

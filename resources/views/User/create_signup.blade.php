@@ -39,33 +39,33 @@
 		        <tr>
 		        	<th>暱稱</th>
 		        	<td>
-		        		<input class="form-control" type="text" name="nickname" placeholder="未輸入將以id為暱稱" value="{{ isset($nickname) ? $nickname : old('nickname') }}">
+		        		<input class="form-control" type="text" name="nickname" placeholder="未輸入將以id為暱稱" value="{{ isset($userData->nickname) ? $userData->nickname : old('nickname') }}">
 		        	</td>
 		        </tr>
 		        <tr>
 		        	<th><span style="color:red;">*</span>E-mail</th>
 		        	<td>
-		        		<input class="form-control" type="text" name="email" value="{{ isset($email) ? $email : old('email') }}" required>
+		        		<input class="form-control" type="text" name="email" value="{{ isset($userData->email) ? $userData->email : old('email') }}" required>
 		        	</td>
 		        </tr>
 		        <tr>
 		        	<th>生日</th>
 		        	<td>
 		        		{{-- 使用gijgo的datepicker,header有jquery --}}
-		        		<input id="birtydaypicker" name="birtydaypicker" value="{{ isset($birthday) ? $birthday : ((old('birtydaypicker') != NULL) ? old('birtydaypicker') : '1995-01-31')}}"> 
+		        		<input id="birtydaypicker" name="birtydaypicker" value="{{ isset($userData->birthday) ? $userData->birthday : ((old('birtydaypicker') != NULL) ? old('birtydaypicker') : '1995-01-31')}}"> 
 		        	</td>
 		        </tr>
 		        <tr>
 		        	<th>性別</th>
 		        	<td>
 		        		<div class="form-check form-check-inline">
-		        			<input class="form-check-input" type="radio" name="sex" value="M" {{ (isset($sex) && $sex == "M") ? "checked" : ""}}>
+		        			<input class="form-check-input" type="radio" name="sex" value="M" {{ (isset($userData->sex) && $userData->sex == "M") ? "checked" : ""}}>
 							<label class="form-check-label">
 								Male
 							</label>
 		        		</div>
 		        		<div class="form-check form-check-inline">
-		        			<input class="form-check-input" type="radio" name="sex" value="F" {{ (isset($sex) && $sex == "F") ? "checked" : ""}}>
+		        			<input class="form-check-input" type="radio" name="sex" value="F" {{ (isset($userData->sex) && $userData->sex == "F") ? "checked" : ""}}>
 							<label class="form-check-label">
 								Female
 							</label>
@@ -95,13 +95,12 @@
             	rules:{
             		id:{ 
                         remote:{
-                            url:"{{ action('UsersController@create') }}",
+                            url:"{{ action('UsersController@checkIdJquery') }}",
                             type:"get",
                             data:{ //post到signup的request
                             	id:function(){
                                 	return $("#id").val();
                             	},
-                            	checkid:"1",
                             	_token:"{{ csrf_token() }}",
 							}
 						}  

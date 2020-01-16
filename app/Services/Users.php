@@ -54,7 +54,7 @@ class Users extends BaseModel {
     }
 
     /**
-     * [idCheck]
+     * [checkIfNewId]
      * 帳號確認
      * 查詢Users表, 輸入id == Users裡的id
      * 取出第一個回傳
@@ -64,14 +64,14 @@ class Users extends BaseModel {
      * @return $data
      */
     //預設?沒必要不要用
-    public static function checkIfRightId($id){
+    public static function checkIfNewId($id){
         $data = DB::table("Users")
                 ->where("id", "=", $id)
                 ->first();
         if(isset($data) && $data != array()) {
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     }
 }

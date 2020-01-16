@@ -20,10 +20,10 @@ class UsersController extends Controller
      * [index 登入]
      * >>按鈕在layout sign
      * 導向至login view
-     * @return view:welcome_login.blade.php
+     * @return view:User/index_login.blade.php
      */
     public function index() {
-        return view("welcome_login");
+        return view("User/index_login");
     }
 
     /**
@@ -38,7 +38,7 @@ class UsersController extends Controller
      *             1.login_id:會員帳號
      *             2.login_name:會員暱稱
      *         登入失敗:
-     *             view:welcome_login.blade.php
+     *             view:User/index_login.blade.php
      *             1.fail:回傳登入失敗訊息
      */
     public function login(Request $request) { //要收到他傳過來的東西
@@ -48,42 +48,43 @@ class UsersController extends Controller
             "password"=>["required"]
         ]);
 
-        $view = "welcome_login";
         $id = $request->has("id") ? $request->input("id") : "";
         $password = $request->has("password") ? $request->input("password") : "";
-        $data = Users::login($id, $password); //id+驗證
+        $userData = Users::login($id, $password); //id+驗證
         
-        if($data){ //根據回傳type比較
+        //登入成功
+        if(isset($userData) && $userData != NULL) { 
             $model["success"] = "login success!";
-            $request->session()->put("login_id", $data->id);
-            $request->session()->put("login_name", $data->nickname);
+            $request->session()->put("login_id", $userData->id);
+            $request->session()->put("login_name", $userData->nickname);
             return Redirect::to("board")->with($model);
         }else{
+            $view = "User/index_login";
             $model["id"] = $request->has("id") ? $request->input("id") : "";
             $model["fail"] = "login fail! 帳號或密碼不相符";
+            return view($view, $model);
         }
-        return view($view, $model);
     }
 
+    public function checkIdJquery(Request $request) {
+        #前端帳號驗證jQuery validate remote "#signupForm" url 
+        $id = $request->has("id") ? $request->input("id") : "";
+        $check = Users::checkIfNewId($id);//bool用check
+        if($check){
+            return "true";//jquery validate 的接收只能接收這個
+        }else{
+            return "false";
+        }
+    }
 
     /**
      * [create 註冊]
      * >>按鈕在login 最下面
      * 導向至signup view
-     * @return view:welcome_signup.blade.php
+     * @return view:User/create_signup.blade.php
      */
     public function create(Request $request) {
-        #前端帳號驗證jQuery validate remote "#signupForm" url 
-        if($request->input("checkid")=="1"){
-            $id = $request->has("id") ? $request->input("id") : "";
-            $check = Users::checkIfRightId($id);//bool用check
-            if($check){
-                return "false";//換個詞呼叫另一個function
-            }else{
-                return "true";
-            }
-        }
-        return view("welcome_signup");//view的名字跟function得名字
+        return view("User/create_signup");//view的名字跟function得名字
     }
 
     /**
@@ -97,7 +98,7 @@ class UsersController extends Controller
      *             view:welcome_index.blade.php
      *             1.success:回傳註冊成功訊息
      *         註冊失敗:
-     *             view:welcome_signup.blade.php
+     *             view:User/create_signup.blade.php
      *             1.fail:回傳註冊失敗訊息
      *             2.id:上次輸入的id
      *             3.nickname:上次輸入的nickname
@@ -111,14 +112,14 @@ class UsersController extends Controller
             "email"=>["required", "email"],
         ]);
 
-        $view = "welcome_signup";
+        
         $id = $request->has("id") ? $request->input("id") : "";
-        $check = Users::checkIfRightId($id);
+        $check = Users::checkIfNewId($id);
 
         #帳號確認完成，開始註冊
         //true:new一個帳號，密碼加密，save
         //else:可保留資訊保留，回傳錯誤訊息
-        if($check == NULL && $request->input("password") == $request->input("password_confirmation")){
+        if($check == true && $request->input("password") == $request->input("password_confirmation")){
             $data = new Users();
             $data->id = $request->input("id");
             $data->password = password_hash($request->input("password"), PASSWORD_BCRYPT); //加密
@@ -128,8 +129,9 @@ class UsersController extends Controller
             $data->sex = $request->input("sex", NULL);
             $data->save();
             $model["success"] = "signup success!<br/>請登入";
-            return view("welcome_login", $model);
+            return view("User/index_login", $model);
         }else{
+            $view = "User/create_signup";
             $model["fail"] = "signup fail!";
             $model["id"] = $request->has("id") ? $request->input("id") : "";
             $model["nickname"] = $request->has("nickname") ? $request->input("nickname") : "";
@@ -141,19 +143,20 @@ class UsersController extends Controller
             if($request->input("password") != $request->input("password_confirmation")){
                 $model["fail"] .= "<br/>確認密碼不相符";
             }
+            return view($view, $model);
         }
-        return view($view, $model);
+        
     }
 
     /**
      * [modifyPwdView 修改密碼]
      * >>按鈕在layout navbar
      * 導向至modifyPwd view
-     * @return view:welcome_modifyPwd.blade.php
+     * @return view:User/modifyPwd.blade.php
      */
     public function modifyPwdView() {
         if(Users::checkIfLogined()){
-            return view("welcome_modifyPwd");
+            return view("User/modifyPwd");
         }else{
             return redirect()->back()->with("alert", "請先登入!"); //保持原頁面，傳送alert msg
         }
@@ -179,27 +182,26 @@ class UsersController extends Controller
         ]);
 
         #param
-        $view = "welcome_modifypwd";
         $login_id = session("login_id") != NULL ? session("login_id") : "";
-        $password = $request->has("old_password") ? $request->input("old_password") : "";
-        $data = Users::login($login_id, $password); //id+驗證
-        if($data){
-            $login_id = session("login_id") != NULL ? session("login_id") : "";
-            $data = Users::find($login_id);
-            $data->password = password_hash($request->input("password"), PASSWORD_BCRYPT); //加密
-            $data->save();
+        $old_password = $request->has("old_password") ? $request->input("old_password") : "";
+        $userData = Users::login($login_id, $old_password); //id+驗證
+        if(isset($userData) && $userData != NULL) {
+            $userData = Users::find($login_id);
+            $userData->password = password_hash($request->input("password"), PASSWORD_BCRYPT); //加密
+            $userData->save();
             $model["success"] = "修改密碼成功!!";
             return Redirect::to("board")->with($model);
         }else{
+            $view = "User/modifyPwd";
             $model["fail"] = "修改密碼失敗!";
-            if($data == NULL){
+            if($userData == NULL){
                 $model["fail"] .= "<br/>舊密碼錯誤";
             }
             if($request->input("password") != $request->input("password_confirmation")){
                 $model["fail"] .= "<br/>確認密碼不相符";
             }
+            return view($view, $model);
         }
-        return view($view, $model);
     }
 
     /**
@@ -213,14 +215,15 @@ class UsersController extends Controller
     {
         if(Users::checkIfLogined()){
             $login_id = session("login_id") != NULL ? session("login_id") : "";
-            $data = Users::find($login_id);//if no data
-            $model["action"] = "edit";
-            $model["nickname"] = isset($data->nickname) ? $data->nickname : "";
-            $model["email"] = isset($data->email) ? $data->email : "";
-            $model["birthday"] = isset($data->birthday) ? $data->birthday : ""; 
-            $model["sex"] = isset($data->sex) ? $data->sex : ""; 
-            //可以直接傳data過去
-            return view("welcome_signup", $model);
+            $userData = Users::find($login_id);//if no data
+            if(isset($userData) && $userData != NULL) {
+                $model["action"] = "edit";
+                $model["userData"] = $userData;
+                //可以直接傳data過去
+                return view("User/create_signup", $model);
+            }else{
+                return redirect()->back()->with("alert", "無此會員資料!"); //保持原頁面，傳送alert msg
+            }
         }else{
             return redirect()->back()->with("alert", "請先登入!"); //保持原頁面，傳送alert msg
         }
@@ -235,26 +238,31 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($id == "signup"){
+        if($id == "signup") {
             return $this->signup($request);
-        }elseif ($id == "modifyPwd"){
+        }elseif($id == "modifyPwd") {
             return $this->modifyPwd($request);
-        }elseif ($id == "modifyInfo"){
-            #後端驗證
+        }elseif($id == "modifyInfo") {
+            #後端驗證 
             request()->validate([
                 "email"=>["required", "email"],
             ]);
 
             #param
             $login_id = (session("login_id") != NULL) ? session("login_id") : "";
-            $data = Users::find($login_id);
-            $data->email = $request->input("email");
-            $data->birthday = $request->input("birtydaypicker", "");
-            $data->sex = $request->input("sex", "");
-            $data->save();
-            $model["success"] = "修改會員資料成功!!";
-            return Redirect::to("board")->with($model);
-        }//else defult
+            $userData = Users::find($login_id);
+            if(isset($userData) && $userData != NULL) {
+                $request->session()->put("login_name", $request->input("nickname"));
+                $userData->nickname = $request->input("nickname");
+                $userData->email = $request->input("email");
+                $userData->birthday = $request->input("birtydaypicker", "");
+                $userData->sex = $request->input("sex", "");
+                $userData->save();
+                $model["success"] = "修改會員資料成功!!";
+                return Redirect::to("board")->with($model);
+            }
+        }
+        return Redirect::to("board");
     }
 
     /**

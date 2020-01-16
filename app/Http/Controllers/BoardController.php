@@ -37,15 +37,15 @@ class BoardController extends Controller {
 
         if($request->has("searchInput")){
             #搜尋:取出search的留言
-            $searchInput = $request->has("searchInput") ? $request->input("searchInput") : "";
+            $searchInput = $request->input("searchInput");
             $searchList = Boards::findBySearch($searchInput);
-            $model["searchList"] = isset($searchList) ? $searchList : "";
+            $model["searchList"] = isset($searchList) ? $searchList : array();
             $model["searchInput"] = isset($searchInput) ? $searchInput : "";
         }else{
             #首頁:取出全部的留言
-            $dataList = Boards::findAll();//way 1-自行定義的查詢function
+            $dataList = Boards::findBySearch();//way 1-自行定義的查詢function
             #傳遞到顯示的blade
-            $model["dataList"] = $dataList;
+            $model["dataList"] = isset($dataList) ? $dataList : array();
         }
         //要用哪一種都可以，依照自己的需求選擇
         //$dataList = DB::select("nickname", "email")->get();//way2-使用Laravel的SQL ORM方法
@@ -82,22 +82,27 @@ class BoardController extends Controller {
      *          3.msg:修改留言模式顯示原本的msg
      */
     public function edit(Request $request, $key) {
-        if(Users::checkIfLogined()){
-            #param
+        if(Users::checkIfLogined()) {
             $view = "welcome_create";
-            #傳遞到顯示的blade
             $model["msg_id"] = $key;
-            if ($key != NULL) {
-                $data = Boards::find($key);//找不到會壞掉
-                if($data->user_id == session("login_id")){
-                    $model["title"] = isset($data->title) ? $data->title : "";
-                    $model["msg"] = isset($data->msg) ? $data->msg : "";
+            #新增或刪除
+            if($key != NULL) {
+                $msgData = Boards::find($key);
+                //找不到顯示alert
+                if(isset($msgData) && $msgData != NULL) {
+                    if(Boards::checkIfRightMsg($msgData->user_id)) {
+                        $model["title"] = isset($msgData->title) ? $msgData->title : "";
+                        $model["msg"] = isset($msgData->msg) ? $msgData->msg : "";
+                    }else{
+                        return redirect()->back()->with("alert", "請勿修改他人留言!"); //保持原頁面，傳送alert msg
+                    }
                 }else{
-                    return redirect()->back()->with("alert", "請勿修改他人留言!"); //保持原頁面，傳送alert msg
+                    return redirect()->back()->with("alert", "無此留言"); //保持原頁面，傳送alert msg
                 }
             }
             return view($view, $model);
-        }else{
+
+        } else {
             return redirect()->back()->with("alert", "請先登入!"); //保持原頁面，傳送alert msg
         }
     }
@@ -125,26 +130,31 @@ class BoardController extends Controller {
         $title = ($request->has("Title")) ? $request->input("Title") :NULL;
         $msg = ($request->has("Msg")) ? $request->input("Msg") :NULL;
         
-        #builder
-        if($key == "new_a_msg"){
-            $data = new Boards();
+        #新增或刪除
+        if($key == "new_a_msg") {
+            $msgData = new Boards();
         }else{ 
-            $data = Boards::find($key);//找不到data
+            $msgData = Boards::find($key);
+            //找不到顯示alert
+            if(!isset($msgData) || $msgData == NULL) {
+                $model["fail"] = "Edit Fall! <br/> 找不到此留言";
+                return Redirect::to("board")->with($model); //放$model到session裡
+            }
             //::static -> dynamic
         }
         
         #put data
-        if($title != "" && $msg != ""){
-            $data->title = $title;
-            $data->msg = $msg;
-            $data->user_id = $request->session()->get("login_id");
+        if($title != "" && $msg != "") {
+            $msgData->title = $title;
+            $msgData->msg = $msg;
+            $msgData->user_id = $request->session()->get("login_id");
         }
 
         #save
-        $data->save(); //新增和修改的儲存ORM相同
+        $msgData->save(); //新增和修改的儲存ORM相同
 
         #傳遞到顯示的blade
-        if($key == "new_a_msg"){
+        if($key == "new_a_msg") {
             $model["success"] = "Create Finish!";
         }else{
             $model["success"] = "Edit Finish!";
@@ -163,13 +173,18 @@ class BoardController extends Controller {
      *         1.success:回傳刪除成功訊息
      */
     public function destroy(Request $request, $key) { //要收到他傳過來的東西
-        $data = Boards::find($key);//確認
-        if($data->user_id == session("login_id")){
-            $data->delete();
-            $model["success"] = "Delete Success!";
-            return redirect()->back()->with($model); //回到刪除頁面的上一頁
+        $msgData = Boards::find($key);//確認
+        //找不到顯示alert
+        if(isset($msgData) && $msgData != NULL) {
+            if(Boards::checkIfRightMsg($msgData->user_id)) {
+                $msgData->delete();
+                $model["success"] = "Delete Success!";
+                return redirect()->back()->with($model); //回到刪除頁面的上一頁
+            }else{
+                return redirect()->back()->with("alert", "請勿修改他人留言!"); //保持原頁面，傳送alert msg
+            }
         }else{
-            return redirect()->back()->with("alert", "請勿修改他人留言!"); //保持原頁面，傳送alert msg
+            return redirect()->back()->with("alert", "無法刪除，無此留言"); //保持原頁面，傳送alert msg
         }
     }
 }

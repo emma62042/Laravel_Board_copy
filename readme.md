@@ -142,15 +142,15 @@ center88留言板 with Laravel+Bootstrap
 * search跟index的controller function寫同一個 √
 
 ## 2020-01-15 Code Review
-* controller裡面的find找不到的話
-* //根據回傳type比較
-* check回傳bool
+* controller裡面的find找不到的話 √
+* //根據回傳type比較 √
+* check回傳bool √
 * //換個詞呼叫另一個function
-* //view的名字跟function得名字
-* //update function裡 else defult
-* 如果view那邊接的是陣列，controller送出的預設值也要是陣列
-* findBySearch跟findAll可以
-* //預設值沒必要不要用，通常不會在service設
+* //view的名字跟function得名字 √
+* //update function裡 else defult √
+* 如果view那邊接的是陣列，controller送出的預設值也要是陣列 √
+* findBySearch跟findAll可以 √
+* //預設值沒必要不要用，通常不會在service設 √
 
 ##
 未做工作:  
