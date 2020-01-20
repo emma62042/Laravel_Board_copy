@@ -39,11 +39,13 @@ class BoardController extends Controller {
             #搜尋:取出search的留言
             $searchInput = $request->input("searchInput");
             $searchList = Boards::findBySearch($searchInput);
+
             $model["searchList"] = isset($searchList) ? $searchList : array();
             $model["searchInput"] = isset($searchInput) ? $searchInput : "";
         }else{
             #首頁:取出全部的留言
             $dataList = Boards::findBySearch();//way 1-自行定義的查詢function
+           
             #傳遞到顯示的blade
             $model["dataList"] = isset($dataList) ? $dataList : array();
         }
@@ -85,11 +87,12 @@ class BoardController extends Controller {
         if(Users::checkIfLogined()) {
             $view = "welcome_create";
             $model["msg_id"] = $key;
+
             #新增或刪除
             if($key != NULL) {
                 $msgData = Boards::find($key);
                 //找不到顯示alert
-                if(isset($msgData) && $msgData != NULL) {
+                if(isset($msgData) && $msgData != "") {
                     if(Boards::checkIfRightMsg($msgData->user_id)) {
                         $model["title"] = isset($msgData->title) ? $msgData->title : "";
                         $model["msg"] = isset($msgData->msg) ? $msgData->msg : "";
@@ -136,7 +139,7 @@ class BoardController extends Controller {
         }else{ 
             $msgData = Boards::find($key);
             //找不到顯示alert
-            if(!isset($msgData) || $msgData == NULL) {
+            if(!isset($msgData) || $msgData == "") {
                 $model["fail"] = "Edit Fall! <br/> 找不到此留言";
                 return Redirect::to("board")->with($model); //放$model到session裡
             }
@@ -174,9 +177,11 @@ class BoardController extends Controller {
      */
     public function destroy(Request $request, $key) { //要收到他傳過來的東西
         $msgData = Boards::find($key);//確認
+
         //找不到顯示alert
-        if(isset($msgData) && $msgData != NULL) {
-            if(Boards::checkIfRightMsg($msgData->user_id)) {
+        if(isset($msgData)) {
+            $isCheck = Boards::checkIfRightMsg($msgData->user_id);
+            if($isCheck == true) {
                 $msgData->delete();
                 $model["success"] = "Delete Success!";
                 return redirect()->back()->with($model); //回到刪除頁面的上一頁

@@ -155,6 +155,11 @@ center88留言板 with Laravel+Bootstrap
 * findBySearch跟findAll可以 √
 * //預設值沒必要不要用，通常不會在service設 √
 
+## 2020-01-20 Code Review
+* 有些從request, sql拿的資料可以存成變數，之後要重複使用比較方便
+* 如果check回傳的是bool值，還是要傳到另一個變數，if再對那個變數做判斷
+* function裡有不同功能的程式用註解或是空白隔開
+
 ##
 未做工作:  
 * Laravel本身的登入

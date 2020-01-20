@@ -19,7 +19,7 @@
                     <input name="_method" type="hidden" value="put">
                     <div class="form-group">
                         <label for="Title"><span style="color:red;">*</span>Title</label>
-                        <input type="text" class="form-control" name="Title" placeholder="請輸入標題" value="{{ isset($title) ? $title : old('Title') }}" required>
+                        <input type="text" class="form-control" name="Title" placeholder="請輸入標題" value="{{ (isset($title)) ? $title : old('Title') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="Msg"><span style="color:red;">*</span>Msg</label>

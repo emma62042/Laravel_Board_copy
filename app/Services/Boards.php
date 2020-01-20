@@ -26,11 +26,15 @@ class Boards extends BaseModel {
     //可以合併
     public static function findBySearch($searchInput = NULL){
         $data = DB::table("Boards as b")
-        ->join("Users as u", "u.id", "=", "b.user_id")
-        ->select("b.msg_id", "b.title", "b.msg", "b.created_at", "b.updated_at", "b.user_id", "u.nickname")
-        ->where("b.title", "like", "%".$searchInput."%")
-        ->orWhere("b.msg", "like", "%".$searchInput."%")
-        ->orderBy("b.updated_at", "desc");
+                ->join("Users as u", "u.id", "=", "b.user_id")
+                ->select("b.msg_id", "b.title", "b.msg", "b.created_at", "b.updated_at", "b.user_id", "u.nickname");
+
+        if(isset($searchInput) || $searchInput != ""){
+            $data->where("b.title", "like", "%".$searchInput."%")
+                 ->orWhere("b.msg", "like", "%".$searchInput."%");
+        }
+        
+        $data->orderBy("b.updated_at", "desc");
 
         return $data->paginate(5);
     }
